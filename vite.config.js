@@ -13,8 +13,8 @@ export default defineConfig({
     strictPort: true
   },
   build: {
-    // ✅ Smaller JS bundles = faster mobile load
-    minify: 'esbuild',
+    // ✅ Smaller JS bundles = faster mobile load (Vite 8 uses oxc by default)
+    minify: 'oxc',
     // ✅ CSS in separate file = parallel loading
     cssCodeSplit: true,
     // ✅ Target modern browsers only (smaller output)
