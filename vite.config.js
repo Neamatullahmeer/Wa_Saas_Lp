@@ -23,13 +23,19 @@ export default defineConfig({
       output: {
         // ✅ Manual chunk splitting — vendor libraries separate from app code
         // This allows the browser to cache them independently
-        manualChunks: {
+        manualChunks: (id) => {
           // React core — changes rarely, long cache
-          'vendor-react': ['react', 'react-dom'],
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+            return 'vendor-react';
+          }
           // Framer motion is ~150KB — isolate it
-          'vendor-motion': ['framer-motion'],
+          if (id.includes('node_modules/framer-motion')) {
+            return 'vendor-motion';
+          }
           // Lucide icons
-          'vendor-icons': ['lucide-react'],
+          if (id.includes('node_modules/lucide-react')) {
+            return 'vendor-icons';
+          }
         }
       }
     }
