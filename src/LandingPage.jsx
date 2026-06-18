@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { API_BASE_URL, APP_BASE_URL } from './lib/apiConfig';
 import api from './lib/api'; // 🟢 NAYA: Axios Import kiya API call ke liye
-import { Bot, ChevronRight, MessageSquare, Zap, Clock, Users, ArrowRight, Shield, Globe, Smartphone, CheckCircle, Check, Database, Sparkles, X, Loader2 } from 'lucide-react';
+import { Bot, ChevronRight, MessageSquare, Zap, Clock, Users, ArrowRight, Shield, Globe, Smartphone, CheckCircle, Check, Database, Sparkles, X, Loader2, Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ChatproLogo = ({ className = "h-12 w-auto" }) => (
@@ -47,10 +47,12 @@ const ChatproLogo = ({ className = "h-12 w-auto" }) => (
 
 const LandingPage = () => {
 
-  // 🟢 NAYA: Modal aur Form State for Lead Capture
+  // Modal aur Form State for Lead Capture
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [leadData, setLeadData] = useState({ name: '', phone: '' });
+  // ✅ Mobile hamburger menu state
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // 1️⃣ Puraana User: Seedha Login par bhejo
   // (Login is now handled via an <a> tag directly below)
@@ -160,48 +162,125 @@ const LandingPage = () => {
         )}
       </AnimatePresence>
 
-      {/* Navbar */}
+      {/* ✅ MOBILE-FIRST Navbar */}
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed w-full z-50 bg-white/70 backdrop-blur-xl border-b border-zinc-200/50"
+        className="fixed w-full z-50 bg-white/90 backdrop-blur-xl border-b border-zinc-200/50"
+        role="navigation"
+        aria-label="Main navigation"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
+            {/* Logo */}
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => { window.scrollTo(0, 0); setMenuOpen(false); }}
+              role="link"
+              aria-label="Chatpro365 home"
+            >
               <ChatproLogo className="h-12 sm:h-14 w-auto drop-shadow-sm -ml-2" />
             </div>
+
+            {/* Desktop Nav Links */}
             <div className="hidden md:flex space-x-8 text-zinc-500 font-medium">
               <a href="#features" className="hover:text-zinc-900 transition-colors">Features</a>
               <a href="#how-it-works" className="hover:text-zinc-900 transition-colors">How it Works</a>
               <a href="#pricing" className="hover:text-zinc-900 transition-colors">Pricing</a>
             </div>
 
-            <div className="flex items-center gap-4">
-              {/* 🟢 NAYA: Purana user, direct login par bhejo */}
+            {/* Desktop Right Buttons */}
+            <div className="hidden md:flex items-center gap-4">
               <a
                 href={`${APP_BASE_URL}/login`}
-                className="hidden md:block text-zinc-500 font-medium hover:text-zinc-900 transition-colors"
+                className="text-zinc-500 font-medium hover:text-zinc-900 transition-colors"
               >
                 Login
               </a>
-              {/* 🟢 NAYA: Naya user, pehle Popup dikhao */}
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowModal(true)}
-                className="bg-zinc-950 hover:bg-zinc-800 text-white px-5 py-2 rounded-full font-medium transition-all shadow-lg shadow-zinc-900/20"
+                className="bg-zinc-950 hover:bg-zinc-800 text-white px-5 py-2.5 rounded-full font-medium transition-all shadow-lg shadow-zinc-900/20"
+                aria-label="Get Started with Chatpro365"
               >
                 Get Started
               </motion.button>
             </div>
+
+            {/* ✅ Mobile: Login + Hamburger */}
+            <div className="flex md:hidden items-center gap-2">
+              <a
+                href={`${APP_BASE_URL}/login`}
+                className="text-zinc-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-zinc-100 transition-colors"
+                aria-label="Login to your account"
+              >
+                Login
+              </a>
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="p-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 transition-colors"
+                aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={menuOpen}
+                aria-controls="mobile-menu"
+              >
+                {menuOpen ? <X className="w-5 h-5 text-zinc-800" /> : <Menu className="w-5 h-5 text-zinc-800" />}
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* ✅ Mobile Slide-Down Menu */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              id="mobile-menu"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+              className="md:hidden overflow-hidden bg-white border-t border-zinc-100"
+            >
+              <div className="px-4 py-4 flex flex-col gap-1">
+                <a
+                  href="#features"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-zinc-700 font-semibold hover:bg-zinc-50 transition-colors text-base"
+                >
+                  Features
+                </a>
+                <a
+                  href="#how-it-works"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-zinc-700 font-semibold hover:bg-zinc-50 transition-colors text-base"
+                >
+                  How it Works
+                </a>
+                <a
+                  href="#pricing"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-zinc-700 font-semibold hover:bg-zinc-50 transition-colors text-base"
+                >
+                  Pricing
+                </a>
+                <div className="mt-3 pt-3 border-t border-zinc-100">
+                  <button
+                    onClick={() => { setShowModal(true); setMenuOpen(false); }}
+                    className="w-full bg-zinc-950 text-white py-4 rounded-2xl font-bold text-base transition-colors hover:bg-zinc-800"
+                    aria-label="Get Started with Chatpro365"
+                  >
+                    Get Started — Free Trial
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+      {/* ✅ Hero Section — mobile-first padding */}
+      <section className="relative pt-28 pb-16 sm:pt-36 lg:pt-48 lg:pb-32 overflow-hidden" aria-label="Hero section">
         {/* Deep Modern Background Gradients */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] opacity-30 bg-gradient-to-b from-violet-500 via-fuchsia-400 to-transparent blur-[120px] -z-10 rounded-full mix-blend-multiply" />
 
@@ -217,7 +296,7 @@ const LandingPage = () => {
               New: Universal CRM Webhooks are live
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+            <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 leading-[1.1]">
               Turn WhatsApp into your <br className="hidden md:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-fuchsia-500 to-orange-500">
                 24/7 AI Sales Agent

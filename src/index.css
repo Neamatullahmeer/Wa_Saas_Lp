@@ -8,8 +8,56 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* ✅ Prevent iOS Safari from auto-inflating font sizes on landscape */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
+  }
+
+  /* ✅ Remove 300ms tap delay on all touch devices */
+  * {
+    touch-action: manipulation;
+  }
+
+  /* ✅ Remove blue tap flash on Android Chrome */
+  a,
+  button,
+  [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+  }
+
+  /* ✅ Ensure minimum tap target size (Google's 44x44px guideline) */
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* ✅ Prevent content from causing horizontal scroll on mobile */
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* ✅ Smooth scroll anchors offset for fixed navbar */
+  :target {
+    scroll-margin-top: 80px;
+  }
+
+  /* ✅ Reduce motion for accessibility & battery on mobile */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

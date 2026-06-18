@@ -1,2 +1,11 @@
 User-agent: *
 Allow: /
+
+# Block private/app routes from being indexed
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
+Disallow: /admin
+
+# Sitemap location — helps Googlebot discover all pages
+Sitemap: https://chatpro365.com/sitemap.xml

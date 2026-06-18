@@ -3,71 +3,177 @@
 
 <head>
   <meta charset="UTF-8" />
+
+  <!-- ✅ Mobile-First Viewport (Google requirement) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1" />
+
+  <!-- ✅ Theme Color (Android Chrome browser bar color) -->
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="msapplication-TileColor" content="#0F172A" />
+
+  <!-- ✅ Apple / iOS Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Chatpro365" />
+
+  <!-- ✅ Favicon & App Icons -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="manifest" href="/manifest.json" />
 
-  <!-- 🟢 1. Primary Meta Tags (Google Search & AI Discovery) -->
-  <title>Chatpro365 | 24/7 AI WhatsApp Sales Agent & Universal CRM Webhooks</title>
-  <meta name="title" content="Chatpro365 | 24/7 AI WhatsApp Sales Agent & CRM Automation" />
+  <!-- ✅ 1. Primary Meta Tags -->
+  <title>Chatpro365 | 24/7 AI WhatsApp Sales Agent &amp; CRM Automation</title>
+  <meta name="title" content="Chatpro365 | 24/7 AI WhatsApp Sales Agent &amp; CRM Automation" />
   <meta name="description"
-    content="Automate your sales on WhatsApp. Chatpro365 uses smart AI to calculate estimates, send interactive buttons, auto-follow up, and sync data instantly with any CRM via Webhooks." />
+    content="Turn WhatsApp into your 24/7 AI Sales Agent. Auto-calculate prices, send interactive buttons, follow up leads, and sync with any CRM via webhooks. Start free trial." />
   <meta name="keywords"
-    content="WhatsApp AI bot, CRM webhook integration, WhatsApp automation bot, AI sales agent WhatsApp, Chatpro365, Chatbot builder" />
+    content="WhatsApp AI bot, CRM webhook integration, WhatsApp automation, AI sales agent, Chatpro365, WhatsApp chatbot, lead automation" />
   <meta name="author" content="Chatpro365" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://chatpro365.com/" />
 
-  <!-- 🔵 2. Open Graph / Facebook / LinkedIn / WhatsApp (Link Share Preview) -->
+  <!-- ✅ 2. Open Graph / Facebook / WhatsApp Link Previews -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://chatpro365.com/" />
-  <meta property="og:title" content="Chatpro365 - Your AI WhatsApp Sales Engine" />
+  <meta property="og:title" content="Chatpro365 — Your AI WhatsApp Sales Engine" />
   <meta property="og:description"
-    content="Turn WhatsApp into your 24/7 AI Sales Agent. Close deals while you sleep with custom prompts and smart interactive buttons." />
+    content="Turn WhatsApp into your 24/7 AI Sales Agent. Close deals while you sleep with custom AI prompts, smart follow-ups, and CRM integration." />
   <meta property="og:image" content="https://chatpro365.com/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Chatpro365" />
+  <meta property="og:locale" content="en_US" />
 
-  <!-- 🟣 3. Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://chatpro365.com/" />
-  <meta property="twitter:title" content="Chatpro365 - Your AI WhatsApp Sales Engine" />
-  <meta property="twitter:description"
-    content="Turn WhatsApp into your 24/7 AI Sales Agent. Calculate prices, send buttons, and push leads to your CRM automatically." />
-  <meta property="twitter:image" content="https://chatpro365.com/og-image.jpg" />
+  <!-- ✅ 3. Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://chatpro365.com/" />
+  <meta name="twitter:title" content="Chatpro365 — Your AI WhatsApp Sales Engine" />
+  <meta name="twitter:description"
+    content="Turn WhatsApp into your 24/7 AI Sales Agent. Calculate prices, send interactive buttons, and push leads to your CRM automatically." />
+  <meta name="twitter:image" content="https://chatpro365.com/og-image.jpg" />
 
-  <!-- 🤖 4. JSON-LD Schema (AI Bots & Rich Snippets Magic) -->
+  <!-- ✅ 4. JSON-LD Schema (Rich Snippets + AI Discovery) -->
   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Chatpro365",
-      "operatingSystem": "Web, Windows, macOS, iOS, Android",
-      "applicationCategory": "BusinessApplication",
-      "url": "https://chatpro365.com",
-      "description": "Chatpro365 is an intelligent WhatsApp AI sales agent that automates customer inquiries, custom price calculations, smart follow-ups, interactive buttons, and provides universal CRM webhook integration.",
-      "offers": {
-        "@type": "Offer",
-        "price": "29.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock"
-      },
-      "featureList": [
-        "Custom AI System Prompts",
-        "Smart Auto-Follow-ups",
-        "Interactive WhatsApp Buttons",
-        "Universal CRM Webhook Integration",
-        "Seamless Human Handoff"
-      ],
-      "creator": {
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
         "@type": "Organization",
-        "name": "Chatpro365 Inc.",
-        "url": "https://chatpro365.com"
+        "@id": "https://chatpro365.com/#organization",
+        "name": "Chatpro365",
+        "url": "https://chatpro365.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://chatpro365.com/favicon.svg"
+        },
+        "sameAs": [
+          "https://wa.me/917457863240"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "availableLanguage": ["English", "Hindi"]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://chatpro365.com/#website",
+        "url": "https://chatpro365.com",
+        "name": "Chatpro365",
+        "publisher": { "@id": "https://chatpro365.com/#organization" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://chatpro365.com/#app",
+        "name": "Chatpro365",
+        "operatingSystem": "Web, iOS, Android",
+        "applicationCategory": "BusinessApplication",
+        "url": "https://chatpro365.com",
+        "description": "Chatpro365 is an AI-powered WhatsApp sales automation platform. Auto-calculate prices, send interactive buttons, follow up leads, and integrate with any CRM via universal webhooks.",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Starter Plan",
+            "price": "29.00",
+            "priceCurrency": "USD",
+            "billingPeriod": "P1M",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Pro Plan",
+            "price": "79.00",
+            "priceCurrency": "USD",
+            "billingPeriod": "P1M",
+            "availability": "https://schema.org/InStock"
+          }
+        ],
+        "featureList": [
+          "Custom AI System Prompts",
+          "Smart Auto-Follow-ups",
+          "Interactive WhatsApp Buttons",
+          "Universal CRM Webhook Integration",
+          "Seamless Human Handoff",
+          "14-Day Free Trial"
+        ],
+        "creator": { "@id": "https://chatpro365.com/#organization" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Chatpro365?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Chatpro365 is a WhatsApp AI sales automation tool that handles customer inquiries, calculates prices, sends interactive buttons, and auto-follows up on leads — 24/7 without human intervention."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Chatpro365 cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Chatpro365 starts at $29/month for the Starter plan (up to 1,000 AI messages/mo). The Pro plan is $79/month with unlimited AI messages, universal CRM webhooks, and interactive WhatsApp buttons. A 14-day free trial is available with no credit card required."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Chatpro365 work with my CRM?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Chatpro365 uses universal webhooks compatible with HubSpot, Zoho, Salesforce, or any custom CRM. Leads are pushed instantly when a conversation qualifies."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need coding knowledge to use Chatpro365?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No coding required. Simply scan a QR code to connect your WhatsApp number, write your AI system prompt in plain English, and the bot starts working immediately."
+            }
+          }
+        ]
       }
-    }
-    </script>
+    ]
+  }
+  </script>
 
-  <!-- 🎨 Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- ✅ 5. Google Fonts — Non-Blocking Load (prevents render-blocking) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Load fonts async via media="print" trick — onload switches to all -->
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'" />
+  <!-- Fallback for no-JS -->
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+  </noscript>
 </head>
 
 <body>
