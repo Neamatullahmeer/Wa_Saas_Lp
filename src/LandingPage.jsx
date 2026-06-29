@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { API_BASE_URL, APP_BASE_URL } from './lib/apiConfig';
+import { useState, useEffect } from 'react';
+import { APP_BASE_URL } from './lib/apiConfig';
 import api from './lib/api';
 import {
-  Bot, ChevronRight, MessageSquare, Zap, Clock, Users, ArrowRight, Shield,
-  Globe, Smartphone, CheckCircle, Check, Database, Sparkles, X, Loader2,
-  Menu, Star, TrendingUp, Target, BarChart3, Layers, Settings, Bell,
-  Award, ChevronDown, Play, HeadphonesIcon, Package, Calendar, Activity,
+  Bot, MessageSquare, Zap, Clock, Users, ArrowRight, Shield,
+  Globe, Smartphone, Mail, MapPin, CheckCircle, Check, Database, Sparkles, X, Loader2,
+  Menu, Star, TrendingUp, Target, BarChart3, Layers,
+  Award, ChevronDown, HeadphonesIcon, Package, Calendar, Activity,
   UserCheck, Filter, Megaphone, Send, Repeat, Brain, Eye, Crown, Lock
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+  PrivacyPolicyPage, TermsOfServicePage, GDPRPage, CookiePolicyPage,
+  HelpCenterPage, APIDocsPage, BlogPage, CommunityPage, CaseStudiesPage,
+  RefundPolicyPage, AcceptableUsePage, ContactUsPage
+} from './FooterPages';
 
 // ─────────────────────────────────────────────
 // Logo SVG
@@ -74,7 +78,7 @@ const FAQItem = ({ question, answer }) => {
   const [open, setOpen] = useState(false);
   return (
     <motion.div
-      className="border border-zinc-200 rounded-2xl overflow-hidden bg-white hover:border-violet-200 transition-colors"
+      className="border border-zinc-200 rounded-2xl overflow-hidden bg-white hover:border-emerald-200 transition-colors"
       whileHover={{ y: -1 }}
     >
       <button
@@ -84,7 +88,7 @@ const FAQItem = ({ question, answer }) => {
       >
         <span className="font-bold text-zinc-900 text-base md:text-lg">{question}</span>
         <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.25 }}>
-          <ChevronDown className="w-5 h-5 text-violet-500 shrink-0" />
+          <ChevronDown className="w-5 h-5 text-emerald-500 shrink-0" />
         </motion.div>
       </button>
       <AnimatePresence initial={false}>
@@ -95,7 +99,7 @@ const FAQItem = ({ question, answer }) => {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
           >
-            <p className="px-6 pb-6 text-zinc-500 font-medium leading-relaxed">{answer}</p>
+            <p className="px-6 pb-6 text-zinc-500 font-normal leading-relaxed">{answer}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -111,6 +115,15 @@ const LandingPage = () => {
   const [loading, setLoading] = useState(false);
   const [leadData, setLeadData] = useState({ name: '', phone: '' });
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeFooterPage, setActiveFooterPage] = useState(null);
+
+  // Close the lead modal on Escape.
+  useEffect(() => {
+    if (!showModal) return;
+    const onKey = (e) => { if (e.key === 'Escape') setShowModal(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [showModal]);
 
   const handleLeadSubmit = async (e) => {
     e.preventDefault();
@@ -139,9 +152,9 @@ const LandingPage = () => {
   const usps = [
     {
       icon: Brain,
-      gradient: 'from-violet-500 to-fuchsia-500',
-      bg: 'from-violet-50 to-fuchsia-50',
-      border: 'border-violet-100',
+      gradient: 'from-emerald-500 to-blue-500',
+      bg: 'from-emerald-50 to-blue-50',
+      border: 'border-emerald-100',
       title: 'Human + AI Hybrid Chat with Quality Supervision',
       desc: 'Give your customers the speed of AI and the empathy of humans. Our system handles FAQs instantly via a Category-Based AI Bot and routes complex queries to human agents seamlessly, while the AI Quality Supervisor monitors chat standards.',
       badges: ['Category-Based AI Bot', 'AI Quality Supervisor', 'Seamless Handoff'],
@@ -169,7 +182,7 @@ const LandingPage = () => {
   const pillars = [
     {
       icon: Bot,
-      gradient: 'from-violet-600 to-fuchsia-600',
+      gradient: 'from-emerald-600 to-blue-600',
       title: 'AI & Intelligent Automation',
       features: [
         { icon: Brain, name: 'Category-Based AI Bot', desc: 'Handles complex, department-specific queries instantly.' },
@@ -230,7 +243,7 @@ const LandingPage = () => {
       role: "E-commerce Founder",
       rating: 5,
       avatar: "SM",
-      color: "from-violet-500 to-fuchsia-500"
+      color: "from-emerald-500 to-blue-500"
     },
     {
       quote: "The AI Quality Supervisor alone is worth it. We went from having zero visibility into our team's chats to having full performance dashboards. Remarkable product!",
@@ -287,28 +300,7 @@ const LandingPage = () => {
 
   // ── Render ──────────────────────────────────
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-violet-50 font-sans text-slate-900 overflow-x-hidden selection:bg-violet-200">
-
-      {/* ── COMPREHENSIVE SEO & GEO OPTIMIZATION ── */}
-      <Helmet>
-        <title>ChatPro365 | Best WhatsApp Business API & AI Automation Platform</title>
-        <meta name="description" content="Turn WhatsApp into your 24/7 AI Sales Agent. Automate WhatsApp marketing, integrate with any CRM, send bulk broadcasts, and setup chatbot auto-replies. Start free trial!" />
-        <meta name="keywords" content="WhatsApp Business API, WhatsApp marketing software, AI WhatsApp bot, CRM webhook integration, bulk WhatsApp sender, AI sales agent, ChatPro365, lead automation, auto reply bot" />
-        <link rel="canonical" href="https://chatpro365.com/" />
-        
-        {/* Open Graph / Social Media */}
-        <meta property="og:title" content="ChatPro365 — Your AI WhatsApp Sales Engine" />
-        <meta property="og:description" content="Turn WhatsApp into your 24/7 AI Sales Agent. Close deals while you sleep with custom AI prompts, bulk broadcasting, and seamless CRM integration." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://chatpro365.com/" />
-        <meta property="og:image" content="https://chatpro365.com/og-image.jpg" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="ChatPro365 — Your AI WhatsApp Sales Engine" />
-        <meta name="twitter:description" content="Send interactive WhatsApp buttons, bulk campaigns, and push leads to your CRM automatically." />
-        <meta name="twitter:image" content="https://chatpro365.com/og-image.jpg" />
-      </Helmet>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50 font-sans text-slate-900 overflow-x-hidden selection:bg-emerald-200">
 
       {/* ── LEAD CAPTURE MODAL ── */}
       <AnimatePresence>
@@ -329,10 +321,10 @@ const LandingPage = () => {
                 <X className="w-5 h-5" />
               </button>
               <div className="text-center mb-6 mt-2">
-                <div className="w-16 h-16 bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Zap className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-2xl font-extrabold text-zinc-900">Book a Free Live Demo</h3>
+                <h3 className="text-2xl font-bold text-zinc-900">Start Your Free Trial</h3>
                 <p className="text-zinc-500 font-medium mt-2">Enter your details and we'll set it up instantly.</p>
               </div>
               <form onSubmit={handleLeadSubmit} className="space-y-4">
@@ -341,7 +333,7 @@ const LandingPage = () => {
                   <input
                     type="text" required placeholder="e.g. Rahul Sharma"
                     value={leadData.name} onChange={(e) => setLeadData({ ...leadData, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 transition-all outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all outline-none"
                   />
                 </div>
                 <div>
@@ -349,14 +341,14 @@ const LandingPage = () => {
                   <input
                     type="tel" required placeholder="e.g. +91 9876543210"
                     value={leadData.phone} onChange={(e) => setLeadData({ ...leadData, phone: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 transition-all outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all outline-none"
                   />
                 </div>
                 <button
                   type="submit" disabled={loading}
-                  className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-bold py-3.5 rounded-xl hover:opacity-90 transition-all flex justify-center items-center gap-2 mt-2 shadow-lg"
+                  className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white font-bold py-3.5 rounded-xl hover:opacity-90 transition-all flex justify-center items-center gap-2 mt-2 shadow-lg"
                 >
-                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Book My Demo <ArrowRight className="w-4 h-4" /></>}
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Start Free Trial <ArrowRight className="w-4 h-4" /></>}
                 </button>
                 <p className="text-xs text-center text-zinc-400 mt-4">⭐ Trusted by 500+ businesses · No Credit Card Required</p>
               </form>
@@ -390,10 +382,10 @@ const LandingPage = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                 onClick={() => setShowModal(true)}
-                className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-90 text-white px-5 py-2.5 rounded-full font-semibold transition-all shadow-lg shadow-violet-900/20"
-                aria-label="Book a Free Demo"
+                className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:opacity-90 text-white px-5 py-2.5 rounded-full font-semibold transition-all shadow-lg shadow-emerald-900/20"
+                aria-label="Start Free Trial"
               >
-                Book a Free Demo →
+                Start Free Trial →
               </motion.button>
             </div>
             <div className="flex md:hidden items-center gap-2">
@@ -426,8 +418,8 @@ const LandingPage = () => {
                   );
                 })}
                 <div className="mt-3 pt-3 border-t border-zinc-100">
-                  <button onClick={() => { setShowModal(true); setMenuOpen(false); }} className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white py-4 rounded-2xl font-bold text-base hover:opacity-90 transition-opacity flex items-center justify-center gap-1">
-                    Book a Free Live Demo →
+                  <button onClick={() => { setShowModal(true); setMenuOpen(false); }} className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white py-4 rounded-2xl font-bold text-base hover:opacity-90 transition-opacity flex items-center justify-center gap-1">
+                    Start Free Trial →
                   </button>
                 </div>
               </div>
@@ -441,7 +433,7 @@ const LandingPage = () => {
       ════════════════════════════════════════ */}
       <section className="relative pt-28 pb-16 sm:pt-36 lg:pt-48 lg:pb-32 overflow-hidden" aria-label="Hero section">
         {/* Background blobs */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1400px] h-[700px] opacity-25 bg-gradient-to-b from-violet-500 via-fuchsia-400 to-transparent blur-[140px] -z-10 rounded-full mix-blend-multiply" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1400px] h-[700px] opacity-25 bg-gradient-to-b from-emerald-500 via-blue-400 to-transparent blur-[140px] -z-10 rounded-full mix-blend-multiply" />
         <div className="absolute top-20 left-0 w-[400px] h-[400px] opacity-20 bg-gradient-to-br from-emerald-400 to-teal-300 blur-[100px] -z-10 rounded-full" />
         <div className="absolute top-20 right-0 w-[400px] h-[400px] opacity-20 bg-gradient-to-br from-orange-400 to-amber-300 blur-[100px] -z-10 rounded-full" />
 
@@ -449,22 +441,22 @@ const LandingPage = () => {
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="flex flex-col items-center">
 
             {/* Badge */}
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/70 backdrop-blur-md border border-violet-100 text-violet-700 text-sm font-bold mb-8 shadow-sm">
-              <Sparkles className="w-4 h-4 text-fuchsia-500 animate-pulse" />
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/70 backdrop-blur-md border border-emerald-100 text-emerald-700 text-sm font-bold mb-8 shadow-sm">
+              <Sparkles className="w-4 h-4 text-blue-500 animate-pulse" />
               ⭐ Trusted by 500+ Growing Businesses · No Credit Card Required
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeUp} className="text-hero font-extrabold tracking-tight mb-6 max-w-5xl mx-auto">
+            <motion.h1 variants={fadeUp} className="text-hero font-bold tracking-tight mb-6 max-w-5xl mx-auto">
               Don't Just Send WhatsApp Messages.{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-fuchsia-500 to-orange-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">
                 Automate Your Entire Sales & Support Funnel
               </span>{' '}
               on Autopilot!
             </motion.h1>
 
             {/* Sub-headline */}
-            <motion.p variants={fadeUp} className="text-lead text-zinc-500 max-w-3xl mx-auto mb-10 font-medium leading-relaxed">
+            <motion.p variants={fadeUp} className="text-lead text-zinc-500 max-w-3xl mx-auto mb-10 font-normal leading-relaxed">
               Meet <strong className="text-zinc-800">ChatPro365</strong>—The Ultimate AI-Powered WhatsApp Business Automation Platform. Capture inbound leads, score their intent, nurture them with automated drip campaigns, and scale your business 24/7.
             </motion.p>
 
@@ -474,20 +466,20 @@ const LandingPage = () => {
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 40px -5px rgba(124, 58, 237, 0.5)" }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowModal(true)}
-                className="relative overflow-hidden bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white px-10 py-4 rounded-full font-bold text-lg transition-all shadow-xl flex items-center justify-center gap-2 w-full sm:w-auto group"
+                className="relative overflow-hidden bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg transition-all shadow-xl flex items-center justify-center gap-2 w-full sm:w-auto group"
                 id="hero-cta-demo"
               >
-                <span className="relative z-10 flex items-center gap-2">Book a Free Live Demo <ArrowRight className="w-5 h-5" /></span>
-                <div className="absolute inset-0 bg-gradient-to-r from-fuchsia-600 to-violet-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10 flex items-center gap-2">Start Free Trial <ArrowRight className="w-5 h-5" /></span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </motion.button>
 
               <motion.button
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                 onClick={() => window.open('https://wa.me/917457863240?text=Hi! I want to know more about ChatPro365', '_blank')}
                 className="bg-white text-zinc-900 border border-zinc-200 px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md w-full sm:w-auto"
-                id="hero-cta-video"
+                id="hero-cta-whatsapp"
               >
-                <Play className="w-5 h-5 text-fuchsia-500 fill-fuchsia-500" /> Watch 2-Min Explainer Video
+                <MessageSquare className="w-5 h-5 text-blue-500" /> Chat With Us on WhatsApp
               </motion.button>
             </motion.div>
 
@@ -500,7 +492,7 @@ const LandingPage = () => {
                 { value: '40%', label: 'Average Lead Increase' },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
-                  <div className="text-3xl font-extrabold text-zinc-900">{stat.value}</div>
+                  <div className="text-3xl font-bold text-zinc-900">{stat.value}</div>
                   <div className="text-sm text-zinc-500 font-medium mt-1">{stat.label}</div>
                 </div>
               ))}
@@ -515,15 +507,15 @@ const LandingPage = () => {
           transition={{ delay: 0.7, duration: 0.9, ease: "easeOut" }}
           className="relative mx-auto max-w-3xl mt-20 px-4"
         >
-          <div className="absolute -inset-2 bg-gradient-to-r from-violet-500 via-fuchsia-500 to-orange-500 rounded-[2.5rem] blur-2xl opacity-20 animate-pulse"></div>
+          <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-[2.5rem] blur-2xl opacity-20 animate-pulse"></div>
           <div className="relative bg-white/90 rounded-[2rem] shadow-2xl border border-white overflow-hidden backdrop-blur-2xl">
-            <div className="bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-4 flex items-center gap-4">
+            <div className="bg-gradient-to-r from-emerald-600 to-blue-600 px-6 py-4 flex items-center gap-4">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center shadow-inner">
                 <Bot className="w-5 h-5 text-white" />
               </div>
               <div className="text-left">
                 <h3 className="font-bold text-white">ChatPro365 AI Agent</h3>
-                <p className="text-xs text-violet-200 font-semibold flex items-center gap-1">
+                <p className="text-xs text-emerald-200 font-semibold flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online · Responding instantly
                 </p>
               </div>
@@ -535,11 +527,11 @@ const LandingPage = () => {
             </div>
             <div className="p-6 bg-[#f0f2f5] h-[340px] overflow-y-auto flex flex-col gap-4">
               <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.2 }} className="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[80%]">
-                <p className="text-zinc-800 font-medium leading-relaxed">Hi! 👋 I'm your AI Sales Agent. I noticed you're interested in automating your WhatsApp. What type of business do you run?</p>
+                <p className="text-zinc-800 font-normal leading-relaxed">Hi! 👋 I'm your AI Sales Agent. I noticed you're interested in automating your WhatsApp. What type of business do you run?</p>
                 <div className="flex gap-2 mt-3 flex-wrap">
-                  <span className="bg-violet-100 text-violet-700 text-xs font-bold px-3 py-1.5 rounded-full border border-violet-200 cursor-pointer hover:bg-violet-200 transition-colors">E-Commerce</span>
-                  <span className="bg-violet-100 text-violet-700 text-xs font-bold px-3 py-1.5 rounded-full border border-violet-200 cursor-pointer hover:bg-violet-200 transition-colors">Real Estate</span>
-                  <span className="bg-violet-100 text-violet-700 text-xs font-bold px-3 py-1.5 rounded-full border border-violet-200 cursor-pointer hover:bg-violet-200 transition-colors">Other</span>
+                  <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-200 cursor-pointer hover:bg-emerald-200 transition-colors">E-Commerce</span>
+                  <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-200 cursor-pointer hover:bg-emerald-200 transition-colors">Real Estate</span>
+                  <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-200 cursor-pointer hover:bg-emerald-200 transition-colors">Other</span>
                 </div>
                 <p className="text-[10px] text-zinc-400 mt-2 text-right">Just now</p>
               </motion.div>
@@ -550,9 +542,9 @@ const LandingPage = () => {
               </motion.div>
 
               <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 3.4 }} className="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%]">
-                <p className="text-zinc-800 font-medium leading-relaxed">Perfect! ChatPro365's <strong>Lead Scoring + VIP System</strong> flags hot leads automatically and assigns them to your best agent. You'll see 40%+ more conversions in week 1. 🚀</p>
+                <p className="text-zinc-800 font-normal leading-relaxed">Perfect! ChatPro365's <strong>Lead Scoring + VIP System</strong> flags hot leads automatically and assigns them to your best agent. You'll see 40%+ more conversions in week 1. 🚀</p>
                 <div className="mt-3">
-                  <button onClick={() => setShowModal(true)} className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white py-2.5 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity shadow-md">
+                  <button onClick={() => setShowModal(true)} className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white py-2.5 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity shadow-md">
                     Book a Free Demo Now →
                   </button>
                 </div>
@@ -573,7 +565,7 @@ const LandingPage = () => {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 border border-red-100 text-red-600 text-sm font-bold mb-6">
                 ⚠️ The Hidden Problem
               </div>
-              <h2 className="text-section-title font-extrabold mb-6 tracking-tight text-zinc-900">
+              <h2 className="text-section-title font-bold mb-6 tracking-tight text-zinc-900">
                 Why Manual WhatsApp Management is <span className="text-red-500">Killing Your Growth</span>
               </h2>
             </motion.div>
@@ -586,22 +578,22 @@ const LandingPage = () => {
                     <p.icon className="w-7 h-7 text-red-500" />
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-zinc-900">{p.title}</h3>
-                  <p className="text-zinc-500 font-medium leading-relaxed">{p.desc}</p>
+                  <p className="text-zinc-500 font-normal leading-relaxed">{p.desc}</p>
                 </motion.div>
               ))}
             </div>
 
             {/* Solution Banner */}
-            <motion.div variants={fadeUp} className="relative bg-gradient-to-r from-violet-600 via-fuchsia-600 to-violet-700 rounded-3xl p-10 md:p-14 text-center overflow-hidden">
+            <motion.div variants={fadeUp} className="relative bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-700 rounded-3xl p-10 md:p-14 text-center overflow-hidden">
               <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 50%, white 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
               <div className="relative z-10">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-bold mb-6 border border-white/20">
                   <Sparkles className="w-4 h-4" /> The ChatPro365 Solution
                 </div>
-                <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-4 leading-snug max-w-3xl mx-auto">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-snug max-w-3xl mx-auto">
                   "ChatPro365 brings your entire customer journey—from the first <em>hello</em> to the final checkout—into one unified, intelligent dashboard."
                 </h3>
-                <button onClick={() => setShowModal(true)} className="mt-8 bg-white text-violet-700 font-bold px-8 py-4 rounded-full hover:bg-violet-50 transition-colors shadow-xl text-lg inline-flex items-center gap-2">
+                <button onClick={() => setShowModal(true)} className="mt-8 bg-white text-emerald-700 font-bold px-8 py-4 rounded-full hover:bg-emerald-50 transition-colors shadow-xl text-lg inline-flex items-center gap-2">
                   See How It Works <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
@@ -616,11 +608,11 @@ const LandingPage = () => {
       <section className="py-12 md:py-24 bg-transparent border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 border border-violet-100 text-violet-700 text-sm font-bold mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm font-bold mb-6">
               <Award className="w-4 h-4" /> Why Top Brands Choose Us
             </div>
-            <h2 className="text-section-title font-extrabold mb-6 tracking-tight text-zinc-900">
-              Why Top Brands Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-600">ChatPro365</span> Over Basic WhatsApp Tools
+            <h2 className="text-section-title font-bold mb-6 tracking-tight text-zinc-900">
+              Why Top Brands Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">ChatPro365</span> Over Basic WhatsApp Tools
             </h2>
           </motion.div>
 
@@ -630,8 +622,8 @@ const LandingPage = () => {
                 <div className={`w-14 h-14 bg-gradient-to-br ${usp.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
                   <usp.icon className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="text-card-title font-extrabold mb-4 text-zinc-900 leading-snug">{usp.title}</h3>
-                <p className="text-lead text-zinc-600 font-medium leading-relaxed mb-6">{usp.desc}</p>
+                <h3 className="text-card-title font-bold mb-4 text-zinc-900 leading-snug">{usp.title}</h3>
+                <p className="text-lead text-zinc-600 font-normal leading-relaxed mb-6">{usp.desc}</p>
                 <div className="flex flex-wrap gap-2">
                   {usp.badges.map((badge, j) => (
                     <span key={j} className={`bg-gradient-to-r ${usp.gradient} text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm`}>{badge}</span>
@@ -652,7 +644,7 @@ const LandingPage = () => {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm font-bold mb-6">
               <Layers className="w-4 h-4" /> The 4 Pillars
             </div>
-            <h2 className="text-section-title font-extrabold mb-6 tracking-tight text-zinc-900">
+            <h2 className="text-section-title font-bold mb-6 tracking-tight text-zinc-900">
               Packed with Everything You Need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">Scale</span>
             </h2>
             <p className="text-lead text-zinc-500 font-medium">Every feature built specifically for WhatsApp-driven businesses.</p>
@@ -664,7 +656,7 @@ const LandingPage = () => {
                 <div className={`w-16 h-16 bg-gradient-to-br ${pillar.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
                   <pillar.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-card-title font-extrabold mb-5 text-zinc-900">{pillar.title}</h3>
+                <h3 className="text-card-title font-bold mb-5 text-zinc-900">{pillar.title}</h3>
                 <div className="grid grid-cols-1 gap-4">
                   {pillar.features.map((feat, fi) => (
                     <div key={fi} className="flex items-start gap-4 bg-white rounded-2xl p-4 border border-zinc-100 hover:border-zinc-200 transition-colors">
@@ -691,10 +683,10 @@ const LandingPage = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 md:mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-zinc-300 text-sm font-bold mb-6">
-              <Shield className="w-4 h-4 text-violet-400" /> Head-to-Head Comparison
+              <Shield className="w-4 h-4 text-emerald-400" /> Head-to-Head Comparison
             </div>
-            <h2 className="text-section-title font-extrabold text-white mb-4 tracking-tight">
-              How ChatPro365 <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">Defeats the Competition</span>
+            <h2 className="text-section-title font-bold text-white mb-4 tracking-tight">
+              How ChatPro365 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">Defeats the Competition</span>
             </h2>
             <p className="text-lead text-zinc-400 font-medium">Not just better—in a completely different league.</p>
           </motion.div>
@@ -717,8 +709,8 @@ const LandingPage = () => {
                     </div>
                   </div>
                   {/* Pro col */}
-                  <div className="px-4 py-4 bg-violet-950/30">
-                    <p className="text-violet-400 text-[11px] font-bold uppercase tracking-widest mb-2">ChatPro365 ✦</p>
+                  <div className="px-4 py-4 bg-emerald-950/30">
+                    <p className="text-emerald-400 text-[11px] font-bold uppercase tracking-widest mb-2">ChatPro365 ✦</p>
                     <div className="flex items-start gap-2">
                       <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                       <span className="text-emerald-400 text-sm font-bold leading-snug">{row.pro}</span>
@@ -736,7 +728,7 @@ const LandingPage = () => {
               <div className="px-6 py-5 text-zinc-400 font-bold text-sm uppercase tracking-wider">Feature</div>
               <div className="px-6 py-5 text-zinc-400 font-bold text-sm uppercase tracking-wider text-center border-l border-zinc-800">Standard WA Tools</div>
               <div className="px-6 py-5 text-center border-l border-zinc-800">
-                <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-sm font-bold px-4 py-2 rounded-full">ChatPro365 ✦</span>
+                <span className="bg-gradient-to-r from-emerald-600 to-blue-600 text-white text-sm font-bold px-4 py-2 rounded-full">ChatPro365 ✦</span>
               </div>
             </div>
             {/* Rows */}
@@ -760,7 +752,7 @@ const LandingPage = () => {
           </motion.div>
 
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }} className="text-center mt-10">
-            <button onClick={() => setShowModal(true)} className="bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-bold px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-xl text-lg inline-flex items-center gap-2">
+            <button onClick={() => setShowModal(true)} className="bg-gradient-to-r from-emerald-600 to-blue-600 text-white font-bold px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-xl text-lg inline-flex items-center gap-2">
               Start Your Free Trial Now <ArrowRight className="w-5 h-5" />
             </button>
           </motion.div>
@@ -776,7 +768,7 @@ const LandingPage = () => {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-100 text-amber-700 text-sm font-bold mb-6">
               <Star className="w-4 h-4 fill-amber-500 text-amber-500" /> Social Proof
             </div>
-            <h2 className="text-section-title font-extrabold mb-4 tracking-tight text-zinc-900">
+            <h2 className="text-section-title font-bold mb-4 tracking-tight text-zinc-900">
               Loved by Hundreds of <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500">Founders & Sales Teams</span>
             </h2>
           </motion.div>
@@ -787,9 +779,9 @@ const LandingPage = () => {
                 <div className="flex gap-1 mb-6">
                   {[...Array(t.rating)].map((_, s) => <Star key={s} className="w-5 h-5 fill-amber-400 text-amber-400" />)}
                 </div>
-                <p className="text-lead text-zinc-700 font-medium leading-relaxed flex-1 mb-6">"{t.quote}"</p>
+                <p className="text-lead text-zinc-700 font-normal leading-relaxed flex-1 mb-6">"{t.quote}"</p>
                 <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 bg-gradient-to-br ${t.color} rounded-full flex items-center justify-center font-extrabold text-white text-sm shadow-md`}>
+                  <div className={`w-12 h-12 bg-gradient-to-br ${t.color} rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md`}>
                     {t.avatar}
                   </div>
                   <div>
@@ -812,28 +804,28 @@ const LandingPage = () => {
 
             {/* Header */}
             <motion.div variants={fadeUp} className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 border border-violet-100 text-violet-700 text-sm font-bold mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm font-bold mb-6">
                 <Sparkles className="w-4 h-4" /> Our Story
               </div>
-              <h2 className="text-section-title font-extrabold mb-6 tracking-tight text-zinc-900">
-                About <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-600">ChatPro365</span>
+              <h2 className="text-section-title font-bold mb-6 tracking-tight text-zinc-900">
+                About <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">ChatPro365</span>
               </h2>
-              <p className="text-lead text-zinc-500 font-medium leading-relaxed">
+              <p className="text-lead text-zinc-500 font-normal leading-relaxed">
                 Revolutionizing WhatsApp Business Automation — one intelligent conversation at a time.
               </p>
             </motion.div>
 
             {/* Mission Banner */}
-            <motion.div variants={fadeUp} className="relative bg-gradient-to-br from-violet-600 via-fuchsia-600 to-violet-700 rounded-3xl p-10 md:p-14 overflow-hidden mb-12 md:mb-20">
+            <motion.div variants={fadeUp} className="relative bg-gradient-to-br from-emerald-600 via-blue-600 to-emerald-700 rounded-3xl p-10 md:p-14 overflow-hidden mb-12 md:mb-20">
               <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 20%, white 1px, transparent 1px), radial-gradient(circle at 80% 80%, white 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
               <div className="relative z-10 max-w-4xl mx-auto">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-bold mb-6 border border-white/20">
                   <Target className="w-4 h-4" /> Our Mission
                 </div>
-                <h3 className="text-2xl md:text-4xl font-extrabold text-white mb-6 leading-snug">
+                <h3 className="text-2xl md:text-4xl font-bold text-white mb-6 leading-snug">
                   To help you automate business operations, elevate the customer experience, and dramatically increase your sales conversions.
                 </h3>
-                <p className="text-violet-100 text-lg font-medium leading-relaxed">
+                <p className="text-emerald-100 text-lg font-normal leading-relaxed">
                   We are dedicated to providing a platform that acts as the ultimate engine for your client management, intelligent automation, and limitless business growth.
                 </p>
               </div>
@@ -841,7 +833,7 @@ const LandingPage = () => {
 
             {/* What Makes Us Different Grid */}
             <motion.div variants={fadeUp} className="text-center mb-10 md:mb-12">
-              <h3 className="text-card-title font-extrabold text-zinc-900 mb-3">What Makes Us Different?</h3>
+              <h3 className="text-card-title font-bold text-zinc-900 mb-3">What Makes Us Different?</h3>
               <p className="text-zinc-500 font-medium">We don't just send messages — we build smart, automated sales and support machines.</p>
             </motion.div>
 
@@ -849,9 +841,9 @@ const LandingPage = () => {
               {[
                 {
                   icon: Brain,
-                  gradient: 'from-violet-500 to-fuchsia-500',
-                  bg: 'from-violet-50 to-fuchsia-50',
-                  border: 'border-violet-100',
+                  gradient: 'from-emerald-500 to-blue-500',
+                  bg: 'from-emerald-50 to-blue-50',
+                  border: 'border-emerald-100',
                   title: 'Intelligent AI Automation',
                   desc: 'Never miss a customer interaction with our Category-Based AI Bot and WhatsApp AI Assistant. For complex conversations, our Human + AI Hybrid Chat ensures agents step in exactly when needed.',
                 },
@@ -900,24 +892,24 @@ const LandingPage = () => {
                   <div className={`w-14 h-14 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center mb-5 shadow-lg`}>
                     <item.icon className="w-7 h-7 text-white" />
                   </div>
-                  <h4 className="text-card-title font-extrabold text-zinc-900 mb-3">{item.title}</h4>
-                  <p className="text-zinc-600 font-medium leading-relaxed text-sm">{item.desc}</p>
+                  <h4 className="text-card-title font-bold text-zinc-900 mb-3">{item.title}</h4>
+                  <p className="text-zinc-600 font-normal leading-relaxed text-sm">{item.desc}</p>
                 </motion.div>
               ))}
             </motion.div>
 
             {/* Your Complete Business Growth Partner */}
             <motion.div variants={fadeUp} className="bg-zinc-950 rounded-3xl p-10 md:p-14 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-violet-600/20 to-fuchsia-600/20 rounded-full blur-[100px] pointer-events-none" />
+              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-emerald-600/20 to-blue-600/20 rounded-full blur-[100px] pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-br from-emerald-600/10 to-teal-600/10 rounded-full blur-[80px] pointer-events-none" />
               <div className="relative z-10 max-w-4xl">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-zinc-300 text-sm font-bold mb-6 border border-white/10">
-                  <Award className="w-4 h-4 text-violet-400" /> Your Complete Business Growth Partner
+                  <Award className="w-4 h-4 text-emerald-400" /> Your Complete Business Growth Partner
                 </div>
-                <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-6 leading-snug max-w-3xl">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 leading-snug max-w-3xl">
                   ChatPro365 is designed to give founders and managers complete peace of mind.
                 </h3>
-                <p className="text-zinc-400 text-lg font-medium leading-relaxed mb-8 max-w-3xl">
+                <p className="text-zinc-400 text-lg font-normal leading-relaxed mb-8 max-w-3xl">
                   Equipped with a powerful Super Admin Panel, Real-Time Notifications, and Business Control Features, you hold the reins to your entire operation. Whether it is managing Subscriptions, Support Tickets, Appointments, or File &amp; Image Sharing, we make it happen on autopilot.
                 </p>
                 <div className="flex flex-wrap gap-3">
@@ -935,14 +927,14 @@ const LandingPage = () => {
       {/* ════════════════════════════════════════
           SECTION 8: PRICING
       ════════════════════════════════════════ */}
-      <section id="pricing" className="py-12 md:py-24 bg-gradient-to-br from-slate-50 via-white to-violet-50 border-b border-slate-100">
+      <section id="pricing" className="py-12 md:py-24 bg-gradient-to-br from-slate-50 via-white to-emerald-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 border border-violet-100 text-violet-700 text-sm font-bold mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm font-bold mb-6">
               <Zap className="w-4 h-4" /> Simple, Transparent Pricing
             </div>
-            <h2 className="text-section-title font-extrabold mb-6 tracking-tight text-zinc-900">
-              Choose the Plan That <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-600">Fits Your Growth</span>
+            <h2 className="text-section-title font-bold mb-6 tracking-tight text-zinc-900">
+              Choose the Plan That <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">Fits Your Growth</span>
             </h2>
             <p className="text-lead text-zinc-500 font-medium">No hidden fees. No lock-in contracts. Cancel anytime.</p>
           </motion.div>
@@ -955,12 +947,12 @@ const LandingPage = () => {
                 <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mb-4 shadow-md">
                   <Zap className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-extrabold text-zinc-900 mb-1">Starter</h3>
+                <h3 className="text-xl font-bold text-zinc-900 mb-1">Starter</h3>
                 <p className="text-zinc-500 text-sm font-medium">Perfect for small businesses getting started with WhatsApp automation.</p>
               </div>
               <div className="mb-6">
                 <div className="flex items-end gap-1">
-                  <span className="text-4xl font-extrabold text-zinc-900">₹2,999</span>
+                  <span className="text-4xl font-bold text-zinc-900">₹2,999</span>
                   <span className="text-zinc-400 font-medium mb-1">/month</span>
                 </div>
                 <p className="text-zinc-400 text-xs font-medium mt-1">Billed monthly · Cancel anytime</p>
@@ -987,31 +979,31 @@ const LandingPage = () => {
               <motion.button
                 whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                 onClick={() => setShowModal(true)}
-                className="w-full border-2 border-violet-600 text-violet-600 font-bold py-3.5 rounded-xl hover:bg-violet-50 transition-all justify-center"
+                className="w-full border-2 border-emerald-600 text-emerald-600 font-bold py-3.5 rounded-xl hover:bg-emerald-50 transition-all justify-center"
               >
                 Get Started
               </motion.button>
             </motion.div>
 
             {/* Pro Plan – MOST POPULAR */}
-            <motion.div variants={fadeUp} whileHover={{ y: -8 }} className="relative bg-gradient-to-br from-violet-600 via-fuchsia-600 to-violet-700 rounded-3xl p-8 flex flex-col h-full shadow-2xl shadow-violet-500/30">
+            <motion.div variants={fadeUp} whileHover={{ y: -8 }} className="relative bg-gradient-to-br from-emerald-600 via-blue-600 to-emerald-700 rounded-3xl p-8 flex flex-col h-full shadow-2xl shadow-emerald-500/30">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                <span className="bg-gradient-to-r from-amber-400 to-orange-400 text-zinc-900 text-xs font-extrabold px-5 py-2 rounded-full shadow-lg">⭐ MOST POPULAR</span>
+                <span className="bg-gradient-to-r from-amber-400 to-orange-400 text-zinc-900 text-xs font-bold px-5 py-2 rounded-full shadow-lg">⭐ MOST POPULAR</span>
               </div>
               <div className="absolute inset-0 opacity-10 rounded-3xl" style={{ backgroundImage: 'radial-gradient(circle at 30% 30%, white 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
               <div className="relative z-10 mb-6">
                 <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center mb-4 shadow-md border border-white/20">
                   <Crown className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-extrabold text-white mb-1">Pro</h3>
-                <p className="text-violet-100 text-sm font-medium">For growing teams that need advanced automation and lead management.</p>
+                <h3 className="text-xl font-bold text-white mb-1">Pro</h3>
+                <p className="text-emerald-100 text-sm font-medium">For growing teams that need advanced automation and lead management.</p>
               </div>
               <div className="relative z-10 mb-6">
                 <div className="flex items-end gap-1">
-                  <span className="text-4xl font-extrabold text-white">₹7,999</span>
-                  <span className="text-violet-200 font-medium mb-1">/month</span>
+                  <span className="text-4xl font-bold text-white">₹7,999</span>
+                  <span className="text-emerald-200 font-medium mb-1">/month</span>
                 </div>
-                <p className="text-violet-300 text-xs font-medium mt-1">Billed monthly · Cancel anytime</p>
+                <p className="text-emerald-300 text-xs font-medium mt-1">Billed monthly · Cancel anytime</p>
               </div>
               <ul className="space-y-3 flex-1 mb-8 relative z-10">
                 {[
@@ -1038,7 +1030,7 @@ const LandingPage = () => {
               <motion.button
                 whileHover={{ scale: 1.03, boxShadow: '0 10px 40px rgba(255,255,255,0.3)' }} whileTap={{ scale: 0.97 }}
                 onClick={() => setShowModal(true)}
-                className="w-full bg-white text-violet-700 font-extrabold py-3.5 rounded-xl hover:bg-violet-50 transition-all shadow-xl relative z-10 justify-center"
+                className="w-full bg-white text-emerald-700 font-bold py-3.5 rounded-xl hover:bg-emerald-50 transition-all shadow-xl relative z-10 justify-center"
               >
                 Start Free Trial →
               </motion.button>
@@ -1047,15 +1039,15 @@ const LandingPage = () => {
             {/* Enterprise Plan */}
             <motion.div variants={fadeUp} whileHover={{ y: -8 }} className="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 flex flex-col h-full hover:shadow-xl hover:border-zinc-700 transition-all duration-300">
               <div className="mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-violet-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 shadow-md">
+                <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 shadow-md">
                   <Shield className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-extrabold text-white mb-1">Enterprise</h3>
+                <h3 className="text-xl font-bold text-white mb-1">Enterprise</h3>
                 <p className="text-zinc-400 text-sm font-medium">For large-scale operations with custom needs, unlimited messages, and dedicated support.</p>
               </div>
               <div className="mb-6">
                 <div className="flex items-end gap-1">
-                  <span className="text-4xl font-extrabold text-white">Custom</span>
+                  <span className="text-4xl font-bold text-white">Custom</span>
                 </div>
                 <p className="text-zinc-500 text-xs font-medium mt-1">Tailored pricing for your business</p>
               </div>
@@ -1074,8 +1066,8 @@ const LandingPage = () => {
                   'SLA Guarantee',
                 ].map((feat, i) => (
                   <li key={i} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-violet-500/20 flex items-center justify-center shrink-0">
-                      <Check className="w-3 h-3 text-violet-400" />
+                    <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3 text-emerald-400" />
                     </div>
                     <span className="text-zinc-300 text-sm font-medium">{feat}</span>
                   </li>
@@ -1084,7 +1076,7 @@ const LandingPage = () => {
               <motion.button
                 whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                 onClick={() => window.open('https://wa.me/917457863240?text=Hi! I want to know about the Enterprise plan for ChatPro365', '_blank')}
-                className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-bold py-3.5 rounded-xl hover:opacity-90 transition-all shadow-lg justify-center"
+                className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white font-bold py-3.5 rounded-xl hover:opacity-90 transition-all shadow-lg justify-center"
               >
                 Contact Sales
               </motion.button>
@@ -1115,7 +1107,7 @@ const LandingPage = () => {
           SECTION 9: FINAL CTA
       ════════════════════════════════════════ */}
       <section className="py-16 md:py-32 bg-zinc-950 relative overflow-hidden border-t border-zinc-800">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-gradient-to-r from-violet-600/25 to-fuchsia-600/25 rounded-full blur-[140px] pointer-events-none animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-gradient-to-r from-emerald-600/25 to-blue-600/25 rounded-full blur-[140px] pointer-events-none animate-pulse" />
         <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-full blur-[80px]" />
         <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-gradient-to-br from-orange-500/10 to-amber-500/10 rounded-full blur-[80px]" />
 
@@ -1126,10 +1118,10 @@ const LandingPage = () => {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-zinc-300 text-sm font-bold mb-8">
             <TrendingUp className="w-4 h-4 text-emerald-400" /> Ready to Scale?
           </div>
-          <h2 className="text-section-title font-extrabold text-white mb-6 tracking-tight leading-tight">
-            Ready to Turn Your WhatsApp Into Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-orange-400">Highest Grossing Sales Channel?</span>
+          <h2 className="text-section-title font-bold text-white mb-6 tracking-tight leading-tight">
+            Ready to Turn Your WhatsApp Into Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">Highest Grossing Sales Channel?</span>
           </h2>
-          <p className="text-lead text-zinc-400 mb-12 max-w-2xl mx-auto font-medium leading-relaxed">
+          <p className="text-lead text-zinc-400 mb-12 max-w-2xl mx-auto font-normal leading-relaxed">
             Sign up today and get access to the complete AI-powered business suite. No complex coding required.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -1137,7 +1129,7 @@ const LandingPage = () => {
               whileHover={{ scale: 1.05, boxShadow: "0 0 80px rgba(124, 58, 237, 0.6)" }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowModal(true)}
-              className="bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white px-12 py-5 rounded-full font-bold text-xl transition-all flex items-center justify-center gap-2 shadow-2xl hover:opacity-90"
+              className="bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-12 py-5 rounded-full font-bold text-xl transition-all flex items-center justify-center gap-2 shadow-2xl hover:opacity-90"
               id="final-cta-btn"
             >
               Start Your Free Trial Now <ArrowRight className="w-6 h-6" />
@@ -1150,7 +1142,7 @@ const LandingPage = () => {
       </section>
 
       {/* ════════════════════════════════════════
-          SECTION 8: FAQ
+          SECTION 10: FAQ
       ════════════════════════════════════════ */}
       <section id="faq" className="py-12 md:py-24 bg-white shadow-sm border-b border-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1158,7 +1150,7 @@ const LandingPage = () => {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-sm font-bold mb-6">
               <HeadphonesIcon className="w-4 h-4" /> Got Questions?
             </div>
-            <h2 className="text-section-title font-extrabold mb-4 tracking-tight text-zinc-900">
+            <h2 className="text-section-title font-bold mb-4 tracking-tight text-zinc-900">
               Frequently Asked Questions
             </h2>
             <p className="text-lead text-zinc-500 font-medium">Everything you need to know before getting started.</p>
@@ -1196,14 +1188,19 @@ const LandingPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
             <div className="md:col-span-1">
               <ChatproLogo className="h-16 w-auto drop-shadow-sm -ml-2 brightness-0 invert" />
-              <p className="text-zinc-400 text-base mt-6 mb-8 font-medium leading-relaxed">
+              <p className="text-zinc-400 text-base mt-6 mb-6 font-normal leading-relaxed">
                 ChatPro365 – Complete WhatsApp Business Automation Platform. Your entire customer journey in one intelligent dashboard.
               </p>
+              <div className="space-y-2 mb-8 text-zinc-400 text-sm font-medium">
+                <a href="mailto:support@chatpro365.com" className="flex items-center gap-2 hover:text-emerald-400 transition-colors"><Mail className="w-4 h-4 shrink-0" /> support@chatpro365.com</a>
+                <a href="https://wa.me/917457863240" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-emerald-400 transition-colors"><Smartphone className="w-4 h-4 shrink-0" /> +91 74578 63240</a>
+                <p className="flex items-start gap-2"><MapPin className="w-4 h-4 shrink-0 mt-0.5" /> Bengaluru, Karnataka, India</p>
+              </div>
               <div className="flex gap-4">
-                <a href="#" className="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center text-zinc-400 hover:text-violet-400 hover:bg-zinc-700 transition-all border border-zinc-700">
+                <a href="https://chatpro365.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our website" className="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center text-zinc-400 hover:text-emerald-400 hover:bg-zinc-700 transition-all border border-zinc-700">
                   <Globe className="w-5 h-5" />
                 </a>
-                <a href="#" className="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center text-zinc-400 hover:text-violet-400 hover:bg-zinc-700 transition-all border border-zinc-700">
+                <a href="https://wa.me/917457863240" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp" className="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center text-zinc-400 hover:text-emerald-400 hover:bg-zinc-700 transition-all border border-zinc-700">
                   <Smartphone className="w-5 h-5" />
                 </a>
               </div>
@@ -1212,35 +1209,46 @@ const LandingPage = () => {
             <div>
               <h4 className="font-bold text-white mb-6 text-lg tracking-tight">Product</h4>
               <ul className="space-y-4 text-base font-medium text-zinc-400">
-                <li><a href="#features" className="hover:text-violet-400 transition-colors">Product Features</a></li>
-                <li><a href="#comparison" className="hover:text-violet-400 transition-colors">Compare Plans</a></li>
-                <li><a href="#faq" className="hover:text-violet-400 transition-colors">Case Studies</a></li>
-                <li><button onClick={() => setShowModal(true)} className="hover:text-violet-400 transition-colors text-left">Book a Demo</button></li>
+                <li><a href="#features" className="hover:text-emerald-400 transition-colors cursor-pointer">Product Features</a></li>
+                <li><a href="#pricing" className="hover:text-emerald-400 transition-colors cursor-pointer">Pricing</a></li>
+                <li><a href="#comparison" className="hover:text-emerald-400 transition-colors cursor-pointer">Compare Plans</a></li>
+                <li><button onClick={() => setActiveFooterPage('CaseStudies')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Case Studies</button></li>
+                <li><button onClick={() => setShowModal(true)} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Start Free Trial</button></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-bold text-white mb-6 text-lg tracking-tight">Resources</h4>
               <ul className="space-y-4 text-base font-medium text-zinc-400">
-                <li><a href="#" className="hover:text-violet-400 transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-violet-400 transition-colors">API Documentation</a></li>
-                <li><a href="#" className="hover:text-violet-400 transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-violet-400 transition-colors">Community</a></li>
+                <li><button onClick={() => setActiveFooterPage('HelpCenter')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Help Center</button></li>
+                <li><button onClick={() => setActiveFooterPage('APIDocs')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">API Documentation</button></li>
+                <li><button onClick={() => setActiveFooterPage('Blog')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Blog</button></li>
+                <li><button onClick={() => setActiveFooterPage('Community')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Community</button></li>
+                <li><button onClick={() => setActiveFooterPage('ContactUs')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Contact Us</button></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-bold text-white mb-6 text-lg tracking-tight">Legal</h4>
               <ul className="space-y-4 text-base font-medium text-zinc-400">
-                <li><a href="#" className="hover:text-violet-400 transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-violet-400 transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-violet-400 transition-colors">GDPR Compliance</a></li>
-                <li><a href="#" className="hover:text-violet-400 transition-colors">Cookie Policy</a></li>
+                <li><button onClick={() => setActiveFooterPage('PrivacyPolicy')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Privacy Policy</button></li>
+                <li><button onClick={() => setActiveFooterPage('TermsOfService')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Terms of Service</button></li>
+                <li><button onClick={() => setActiveFooterPage('RefundPolicy')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Refund &amp; Cancellation</button></li>
+                <li><button onClick={() => setActiveFooterPage('AcceptableUse')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Acceptable Use Policy</button></li>
+                <li><button onClick={() => setActiveFooterPage('GDPR')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">GDPR Compliance</button></li>
+                <li><button onClick={() => setActiveFooterPage('CookiePolicy')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Cookie Policy</button></li>
               </ul>
             </div>
           </div>
 
-          <div className="pt-8 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-4">
+          {/* Meta / WhatsApp trademark + non-affiliation disclaimer (required given heavy WhatsApp branding) */}
+          <div className="pt-8 border-t border-zinc-800">
+            <p className="text-zinc-500 text-xs leading-relaxed max-w-4xl">
+              WhatsApp is a trademark of Meta Platforms, Inc., registered in the U.S. and other countries. ChatPro365 is an independent platform built on the official WhatsApp Business Platform and is not endorsed by, sponsored by, or affiliated with Meta Platforms, Inc. or WhatsApp.
+            </p>
+          </div>
+
+          <div className="pt-6 mt-6 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-zinc-500 text-sm font-medium">© 2026 ChatPro365. All Rights Reserved.</div>
             <div className="flex gap-6 text-sm text-zinc-500 font-medium">
               <span>Made with ❤️ for modern businesses.</span>
@@ -1248,6 +1256,20 @@ const LandingPage = () => {
           </div>
         </div>
       </footer>
+
+      {/* ── Footer Pages Modals ── */}
+      <PrivacyPolicyPage isOpen={activeFooterPage === 'PrivacyPolicy'} onClose={() => setActiveFooterPage(null)} />
+      <TermsOfServicePage isOpen={activeFooterPage === 'TermsOfService'} onClose={() => setActiveFooterPage(null)} />
+      <GDPRPage isOpen={activeFooterPage === 'GDPR'} onClose={() => setActiveFooterPage(null)} />
+      <CookiePolicyPage isOpen={activeFooterPage === 'CookiePolicy'} onClose={() => setActiveFooterPage(null)} />
+      <HelpCenterPage isOpen={activeFooterPage === 'HelpCenter'} onClose={() => setActiveFooterPage(null)} />
+      <APIDocsPage isOpen={activeFooterPage === 'APIDocs'} onClose={() => setActiveFooterPage(null)} />
+      <BlogPage isOpen={activeFooterPage === 'Blog'} onClose={() => setActiveFooterPage(null)} />
+      <CommunityPage isOpen={activeFooterPage === 'Community'} onClose={() => setActiveFooterPage(null)} />
+      <CaseStudiesPage isOpen={activeFooterPage === 'CaseStudies'} onClose={() => setActiveFooterPage(null)} />
+      <RefundPolicyPage isOpen={activeFooterPage === 'RefundPolicy'} onClose={() => setActiveFooterPage(null)} />
+      <AcceptableUsePage isOpen={activeFooterPage === 'AcceptableUse'} onClose={() => setActiveFooterPage(null)} />
+      <ContactUsPage isOpen={activeFooterPage === 'ContactUs'} onClose={() => setActiveFooterPage(null)} />
 
       {/* ── Floating WhatsApp Button ── */}
       <a

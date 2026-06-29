@@ -90,27 +90,34 @@
         "applicationCategory": "BusinessApplication",
         "url": "https://chatpro365.com",
         "description": "ChatPro365 is an AI-powered WhatsApp Business API platform for sales automation, bulk broadcasting, and CRM integration. Auto-reply with chatbots and capture leads seamlessly.",
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "ratingCount": "512"
-        },
         "offers": [
           {
             "@type": "Offer",
             "name": "Starter Plan",
-            "price": "29.00",
-            "priceCurrency": "USD",
-            "billingPeriod": "P1M",
-            "availability": "https://schema.org/InStock"
+            "price": "2999",
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://chatpro365.com/#pricing",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "2999",
+              "priceCurrency": "INR",
+              "unitText": "MONTH"
+            }
           },
           {
             "@type": "Offer",
             "name": "Pro Plan",
-            "price": "79.00",
-            "priceCurrency": "USD",
-            "billingPeriod": "P1M",
-            "availability": "https://schema.org/InStock"
+            "price": "7999",
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://chatpro365.com/#pricing",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "7999",
+              "priceCurrency": "INR",
+              "unitText": "MONTH"
+            }
           }
         ],
         "featureList": [
@@ -128,34 +135,66 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "What is ChatPro365?",
+            "name": "What is ChatPro365, and how does it use the WhatsApp Business API?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "ChatPro365 is an official WhatsApp Business API based automation tool that handles customer inquiries via an AI chatbot, sends bulk WhatsApp broadcasts, and auto-follows up on leads — 24/7 without human intervention."
+              "text": "ChatPro365 is an official WhatsApp Business API based AI automation platform. It allows businesses to send bulk WhatsApp broadcasts, build AI chatbot auto-replies, and manage a high volume of customer support messages from a single, unified CRM dashboard."
             }
           },
           {
             "@type": "Question",
-            "name": "How much does ChatPro365 cost?",
+            "name": "Do I need to be online 24/7 to manage customer chats?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "ChatPro365 offers flexible pricing starting at $29/month for the Starter plan (up to 1,000 AI messages/mo). The Pro plan is $79/month with unlimited AI messages, universal CRM webhooks, and advanced WhatsApp marketing features. A 14-day free trial is available."
+              "text": "No. With ChatPro365's Category-Based AI Bot and automated WhatsApp Assistant, your business stays active 24/7. The bot can calculate prices, share catalogs, and qualify leads while your human team is asleep."
             }
           },
           {
             "@type": "Question",
-            "name": "Does ChatPro365 work with my CRM?",
+            "name": "What happens if the AI chatbot cannot resolve a customer query?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes! ChatPro365 uses universal webhooks to integrate seamlessly with HubSpot, Zoho, Salesforce, Shopify, or any custom CRM. WhatsApp leads are pushed instantly to your database."
+              "text": "ChatPro365 operates on a Human + AI Hybrid Chat model. If a lead requires human empathy or asks complex questions, the Auto Chat Assignment system instantly routes the WhatsApp conversation to an available live sales agent."
             }
           },
           {
             "@type": "Question",
-            "name": "Do I need coding knowledge to build a WhatsApp Bot on ChatPro365?",
+            "name": "Can we execute bulk WhatsApp marketing campaigns on this platform?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No coding is required. Simply scan a QR code to connect your WhatsApp number, write your AI system prompt in plain English, and your intelligent WhatsApp sales agent starts working immediately."
+              "text": "Absolutely. ChatPro365 acts as a powerful Bulk WhatsApp Sender. You can send targeted promotional broadcasts, set up scheduled campaigns, and trigger multi-step Drip Campaigns without the risk of getting banned, thanks to the official API integration."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does the Lead Management System score WhatsApp leads?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The platform automatically captures inbound WhatsApp leads, applies custom Intent Tags, and calculates engagement using Lead Scoring. Hot prospects are automatically moved to a VIP Lead System for immediate follow-up."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I track my support team's performance?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The platform provides complete Team Management, Agent Online/Offline Tracking, SLA Management, and deep AI Performance Analytics to monitor team efficiency."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I manage my products and inventory through WhatsApp?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. You can leverage our Product & Inventory Management system to keep track of items, and use the AI Product Recommendation engine to automatically showcase relevant catalog products to buyers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does ChatPro365 integrate with existing CRM tools like HubSpot or Shopify?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Using ChatPro365's universal Webhook Integration, you can seamlessly sync WhatsApp leads and chat histories with external tools like HubSpot, Salesforce, Shopify, Zoho, or any custom backend system."
             }
           }
         ]
