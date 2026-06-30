@@ -4,9 +4,9 @@ import api from './lib/api';
 import {
   Bot, MessageSquare, Zap, Clock, Users, ArrowRight, Shield,
   Globe, Smartphone, Mail, MapPin, CheckCircle, Check, Database, Sparkles, X, Loader2,
-  Menu, Star, TrendingUp, Target, BarChart3, Layers,
+  Menu, Star, TrendingUp, Target, BarChart3, Layers, FileText,
   Award, ChevronDown, HeadphonesIcon, Package, Calendar, Activity,
-  UserCheck, Filter, Megaphone, Send, Repeat, Brain, Eye, Crown, Lock
+  UserCheck, Filter, Megaphone, Send, Brain, Eye, Crown, Lock
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -69,6 +69,16 @@ const staggerContainer = {
 const fadeIn = {
   hidden: { opacity: 0, scale: 0.96 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } }
+};
+
+// Sequential chat reveal — bubbles pop in one-by-one like a live conversation.
+const chatBody = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.55, delayChildren: 0.3 } }
+};
+const bubbleIn = {
+  hidden: { opacity: 0, y: 14, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.35, ease: "easeOut" } }
 };
 
 // ─────────────────────────────────────────────
@@ -151,31 +161,31 @@ const LandingPage = () => {
 
   const usps = [
     {
-      icon: Brain,
+      icon: FileText,
       gradient: 'from-emerald-500 to-blue-500',
       bg: 'from-emerald-50 to-blue-50',
       border: 'border-emerald-100',
-      title: 'Human + AI Hybrid Chat with Quality Supervision',
-      desc: 'Give your customers the speed of AI and the empathy of humans. Our system handles FAQs instantly via a Category-Based AI Bot and routes complex queries to human agents seamlessly, while the AI Quality Supervisor monitors chat standards.',
-      badges: ['Category-Based AI Bot', 'AI Quality Supervisor', 'Seamless Handoff'],
+      title: 'AI Quotation Engine — Quotes That Close Themselves',
+      desc: 'Your AI chats with the customer, collects the exact requirement (size, quantity, specs), applies the right pricing model with GST, and sends a branded quotation PDF on WhatsApp — fully automatic. For vendor-priced items like delivery, it quotes "to be confirmed", then you set the price and it resends the final quote.',
+      badges: ['Smart Requirement Collection', 'Auto Price + GST', 'Branded PDF Quote'],
     },
     {
-      icon: Crown,
-      gradient: 'from-amber-500 to-orange-500',
-      bg: 'from-amber-50 to-orange-50',
-      border: 'border-amber-100',
-      title: 'Advanced Lead Intelligence (Scoring & VIP System)',
-      desc: 'Stop treating every lead the same. Automatically capture inbound leads, tag them based on interest, rank them using Lead Scoring, and fast-track high-value buyers through our dedicated VIP Lead System.',
-      badges: ['Lead Scoring', 'VIP Lead System', 'Intent Tagging'],
-    },
-    {
-      icon: Repeat,
+      icon: Brain,
       gradient: 'from-emerald-500 to-teal-500',
       bg: 'from-emerald-50 to-teal-50',
       border: 'border-emerald-100',
-      title: 'Automated Nurturing (Drip Campaigns & Auto Follow-Up)',
-      desc: 'Broadcasters just blast messages; we build relationships. Launch automated Drip Campaigns and activate the Auto Follow-Up Engine to re-engage cold prospects and increase conversion rates up to 3x.',
-      badges: ['Drip Campaigns', 'Auto Follow-Up Engine', '3x Conversions'],
+      title: 'Salesman Memory — It Remembers Your Customers',
+      desc: 'Most bots forget you the moment a chat ends. ChatPro365 remembers what each customer was interested in, and when they return days later it greets them by recalling it and nudges them forward — exactly like a human salesperson who knows your buyers.',
+      badges: ['Returning-Customer Recall', 'Smart Idle Reset', 'Human-like Follow-up'],
+    },
+    {
+      icon: Activity,
+      gradient: 'from-blue-500 to-indigo-500',
+      bg: 'from-blue-50 to-indigo-50',
+      border: 'border-blue-100',
+      title: 'Self-Healing AI — Your Bot Fixes Itself',
+      desc: 'Other tools show you a drop-off chart and leave you guessing. Our AI QA Supervisor reads your actual failed conversations, pinpoints exactly where the bot lost the customer, and writes the precise fix for you to apply — so your bot gets sharper every week.',
+      badges: ['Funnel-Leak Detection', 'AI-Written Fixes', 'On-Demand Audit'],
     },
   ];
 
@@ -227,13 +237,13 @@ const LandingPage = () => {
   ];
 
   const comparisonRows = [
-    { feature: 'Chat Capability', basic: 'Basic Broadcasts Only', pro: 'Hybrid Human + AI Chat' },
-    { feature: 'Lead Nurturing', basic: 'Manual Follow-ups', pro: 'Auto Follow-Up Engine' },
-    { feature: 'Lead Prioritization', basic: 'Simple Contact Lists', pro: 'Lead Scoring & VIP Tracking' },
-    { feature: 'Quality Control', basic: 'No Oversight', pro: 'AI Quality Supervisor' },
-    { feature: 'Analytics', basic: 'Basic Sent/Delivered Status', pro: 'Advanced AI Performance Insights' },
-    { feature: 'AI Automation', basic: 'None', pro: 'Category-Based AI Bot' },
-    { feature: 'Drip Campaigns', basic: 'Not Available', pro: 'Full Multi-Step Automation' },
+    { feature: 'Price Quotations', basic: 'Manual, or not available', pro: 'AI sends a branded GST quote PDF in chat' },
+    { feature: 'Customer Memory', basic: 'Forgets after each chat', pro: 'Recalls past interest & re-engages' },
+    { feature: 'Delivery / Vendor Pricing', basic: 'Not handled', pro: 'Quote now → you confirm → final quote auto-resent' },
+    { feature: 'Setup', basic: 'Build chatbot flows by hand', pro: 'Works from your business info — no flow-building' },
+    { feature: 'Bot Improvement', basic: 'You guess what to fix', pro: 'AI finds the leak & writes the fix' },
+    { feature: 'Languages', basic: 'Basic / English only', pro: 'Mirrors Hinglish & regional scripts' },
+    { feature: 'Follow-ups', basic: 'Time-based blasts', pro: 'Behaviour-triggered abandoned-quote nudges' },
   ];
 
   const testimonials = [
@@ -448,16 +458,16 @@ const LandingPage = () => {
 
             {/* Headline */}
             <motion.h1 variants={fadeUp} className="text-hero font-bold tracking-tight mb-6 max-w-5xl mx-auto">
-              Don't Just Send WhatsApp Messages.{' '}
+              Don't Just Reply on WhatsApp.{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">
-                Automate Your Entire Sales & Support Funnel
+                Quote, Follow Up & Close Deals
               </span>{' '}
-              on Autopilot!
+              — Automatically.
             </motion.h1>
 
             {/* Sub-headline */}
             <motion.p variants={fadeUp} className="text-lead text-zinc-500 max-w-3xl mx-auto mb-10 font-normal leading-relaxed">
-              Meet <strong className="text-zinc-800">ChatPro365</strong>—The Ultimate AI-Powered WhatsApp Business Automation Platform. Capture inbound leads, score their intent, nurture them with automated drip campaigns, and scale your business 24/7.
+              Meet <strong className="text-zinc-800">ChatPro365</strong> — the AI salesman for WhatsApp. It chats with your customer, understands the requirement, calculates the price, and sends a branded <strong className="text-zinc-800">GST quotation PDF</strong> — no human, no typing. Then it remembers them and follows up like your best salesperson.
             </motion.p>
 
             {/* CTAs */}
@@ -631,6 +641,143 @@ const LandingPage = () => {
                 </div>
               </motion.div>
             ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
+          SECTION 3.5: AI QUOTATION ENGINE (FLAGSHIP)
+      ════════════════════════════════════════ */}
+      <section className="py-12 md:py-24 bg-white shadow-sm border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm font-bold mb-6">
+              <FileText className="w-4 h-4" /> The Flagship — AI Quotation Engine
+            </div>
+            <h2 className="text-section-title font-bold mb-6 tracking-tight text-zinc-900">
+              From "How much?" to a <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">Ready Quotation</span> — in One Chat
+            </h2>
+            <p className="text-lead text-zinc-500">No human types it. No flow to build. Your AI runs the entire quote — then follows up to close it.</p>
+          </motion.div>
+
+          {/* ── Wow visual: live WhatsApp chat → branded quotation PDF ── */}
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center mb-14 md:mb-20 max-w-5xl mx-auto">
+
+            {/* Left — WhatsApp chat */}
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
+              className="bg-white rounded-[1.75rem] shadow-2xl border border-zinc-100 overflow-hidden">
+              <div className="bg-gradient-to-r from-emerald-600 to-blue-600 px-5 py-3.5 flex items-center gap-3">
+                <div className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center"><Bot className="w-4 h-4 text-white" /></div>
+                <div>
+                  <p className="font-bold text-white text-sm">ChatPro365 AI Agent</p>
+                  <p className="text-[11px] text-emerald-100 flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-emerald-300" /> Online · replying instantly</p>
+                </div>
+              </div>
+              <motion.div variants={chatBody} initial="hidden" whileInView="visible" viewport={{ once: true }} className="p-5 bg-[#f0f2f5] flex flex-col gap-3 min-h-[300px]">
+                <motion.div variants={bubbleIn} className="self-end bg-zinc-950 text-white px-3.5 py-2.5 rounded-2xl rounded-tr-sm max-w-[80%] text-sm">Hi, I need a 20×15 office cabin 🏗️</motion.div>
+                <motion.div variants={bubbleIn} className="self-start bg-white px-3.5 py-2.5 rounded-2xl rounded-tl-sm max-w-[85%] text-sm text-zinc-800 shadow-sm">Great! How many units, and your delivery location?</motion.div>
+                <motion.div variants={bubbleIn} className="self-end bg-zinc-950 text-white px-3.5 py-2.5 rounded-2xl rounded-tr-sm max-w-[70%] text-sm">1 unit, Bengaluru</motion.div>
+                <motion.div variants={bubbleIn} className="self-start bg-white px-3.5 py-2.5 rounded-2xl rounded-tl-sm max-w-[90%] text-sm text-zinc-800 shadow-sm">
+                  Perfect 👍 Here's your quotation:
+                  <div className="mt-2 flex items-center gap-3 bg-emerald-50 border border-emerald-100 rounded-xl p-2.5">
+                    <div className="w-9 h-9 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-lg flex items-center justify-center shrink-0"><FileText className="w-4 h-4 text-white" /></div>
+                    <div className="leading-tight min-w-0">
+                      <p className="text-[12px] font-bold text-zinc-800 truncate">Quotation-3307.pdf</p>
+                      <p className="text-[11px] text-zinc-500">Total: ₹3,77,600 · tap to view</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </motion.div>
+
+            {/* Right — branded quotation PDF (with "generating" placeholder) */}
+            <div className="relative">
+            <motion.div initial={{ opacity: 0, scale: 0.92, y: 16 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 2.1, ease: "easeOut" }}
+              className="bg-white rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden">
+              <div className="h-2 bg-gradient-to-r from-emerald-500 to-blue-500" />
+              <div className="p-5 sm:p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <p className="font-bold text-zinc-900 text-base">Apex Modular Cabins</p>
+                    <p className="text-[11px] text-zinc-400">GSTIN: 29ABCDE1234F1Z5</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">QUOTATION</p>
+                    <p className="text-[11px] text-zinc-400">No: AC/QU/3307</p>
+                  </div>
+                </div>
+                <div className="bg-zinc-50 border border-zinc-100 rounded-xl px-4 py-3 mb-4 grid grid-cols-3 gap-2 text-[11px]">
+                  <div><span className="text-zinc-400 block">Product</span><span className="font-semibold text-zinc-700">Office Cabin</span></div>
+                  <div><span className="text-zinc-400 block">Size</span><span className="font-semibold text-zinc-700">20×15 ft</span></div>
+                  <div><span className="text-zinc-400 block">Qty</span><span className="font-semibold text-zinc-700">1</span></div>
+                </div>
+                <table className="w-full text-sm">
+                  <thead><tr className="text-[10px] uppercase tracking-wider text-zinc-400 border-b border-zinc-100"><th className="text-left py-2 font-bold">Description</th><th className="text-right py-2 font-bold">Amount</th></tr></thead>
+                  <tbody className="text-zinc-700">
+                    <tr className="border-b border-zinc-50"><td className="py-2.5">Portable Cabin (300 sqft)</td><td className="py-2.5 text-right font-medium">₹2,85,000</td></tr>
+                    <tr className="border-b border-zinc-50"><td className="py-2.5 text-zinc-500">↳ Add-on: Toilet Cabin</td><td className="py-2.5 text-right font-medium">₹35,000</td></tr>
+                  </tbody>
+                </table>
+                <div className="flex justify-end mt-3">
+                  <div className="w-48 space-y-1.5 text-sm">
+                    <div className="flex justify-between text-zinc-500"><span>Sub Total</span><span>₹3,20,000</span></div>
+                    <div className="flex justify-between text-zinc-500"><span>GST (18%)</span><span>₹57,600</span></div>
+                    <div className="flex justify-between font-bold text-zinc-900 border-t border-zinc-200 pt-2 mt-1">
+                      <span>Grand Total</span>
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">₹3,77,600</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* "Generating quotation…" placeholder — fades out as the real PDF reveals */}
+            <motion.div initial={{ opacity: 1 }} whileInView={{ opacity: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 1.9 }}
+              className="absolute inset-0 bg-white rounded-2xl border border-zinc-200 overflow-hidden flex flex-col pointer-events-none">
+              <div className="h-2 bg-gradient-to-r from-emerald-500 to-blue-500" />
+              <div className="flex-1 flex flex-col items-center justify-center gap-3 p-6">
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center">
+                  <Loader2 className="w-5 h-5 text-white animate-spin" />
+                </div>
+                <p className="text-sm font-semibold text-zinc-700">Generating quotation…</p>
+                <div className="w-full max-w-[220px] space-y-2 mt-1">
+                  <div className="h-2.5 rounded bg-zinc-100 animate-pulse" />
+                  <div className="h-2.5 rounded bg-zinc-100 animate-pulse w-4/5" />
+                  <div className="h-2.5 rounded bg-zinc-100 animate-pulse w-3/5" />
+                </div>
+              </div>
+            </motion.div>
+            </div>
+          </div>
+
+          <p className="text-center text-xs font-bold uppercase tracking-widest text-zinc-400 mb-6">How it works — 5 steps, zero manual work</p>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {[
+              { icon: MessageSquare, step: '1', title: 'Customer Asks', desc: '"I need a 20×15 office cabin."' },
+              { icon: Brain, step: '2', title: 'AI Collects Details', desc: 'Asks size, quantity, location — the exact slots you configured.' },
+              { icon: BarChart3, step: '3', title: 'Auto Price + GST', desc: 'Applies per-sqft / per-unit pricing, discounts and tax.' },
+              { icon: FileText, step: '4', title: 'Branded PDF Quote', desc: 'Sends a professional quotation PDF right inside WhatsApp.' },
+              { icon: CheckCircle, step: '5', title: 'Follow Up & Close', desc: 'Nudges the lead, and resends a final quote once delivery is confirmed.' },
+            ].map((s, i) => (
+              <motion.div key={i} variants={fadeUp} className="relative bg-zinc-50 border border-zinc-200 rounded-2xl p-6 hover:border-emerald-200 hover:shadow-md transition-all">
+                <div className="w-11 h-11 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-xl flex items-center justify-center mb-4 shadow-sm">
+                  <s.icon className="w-5 h-5 text-white" />
+                </div>
+                <span className="absolute top-5 right-5 text-xs font-bold text-zinc-300">{s.step}</span>
+                <h3 className="font-bold text-zinc-900 text-sm mb-1">{s.title}</h3>
+                <p className="text-zinc-500 text-xs leading-relaxed font-normal">{s.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Industries strip */}
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="mt-12 text-center">
+            <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Built for quote-driven businesses</p>
+            <div className="flex flex-wrap justify-center gap-2.5">
+              {['Manufacturing', 'Interiors & Modular', 'Portable Cabins', 'Events & Catering', 'Construction', 'Services & B2B'].map((tag, i) => (
+                <span key={i} className="bg-white border border-zinc-200 text-zinc-600 text-sm font-medium px-4 py-2 rounded-full">{tag}</span>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
