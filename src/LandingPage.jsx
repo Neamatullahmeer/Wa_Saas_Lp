@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { APP_BASE_URL } from './lib/apiConfig';
 import api from './lib/api';
 import {
@@ -120,7 +121,7 @@ const FAQItem = ({ question, answer }) => {
 // ─────────────────────────────────────────────
 // Main Component
 // ─────────────────────────────────────────────
-const LandingPage = () => {
+const LandingPage = ({ activeSection = 'all' }) => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [leadData, setLeadData] = useState({ name: '', phone: '' });
@@ -310,7 +311,7 @@ const LandingPage = () => {
 
   // ── Render ──────────────────────────────────
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50 font-sans text-slate-900 overflow-x-hidden selection:bg-emerald-200">
+    <div className={`min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50 font-sans text-slate-900 overflow-x-hidden selection:bg-emerald-200 ${activeSection}-page`}>
 
       {/* ── LEAD CAPTURE MODAL ── */}
       <AnimatePresence>
@@ -380,12 +381,12 @@ const LandingPage = () => {
               <ChatproLogo className="h-12 sm:h-14 w-auto drop-shadow-sm -ml-2" />
             </div>
             <div className="hidden md:flex space-x-8 text-zinc-500 font-medium">
-              <a href="#problem" className="hover:text-zinc-900 transition-colors">Why ChatPro365</a>
-              <a href="#features" className="hover:text-zinc-900 transition-colors">Features</a>
-              <a href="#comparison" className="hover:text-zinc-900 transition-colors">Compare</a>
-              <a href="#pricing" className="hover:text-zinc-900 transition-colors">Pricing</a>
-              <a href="#about" className="hover:text-zinc-900 transition-colors">About Us</a>
-              <a href="#faq" className="hover:text-zinc-900 transition-colors">FAQ</a>
+              <Link to="/about" className="hover:text-zinc-900 transition-colors">Why ChatPro365</Link>
+              <Link to="/features" className="hover:text-zinc-900 transition-colors">Features</Link>
+              <Link to="/compare" className="hover:text-zinc-900 transition-colors">Compare</Link>
+              <Link to="/pricing" className="hover:text-zinc-900 transition-colors">Pricing</Link>
+              <Link to="/about" className="hover:text-zinc-900 transition-colors">About Us</Link>
+              <Link to="/faq" className="hover:text-zinc-900 transition-colors">FAQ</Link>
             </div>
             <div className="hidden md:flex items-center gap-4">
               <a href={`${APP_BASE_URL}/login`} className="text-zinc-500 font-medium hover:text-zinc-900 transition-colors">Login</a>
@@ -419,12 +420,12 @@ const LandingPage = () => {
               className="md:hidden overflow-hidden bg-white border-t border-zinc-100"
             >
               <div className="px-4 py-4 flex flex-col gap-1">
-                {['#problem|Why ChatPro365', '#features|Features', '#comparison|Compare', '#pricing|Pricing', '#about|About Us', '#faq|FAQ'].map((item) => {
+                {['/about|Why ChatPro365', '/features|Features', '/compare|Compare', '/pricing|Pricing', '/about|About Us', '/faq|FAQ'].map((item) => {
                   const [href, label] = item.split('|');
                   return (
-                    <a key={href} href={href} onClick={() => setMenuOpen(false)} className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-zinc-700 font-semibold hover:bg-zinc-50 transition-colors text-base">
+                    <Link key={href} to={href} onClick={() => setMenuOpen(false)} className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-zinc-700 font-semibold hover:bg-zinc-50 transition-colors text-base">
                       {label}
-                    </a>
+                    </Link>
                   );
                 })}
                 <div className="mt-3 pt-3 border-t border-zinc-100">
@@ -1356,10 +1357,10 @@ const LandingPage = () => {
             <div>
               <h4 className="font-bold text-white mb-6 text-lg tracking-tight">Product</h4>
               <ul className="space-y-4 text-base font-medium text-zinc-400">
-                <li><a href="#features" className="hover:text-emerald-400 transition-colors cursor-pointer">Product Features</a></li>
-                <li><a href="#pricing" className="hover:text-emerald-400 transition-colors cursor-pointer">Pricing</a></li>
-                <li><a href="#comparison" className="hover:text-emerald-400 transition-colors cursor-pointer">Compare Plans</a></li>
-                <li><button onClick={() => setActiveFooterPage('CaseStudies')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Case Studies</button></li>
+                <li><Link to="/features" className="hover:text-emerald-400 transition-colors cursor-pointer">Product Features</Link></li>
+                <li><Link to="/pricing" className="hover:text-emerald-400 transition-colors cursor-pointer">Pricing</Link></li>
+                <li><Link to="/compare" className="hover:text-emerald-400 transition-colors cursor-pointer">Compare Plans</Link></li>
+                <li><Link to="/case-studies" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Case Studies</Link></li>
                 <li><button onClick={() => setShowModal(true)} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Start Free Trial</button></li>
               </ul>
             </div>
@@ -1367,23 +1368,23 @@ const LandingPage = () => {
             <div>
               <h4 className="font-bold text-white mb-6 text-lg tracking-tight">Resources</h4>
               <ul className="space-y-4 text-base font-medium text-zinc-400">
-                <li><button onClick={() => setActiveFooterPage('HelpCenter')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Help Center</button></li>
-                <li><button onClick={() => setActiveFooterPage('APIDocs')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">API Documentation</button></li>
-                <li><button onClick={() => setActiveFooterPage('Blog')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Blog</button></li>
-                <li><button onClick={() => setActiveFooterPage('Community')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Community</button></li>
-                <li><button onClick={() => setActiveFooterPage('ContactUs')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Contact Us</button></li>
+                <li><Link to="/help" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Help Center</Link></li>
+                <li><Link to="/api-docs" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">API Documentation</Link></li>
+                <li><Link to="/blog" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Blog</Link></li>
+                <li><Link to="/community" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Community</Link></li>
+                <li><Link to="/contact" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Contact Us</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-bold text-white mb-6 text-lg tracking-tight">Legal</h4>
               <ul className="space-y-4 text-base font-medium text-zinc-400">
-                <li><button onClick={() => setActiveFooterPage('PrivacyPolicy')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Privacy Policy</button></li>
-                <li><button onClick={() => setActiveFooterPage('TermsOfService')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Terms of Service</button></li>
-                <li><button onClick={() => setActiveFooterPage('RefundPolicy')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Refund &amp; Cancellation</button></li>
-                <li><button onClick={() => setActiveFooterPage('AcceptableUse')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Acceptable Use Policy</button></li>
-                <li><button onClick={() => setActiveFooterPage('GDPR')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">GDPR Compliance</button></li>
-                <li><button onClick={() => setActiveFooterPage('CookiePolicy')} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Cookie Policy</button></li>
+                <li><Link to="/privacy-policy" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Privacy Policy</Link></li>
+                <li><Link to="/terms" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Terms of Service</Link></li>
+                <li><Link to="/refund" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Refund &amp; Cancellation</Link></li>
+                <li><Link to="/acceptable-use" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Acceptable Use Policy</Link></li>
+                <li><Link to="/gdpr" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">GDPR Compliance</Link></li>
+                <li><Link to="/cookie-policy" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Cookie Policy</Link></li>
               </ul>
             </div>
           </div>
@@ -1404,19 +1405,7 @@ const LandingPage = () => {
         </div>
       </footer>
 
-      {/* ── Footer Pages Modals ── */}
-      <PrivacyPolicyPage isOpen={activeFooterPage === 'PrivacyPolicy'} onClose={() => setActiveFooterPage(null)} />
-      <TermsOfServicePage isOpen={activeFooterPage === 'TermsOfService'} onClose={() => setActiveFooterPage(null)} />
-      <GDPRPage isOpen={activeFooterPage === 'GDPR'} onClose={() => setActiveFooterPage(null)} />
-      <CookiePolicyPage isOpen={activeFooterPage === 'CookiePolicy'} onClose={() => setActiveFooterPage(null)} />
-      <HelpCenterPage isOpen={activeFooterPage === 'HelpCenter'} onClose={() => setActiveFooterPage(null)} />
-      <APIDocsPage isOpen={activeFooterPage === 'APIDocs'} onClose={() => setActiveFooterPage(null)} />
-      <BlogPage isOpen={activeFooterPage === 'Blog'} onClose={() => setActiveFooterPage(null)} />
-      <CommunityPage isOpen={activeFooterPage === 'Community'} onClose={() => setActiveFooterPage(null)} />
-      <CaseStudiesPage isOpen={activeFooterPage === 'CaseStudies'} onClose={() => setActiveFooterPage(null)} />
-      <RefundPolicyPage isOpen={activeFooterPage === 'RefundPolicy'} onClose={() => setActiveFooterPage(null)} />
-      <AcceptableUsePage isOpen={activeFooterPage === 'AcceptableUse'} onClose={() => setActiveFooterPage(null)} />
-      <ContactUsPage isOpen={activeFooterPage === 'ContactUs'} onClose={() => setActiveFooterPage(null)} />
+      {/* Footer Modal system removed, pages are now standard routes */}
 
       {/* ── Floating WhatsApp Button ── */}
       <a

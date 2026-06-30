@@ -102,4 +102,21 @@
       transition-duration: 0.01ms !important;
     }
   }
+
+  /* ── SEO Page Isolations ── */
+  /* Hide all sections by default on specific pages */
+  .features-page section,
+  .pricing-page section,
+  .compare-page section,
+  .about-page section,
+  .faq-page section {
+    display: none !important;
+  }
+
+  /* Show only the relevant section */
+  .features-page section#features { display: block !important; }
+  .pricing-page section#pricing { display: block !important; }
+  .compare-page section#comparison { display: block !important; }
+  .about-page section#problem { display: block !important; } /* Reusing Problem section as About */
+  .faq-page section#faq { display: block !important; }
 }

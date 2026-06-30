@@ -4,42 +4,11 @@ import { X, Shield, FileText, Globe, Cookie, HeadphonesIcon, Code2, BookOpen, Us
 // ─────────────────────────────────────────────
 // Shared Page Modal Wrapper
 // ─────────────────────────────────────────────
-const PageModal = ({ isOpen, onClose, children }) => {
-  if (!isOpen) return null;
+const PageModal = ({ children }) => {
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[200] overflow-y-auto"
-          style={{ backgroundColor: 'rgba(9,9,11,0.97)' }}
-        >
-          {/* Close Button */}
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            onClick={onClose}
-            className="fixed top-6 right-6 z-[210] w-11 h-11 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-300 hover:text-white transition-all shadow-xl"
-            aria-label="Close page"
-          >
-            <X className="w-5 h-5" />
-          </motion.button>
-
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="min-h-screen"
-          >
-            {children}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div className="min-h-screen bg-[#09090b] pt-24 pb-12 relative z-10">
+      {children}
+    </div>
   );
 };
 
