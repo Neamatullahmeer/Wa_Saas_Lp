@@ -1234,7 +1234,7 @@ export const ContactUsPage = ({ isOpen, onClose }) => {
   const cards = [
     { icon: Building2, color: 'emerald', label: 'Business', lines: ['ChatPro365', 'Company registration in progress'] },
     { icon: MapPin, color: 'blue', label: 'Address', lines: ['123, Demo Tower, MG Road', 'Bengaluru, Karnataka 560001', 'India'] },
-    { icon: Mail, color: 'emerald', label: 'Email', lines: ['support@chatpro365.com', 'sales@chatpro365.com'] },
+    { icon: Mail, color: 'emerald', label: 'Email Us', lines: ['Sales — sales@chatpro365.com', 'Support — support@chatpro365.com', 'Billing — billing@chatpro365.com'] },
     { icon: Phone, color: 'blue', label: 'Phone / WhatsApp', lines: ['+91 74578 63240'] },
     { icon: Clock, color: 'orange', label: 'Hours', lines: ['Mon – Sat', '10:00 AM – 7:00 PM IST'] },
   ];
@@ -1262,9 +1262,14 @@ export const ContactUsPage = ({ isOpen, onClose }) => {
               </div>
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1">{c.label}</p>
-                {c.lines.map((line, j) => (
-                  <p key={j} className="text-zinc-300 font-normal leading-relaxed">{line}</p>
-                ))}
+                {c.lines.map((line, j) => {
+                  const m = line.match(/[\w.+-]+@[\w.-]+\.\w+/);
+                  return m ? (
+                    <a key={j} href={`mailto:${m[0]}`} className="block text-zinc-300 font-normal leading-relaxed hover:text-emerald-400 transition-colors">{line}</a>
+                  ) : (
+                    <p key={j} className="text-zinc-300 font-normal leading-relaxed">{line}</p>
+                  );
+                })}
               </div>
             </div>
           ))}
