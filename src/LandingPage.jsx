@@ -1111,6 +1111,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
                   'Up to 3 Agents',
                   '5,000 Monthly Messages',
                   'AI Auto-Reply Bot',
+                  'Human + AI Hybrid Chat',
                   'Bulk Broadcast Campaigns',
                   'Basic Lead Management',
                   'Real-Time Dashboard',
