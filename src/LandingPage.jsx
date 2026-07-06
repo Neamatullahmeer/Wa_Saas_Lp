@@ -7,7 +7,7 @@ import {
   Globe, Smartphone, Mail, MapPin, CheckCircle, Check, Database, Sparkles, X, Loader2,
   Menu, Star, TrendingUp, Target, BarChart3, Layers, FileText,
   Award, ChevronDown, HeadphonesIcon, Package, Calendar, Activity,
-  UserCheck, Filter, Megaphone, Send, Brain, Eye, Crown, Lock
+  UserCheck, Filter, Megaphone, Send, Brain, Eye, Crown, Lock, UploadCloud
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -180,13 +180,22 @@ const LandingPage = ({ activeSection = 'all' }) => {
       badges: ['Returning-Customer Recall', 'Smart Idle Reset', 'Human-like Follow-up'],
     },
     {
+      icon: UploadCloud,
+      gradient: 'from-violet-500 to-purple-500',
+      bg: 'from-violet-50 to-purple-50',
+      border: 'border-violet-100',
+      title: 'Train It in Minutes — PDFs, Photos, or Your Website',
+      desc: 'No flow-builders, no typing hundreds of Q&As. Drop in your price list (even a photo of a printed one), brochures, policy PDFs — or just paste your website link. The bot answers strictly from YOUR content, cites the exact document it used, and never invents an answer it can\'t back up. Upload a rate card and it goes further: it builds your sellable catalog from it and starts quoting. A built-in Test Playground shows you every answer and its source before customers ever see it.',
+      badges: ['PDF, Photo & Website Import', 'Answers With Sources — Zero Guessing', 'Price List → Sellable Catalog'],
+    },
+    {
       icon: Activity,
       gradient: 'from-blue-500 to-indigo-500',
       bg: 'from-blue-50 to-indigo-50',
       border: 'border-blue-100',
       title: 'Self-Healing AI — Your Bot Fixes Itself',
-      desc: 'Other tools show you a drop-off chart and leave you guessing. Our AI QA Supervisor reads your actual failed conversations, pinpoints exactly where the bot lost the customer, and writes the precise fix for you to apply — so your bot gets sharper every week.',
-      badges: ['Funnel-Leak Detection', 'AI-Written Fixes', 'On-Demand Audit'],
+      desc: 'Other tools show you a drop-off chart and leave you guessing. Our AI QA Supervisor reads your actual failed conversations, pinpoints exactly where the bot lost the customer, and writes the precise fix for you to apply. It also learns from your team — when an agent answers something new, one click teaches it to the bot, and every question the bot couldn\'t answer lands in a report so you always know what to add next.',
+      badges: ['Funnel-Leak Detection', 'AI-Written Fixes', 'Learns From Your Team'],
     },
   ];
 
@@ -197,6 +206,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
       title: 'AI & Intelligent Automation',
       features: [
         { icon: Brain, name: 'Category-Based AI Bot', desc: 'Handles complex, department-specific queries instantly.' },
+        { icon: UploadCloud, name: 'Knowledge-Trained AI', desc: 'Feed PDFs, photos or your website — grounded answers with sources.' },
         { icon: Smartphone, name: 'WhatsApp AI Assistant', desc: 'Acts as your 24/7 dedicated digital salesman.' },
         { icon: Clock, name: 'Working Hours Intelligence', desc: 'Automatically manages out-of-office flows.' },
         { icon: MessageSquare, name: 'Interactive WA Buttons', desc: 'Drives higher engagement with clickable menus.' },
@@ -238,6 +248,8 @@ const LandingPage = ({ activeSection = 'all' }) => {
   ];
 
   const comparisonRows = [
+    { feature: 'Bot Training', basic: 'Type Q&As one by one, build flows', pro: 'Upload PDF / photo / website — trained in minutes' },
+    { feature: 'Answer Accuracy', basic: 'Makes up answers when unsure', pro: 'Grounded answers with source citations — never guesses' },
     { feature: 'Price Quotations', basic: 'Manual, or not available', pro: 'AI sends a branded GST quote PDF in chat' },
     { feature: 'Customer Memory', basic: 'Forgets after each chat', pro: 'Recalls past interest & re-engages' },
     { feature: 'Delivery / Vendor Pricing', basic: 'Not handled', pro: 'Quote now → you confirm → final quote auto-resent' },
@@ -278,6 +290,10 @@ const LandingPage = ({ activeSection = 'all' }) => {
     {
       question: "What is ChatPro365, and how does it use the WhatsApp Business API?",
       answer: "ChatPro365 is an official WhatsApp Business API based AI automation platform. It allows businesses to send bulk WhatsApp broadcasts, build AI chatbot auto-replies, and manage a high volume of customer support messages from a single, unified CRM dashboard."
+    },
+    {
+      question: "How do I train the AI bot on my business — do I need to build chat flows?",
+      answer: "No flows, no coding. Upload your price lists, brochures or policy documents (PDF, Word, CSV — even a photo of a printed price list), or simply paste your website link. ChatPro365 indexes everything within minutes and the bot answers customer questions strictly from YOUR content, citing the exact document it used — it never invents an answer. Upload a rate card and it also builds your sellable product catalog automatically. A built-in Test Playground lets you verify every answer and its source before going live, and the bot keeps learning from your team's replies over time."
     },
     {
       question: "Do I need to be online 24/7 to manage customer chats?",
