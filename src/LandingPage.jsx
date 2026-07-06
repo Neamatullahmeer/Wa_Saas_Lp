@@ -342,7 +342,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="bg-white rounded-3xl p-8 max-w-md w-full relative z-10 shadow-2xl border border-zinc-100"
+              className="bg-white rounded-3xl p-6 max-w-md w-full relative z-10 shadow-2xl border border-zinc-100"
             >
               <button onClick={() => setShowModal(false)} className="absolute top-4 right-4 p-2 text-zinc-400 hover:text-zinc-900 bg-zinc-50 rounded-full transition-colors">
                 <X className="w-5 h-5" />
@@ -458,7 +458,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 1: HERO
       ════════════════════════════════════════ */}
-      <section className="relative pt-28 pb-16 sm:pt-36 lg:pt-48 lg:pb-32 overflow-hidden" aria-label="Hero section">
+      <section className="relative pt-24 pb-10 sm:pt-28 lg:pt-32 lg:pb-16 overflow-hidden" aria-label="Hero section">
         {/* Background blobs */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1400px] h-[700px] opacity-25 bg-gradient-to-b from-emerald-500 via-blue-400 to-transparent blur-[140px] -z-10 rounded-full mix-blend-multiply" />
         <div className="absolute top-20 left-0 w-[400px] h-[400px] opacity-20 bg-gradient-to-br from-emerald-400 to-teal-300 blur-[100px] -z-10 rounded-full" />
@@ -474,7 +474,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeUp} className="text-hero font-bold tracking-tight mb-6 max-w-5xl mx-auto">
+            <motion.h1 variants={fadeUp} className="text-hero font-semibold tracking-tight mb-6 max-w-5xl mx-auto">
               Don't Just Reply on WhatsApp.{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">
                 Quote, Follow Up & Close Deals
@@ -488,7 +488,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
             </motion.p>
 
             {/* CTAs */}
-            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row justify-center gap-4 mb-16 w-full sm:w-auto">
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row justify-center gap-4 mb-10 w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 40px -5px rgba(124, 58, 237, 0.5)" }}
                 whileTap={{ scale: 0.95 }}
@@ -511,7 +511,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
             </motion.div>
 
             {/* Stats Strip */}
-            <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-8 md:gap-16">
+            <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-6 md:gap-16">
               {[
                 { value: '500+', label: 'Growing Businesses' },
                 { value: '3x', label: 'Conversion Rate Boost' },
@@ -519,7 +519,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
                 { value: '40%', label: 'Average Lead Increase' },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
-                  <div className="text-3xl font-bold text-zinc-900">{stat.value}</div>
+                  <div className="text-2xl font-bold text-zinc-900">{stat.value}</div>
                   <div className="text-sm text-zinc-500 font-medium mt-1">{stat.label}</div>
                 </div>
               ))}
@@ -585,22 +585,22 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 2: PROBLEM & SOLUTION
       ════════════════════════════════════════ */}
-      <section id="problem" className="py-12 md:py-24 bg-white shadow-sm border-y border-slate-100">
+      <section id="problem" className="py-12 md:py-16 bg-white shadow-sm border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-            <motion.div variants={fadeUp} className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+            <motion.div variants={fadeUp} className="text-center max-w-3xl mx-auto mb-10 md:mb-10">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 border border-red-100 text-red-600 text-sm font-bold mb-6">
                 ⚠️ The Hidden Problem
               </div>
-              <h2 className="text-section-title font-bold mb-6 tracking-tight text-zinc-900">
+              <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
                 Why Manual WhatsApp Management is <span className="text-red-500">Killing Your Growth</span>
               </h2>
             </motion.div>
 
             {/* Problem Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 md:mb-20">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 md:mb-12">
               {problems.map((p, i) => (
-                <motion.div key={i} variants={fadeUp} whileHover={{ y: -5 }} className="bg-zinc-50 border border-zinc-200 rounded-3xl p-8 hover:border-red-200 hover:bg-red-50/30 transition-all duration-300">
+                <motion.div key={i} variants={fadeUp} whileHover={{ y: -5 }} className="bg-zinc-50 border border-zinc-200 rounded-3xl p-6 hover:border-red-200 hover:bg-red-50/30 transition-all duration-300">
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-red-50 border border-red-100`}>
                     <p.icon className="w-7 h-7 text-red-500" />
                   </div>
@@ -611,13 +611,13 @@ const LandingPage = ({ activeSection = 'all' }) => {
             </div>
 
             {/* Solution Banner */}
-            <motion.div variants={fadeUp} className="relative bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-700 rounded-3xl p-10 md:p-14 text-center overflow-hidden">
+            <motion.div variants={fadeUp} className="relative bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-700 rounded-3xl p-8 md:p-14 text-center overflow-hidden">
               <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 50%, white 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
               <div className="relative z-10">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-bold mb-6 border border-white/20">
                   <Sparkles className="w-4 h-4" /> The ChatPro365 Solution
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-snug max-w-3xl mx-auto">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-4 leading-snug max-w-3xl mx-auto">
                   "ChatPro365 brings your entire customer journey—from the first <em>hello</em> to the final checkout—into one unified, intelligent dashboard."
                 </h3>
                 <button onClick={() => setShowModal(true)} className="mt-8 bg-white text-emerald-700 font-bold px-8 py-4 rounded-full hover:bg-emerald-50 transition-colors shadow-xl text-lg inline-flex items-center gap-2">
@@ -632,20 +632,20 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 3: CORE USPs
       ════════════════════════════════════════ */}
-      <section className="py-12 md:py-24 bg-transparent border-b border-slate-100">
+      <section className="py-12 md:py-16 bg-transparent border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-3xl mx-auto mb-10 md:mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm font-bold mb-6">
               <Award className="w-4 h-4" /> Why Top Brands Choose Us
             </div>
-            <h2 className="text-section-title font-bold mb-6 tracking-tight text-zinc-900">
+            <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
               Why Top Brands Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">ChatPro365</span> Over Basic WhatsApp Tools
             </h2>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {usps.map((usp, i) => (
-              <motion.div key={i} variants={fadeUp} whileHover={{ y: -8 }} className={`bg-gradient-to-br ${usp.bg} border ${usp.border} rounded-3xl p-8 hover:shadow-xl transition-all duration-300`}>
+              <motion.div key={i} variants={fadeUp} whileHover={{ y: -8 }} className={`bg-gradient-to-br ${usp.bg} border ${usp.border} rounded-3xl p-6 hover:shadow-xl transition-all duration-300`}>
                 <div className={`w-14 h-14 bg-gradient-to-br ${usp.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
                   <usp.icon className="w-7 h-7 text-white" />
                 </div>
@@ -665,20 +665,20 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 3.5: AI QUOTATION ENGINE (FLAGSHIP)
       ════════════════════════════════════════ */}
-      <section className="py-12 md:py-24 bg-white shadow-sm border-b border-slate-100">
+      <section className="py-12 md:py-16 bg-white shadow-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-3xl mx-auto mb-10 md:mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm font-bold mb-6">
               <FileText className="w-4 h-4" /> The Flagship — AI Quotation Engine
             </div>
-            <h2 className="text-section-title font-bold mb-6 tracking-tight text-zinc-900">
+            <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
               From "How much?" to a <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">Ready Quotation</span> — in One Chat
             </h2>
             <p className="text-lead text-zinc-500">No human types it. No flow to build. Your AI runs the entire quote — then follows up to close it.</p>
           </motion.div>
 
           {/* ── Wow visual: live WhatsApp chat → branded quotation PDF ── */}
-          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center mb-14 md:mb-20 max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-6 items-center mb-14 md:mb-12 max-w-5xl mx-auto">
 
             {/* Left — WhatsApp chat */}
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
@@ -802,21 +802,21 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 4: 4 PILLARS FEATURE GRID
       ════════════════════════════════════════ */}
-      <section id="features" className="py-12 md:py-24 bg-white shadow-sm border-b border-slate-100">
+      <section id="features" className="py-12 md:py-16 bg-white shadow-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-3xl mx-auto mb-10 md:mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm font-bold mb-6">
               <Layers className="w-4 h-4" /> The 4 Pillars
             </div>
-            <h2 className="text-section-title font-bold mb-6 tracking-tight text-zinc-900">
+            <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
               Packed with Everything You Need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">Scale</span>
             </h2>
             <p className="text-lead text-zinc-500 font-medium">Every feature built specifically for WhatsApp-driven businesses.</p>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {pillars.map((pillar, pi) => (
-              <motion.div key={pi} variants={fadeIn} whileHover={{ y: -4 }} className="bg-zinc-50 border border-zinc-200 rounded-3xl p-8 hover:border-zinc-300 hover:shadow-lg transition-all duration-300">
+              <motion.div key={pi} variants={fadeIn} whileHover={{ y: -4 }} className="bg-zinc-50 border border-zinc-200 rounded-3xl p-6 hover:border-zinc-300 hover:shadow-lg transition-all duration-300">
                 <div className={`w-16 h-16 bg-gradient-to-br ${pillar.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
                   <pillar.icon className="w-8 h-8 text-white" />
                 </div>
@@ -843,13 +843,13 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 5: COMPARISON TABLE
       ════════════════════════════════════════ */}
-      <section id="comparison" className="py-12 md:py-24 bg-zinc-950 border-t border-zinc-800">
+      <section id="comparison" className="py-12 md:py-16 bg-zinc-950 border-t border-zinc-800">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 md:mb-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 md:mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-zinc-300 text-sm font-bold mb-6">
               <Shield className="w-4 h-4 text-emerald-400" /> Head-to-Head Comparison
             </div>
-            <h2 className="text-section-title font-bold text-white mb-4 tracking-tight">
+            <h2 className="text-section-title font-semibold text-white mb-4 tracking-tight">
               How ChatPro365 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">Defeats the Competition</span>
             </h2>
             <p className="text-lead text-zinc-400 font-medium">Not just better—in a completely different league.</p>
@@ -926,20 +926,20 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 6: TESTIMONIALS
       ════════════════════════════════════════ */}
-      <section className="py-12 md:py-24 bg-transparent border-b border-slate-100">
+      <section className="py-12 md:py-16 bg-transparent border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 md:mb-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 md:mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-100 text-amber-700 text-sm font-bold mb-6">
               <Star className="w-4 h-4 fill-amber-500 text-amber-500" /> Social Proof
             </div>
-            <h2 className="text-section-title font-bold mb-4 tracking-tight text-zinc-900">
+            <h2 className="text-section-title font-semibold mb-4 tracking-tight text-zinc-900">
               Loved by Hundreds of <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500">Founders & Sales Teams</span>
             </h2>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
-              <motion.div key={i} variants={fadeUp} whileHover={{ y: -8 }} className="bg-white rounded-3xl p-8 shadow-sm border border-zinc-200 hover:shadow-xl transition-all duration-300 flex flex-col">
+              <motion.div key={i} variants={fadeUp} whileHover={{ y: -8 }} className="bg-white rounded-3xl p-6 shadow-sm border border-zinc-200 hover:shadow-xl transition-all duration-300 flex flex-col">
                 <div className="flex gap-1 mb-6">
                   {[...Array(t.rating)].map((_, s) => <Star key={s} className="w-5 h-5 fill-amber-400 text-amber-400" />)}
                 </div>
@@ -962,16 +962,16 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 7: ABOUT US
       ════════════════════════════════════════ */}
-      <section id="about" className="py-12 md:py-24 bg-white shadow-sm border-b border-slate-100">
+      <section id="about" className="py-12 md:py-16 bg-white shadow-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
 
             {/* Header */}
-            <motion.div variants={fadeUp} className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+            <motion.div variants={fadeUp} className="text-center max-w-3xl mx-auto mb-10 md:mb-10">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm font-bold mb-6">
                 <Sparkles className="w-4 h-4" /> Our Story
               </div>
-              <h2 className="text-section-title font-bold mb-6 tracking-tight text-zinc-900">
+              <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
                 About <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">ChatPro365</span>
               </h2>
               <p className="text-lead text-zinc-500 font-normal leading-relaxed">
@@ -980,13 +980,13 @@ const LandingPage = ({ activeSection = 'all' }) => {
             </motion.div>
 
             {/* Mission Banner */}
-            <motion.div variants={fadeUp} className="relative bg-gradient-to-br from-emerald-600 via-blue-600 to-emerald-700 rounded-3xl p-10 md:p-14 overflow-hidden mb-12 md:mb-20">
+            <motion.div variants={fadeUp} className="relative bg-gradient-to-br from-emerald-600 via-blue-600 to-emerald-700 rounded-3xl p-8 md:p-14 overflow-hidden mb-8 md:mb-12">
               <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 20%, white 1px, transparent 1px), radial-gradient(circle at 80% 80%, white 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
               <div className="relative z-10 max-w-4xl mx-auto">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-bold mb-6 border border-white/20">
                   <Target className="w-4 h-4" /> Our Mission
                 </div>
-                <h3 className="text-2xl md:text-4xl font-bold text-white mb-6 leading-snug">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-6 leading-snug">
                   To help you automate business operations, elevate the customer experience, and dramatically increase your sales conversions.
                 </h3>
                 <p className="text-emerald-100 text-lg font-normal leading-relaxed">
@@ -996,12 +996,12 @@ const LandingPage = ({ activeSection = 'all' }) => {
             </motion.div>
 
             {/* What Makes Us Different Grid */}
-            <motion.div variants={fadeUp} className="text-center mb-10 md:mb-12">
+            <motion.div variants={fadeUp} className="text-center mb-10 md:mb-8">
               <h3 className="text-card-title font-bold text-zinc-900 mb-3">What Makes Us Different?</h3>
               <p className="text-zinc-500 font-medium">We don't just send messages — we build smart, automated sales and support machines.</p>
             </motion.div>
 
-            <motion.div variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 md:mb-20">
+            <motion.div variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 md:mb-12">
               {[
                 {
                   icon: Brain,
@@ -1052,7 +1052,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
                   desc: 'Connect your existing tools instantly through our native CRM Integration, while managing your catalog via Product & Inventory Management and AI Product Recommendations.',
                 },
               ].map((item, i) => (
-                <motion.div key={i} variants={fadeUp} whileHover={{ y: -6 }} className={`bg-gradient-to-br ${item.bg} border ${item.border} rounded-3xl p-8 hover:shadow-lg transition-all duration-300`}>
+                <motion.div key={i} variants={fadeUp} whileHover={{ y: -6 }} className={`bg-gradient-to-br ${item.bg} border ${item.border} rounded-3xl p-6 hover:shadow-lg transition-all duration-300`}>
                   <div className={`w-14 h-14 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center mb-5 shadow-lg`}>
                     <item.icon className="w-7 h-7 text-white" />
                   </div>
@@ -1063,14 +1063,14 @@ const LandingPage = ({ activeSection = 'all' }) => {
             </motion.div>
 
             {/* Your Complete Business Growth Partner */}
-            <motion.div variants={fadeUp} className="bg-zinc-950 rounded-3xl p-10 md:p-14 relative overflow-hidden">
+            <motion.div variants={fadeUp} className="bg-zinc-950 rounded-3xl p-8 md:p-14 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-emerald-600/20 to-blue-600/20 rounded-full blur-[100px] pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-br from-emerald-600/10 to-teal-600/10 rounded-full blur-[80px] pointer-events-none" />
               <div className="relative z-10 max-w-4xl">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-zinc-300 text-sm font-bold mb-6 border border-white/10">
                   <Award className="w-4 h-4 text-emerald-400" /> Your Complete Business Growth Partner
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 leading-snug max-w-3xl">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-6 leading-snug max-w-3xl">
                   ChatPro365 is designed to give founders and managers complete peace of mind.
                 </h3>
                 <p className="text-zinc-400 text-lg font-normal leading-relaxed mb-8 max-w-3xl">
@@ -1091,22 +1091,22 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 8: PRICING
       ════════════════════════════════════════ */}
-      <section id="pricing" className="py-12 md:py-24 bg-gradient-to-br from-slate-50 via-white to-emerald-50 border-b border-slate-100">
+      <section id="pricing" className="py-12 md:py-16 bg-gradient-to-br from-slate-50 via-white to-emerald-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-3xl mx-auto mb-10 md:mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm font-bold mb-6">
               <Zap className="w-4 h-4" /> Simple, Transparent Pricing
             </div>
-            <h2 className="text-section-title font-bold mb-6 tracking-tight text-zinc-900">
+            <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
               Choose the Plan That <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">Fits Your Growth</span>
             </h2>
             <p className="text-lead text-zinc-500 font-medium">No hidden fees. No lock-in contracts. Cancel anytime.</p>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
 
             {/* Starter Plan */}
-            <motion.div variants={fadeUp} whileHover={{ y: -8 }} className="bg-white border border-zinc-200 rounded-3xl p-8 flex flex-col h-full hover:shadow-xl transition-all duration-300">
+            <motion.div variants={fadeUp} whileHover={{ y: -8 }} className="bg-white border border-zinc-200 rounded-3xl p-6 flex flex-col h-full hover:shadow-xl transition-all duration-300">
               <div className="mb-6">
                 <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mb-4 shadow-md">
                   <Zap className="w-6 h-6 text-white" />
@@ -1116,7 +1116,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               </div>
               <div className="mb-6">
                 <div className="flex items-end gap-1">
-                  <span className="text-4xl font-bold text-zinc-900">₹2,999</span>
+                  <span className="text-3xl font-bold text-zinc-900">₹2,999</span>
                   <span className="text-zinc-400 font-medium mb-1">/month</span>
                 </div>
                 <p className="text-zinc-400 text-xs font-medium mt-1">Billed monthly · Cancel anytime</p>
@@ -1151,7 +1151,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
             </motion.div>
 
             {/* Pro Plan – MOST POPULAR */}
-            <motion.div variants={fadeUp} whileHover={{ y: -8 }} className="relative bg-gradient-to-br from-emerald-600 via-blue-600 to-emerald-700 rounded-3xl p-8 flex flex-col h-full shadow-2xl shadow-emerald-500/30">
+            <motion.div variants={fadeUp} whileHover={{ y: -8 }} className="relative bg-gradient-to-br from-emerald-600 via-blue-600 to-emerald-700 rounded-3xl p-6 flex flex-col h-full shadow-2xl shadow-emerald-500/30">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                 <span className="bg-gradient-to-r from-amber-400 to-orange-400 text-zinc-900 text-xs font-bold px-5 py-2 rounded-full shadow-lg">⭐ MOST POPULAR</span>
               </div>
@@ -1165,7 +1165,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               </div>
               <div className="relative z-10 mb-6">
                 <div className="flex items-end gap-1">
-                  <span className="text-4xl font-bold text-white">₹7,999</span>
+                  <span className="text-3xl font-bold text-white">₹7,999</span>
                   <span className="text-emerald-200 font-medium mb-1">/month</span>
                 </div>
                 <p className="text-emerald-300 text-xs font-medium mt-1">Billed monthly · Cancel anytime</p>
@@ -1203,7 +1203,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
             </motion.div>
 
             {/* Enterprise Plan */}
-            <motion.div variants={fadeUp} whileHover={{ y: -8 }} className="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 flex flex-col h-full hover:shadow-xl hover:border-zinc-700 transition-all duration-300">
+            <motion.div variants={fadeUp} whileHover={{ y: -8 }} className="bg-zinc-950 border border-zinc-800 rounded-3xl p-6 flex flex-col h-full hover:shadow-xl hover:border-zinc-700 transition-all duration-300">
               <div className="mb-6">
                 <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 shadow-md">
                   <Shield className="w-6 h-6 text-white" />
@@ -1213,7 +1213,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               </div>
               <div className="mb-6">
                 <div className="flex items-end gap-1">
-                  <span className="text-4xl font-bold text-white">Custom</span>
+                  <span className="text-3xl font-bold text-white">Custom</span>
                 </div>
                 <p className="text-zinc-500 text-xs font-medium mt-1">Tailored pricing for your business</p>
               </div>
@@ -1273,7 +1273,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 9: FINAL CTA
       ════════════════════════════════════════ */}
-      <section className="py-16 md:py-32 bg-zinc-950 relative overflow-hidden border-t border-zinc-800">
+      <section className="py-12 md:py-20 bg-zinc-950 relative overflow-hidden border-t border-zinc-800">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-gradient-to-r from-emerald-600/25 to-blue-600/25 rounded-full blur-[140px] pointer-events-none animate-pulse" />
         <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-full blur-[80px]" />
         <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-gradient-to-br from-orange-500/10 to-amber-500/10 rounded-full blur-[80px]" />
@@ -1285,10 +1285,10 @@ const LandingPage = ({ activeSection = 'all' }) => {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-zinc-300 text-sm font-bold mb-8">
             <TrendingUp className="w-4 h-4 text-emerald-400" /> Ready to Scale?
           </div>
-          <h2 className="text-section-title font-bold text-white mb-6 tracking-tight leading-tight">
+          <h2 className="text-section-title font-semibold text-white mb-6 tracking-tight leading-tight">
             Ready to Turn Your WhatsApp Into Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">Highest Grossing Sales Channel?</span>
           </h2>
-          <p className="text-lead text-zinc-400 mb-12 max-w-2xl mx-auto font-normal leading-relaxed">
+          <p className="text-lead text-zinc-400 mb-8 max-w-2xl mx-auto font-normal leading-relaxed">
             Sign up today and get access to the complete AI-powered business suite. No complex coding required.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -1311,13 +1311,13 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 10: FAQ
       ════════════════════════════════════════ */}
-      <section id="faq" className="py-12 md:py-24 bg-white shadow-sm border-b border-slate-100">
+      <section id="faq" className="py-12 md:py-16 bg-white shadow-sm border-b border-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 md:mb-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 md:mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-sm font-bold mb-6">
               <HeadphonesIcon className="w-4 h-4" /> Got Questions?
             </div>
-            <h2 className="text-section-title font-bold mb-4 tracking-tight text-zinc-900">
+            <h2 className="text-section-title font-semibold mb-4 tracking-tight text-zinc-900">
               Frequently Asked Questions
             </h2>
             <p className="text-lead text-zinc-500 font-medium">Everything you need to know before getting started.</p>
@@ -1352,7 +1352,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
       ════════════════════════════════════════ */}
       <footer className="bg-zinc-950 pt-12 md:pt-20 pb-8 md:pb-10 border-t border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8 mb-10 md:mb-10">
             <div className="md:col-span-1">
               <ChatproLogo className="h-16 w-auto drop-shadow-sm -ml-2 brightness-0 invert" />
               <p className="text-zinc-400 text-base mt-6 mb-6 font-normal leading-relaxed">
