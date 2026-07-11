@@ -247,6 +247,21 @@ const LandingPage = ({ activeSection = 'all' }) => {
     },
   ];
 
+  // 11 languages the AI sells in — native greetings shown as proof, not claims
+  const languages = [
+    { native: 'Kya price hai?', name: 'Hinglish' },
+    { native: 'नमस्ते', name: 'Hindi' },
+    { native: 'नमस्कार', name: 'Marathi' },
+    { native: 'নমস্কার', name: 'Bengali' },
+    { native: 'કેમ છો', name: 'Gujarati' },
+    { native: 'வணக்கம்', name: 'Tamil' },
+    { native: 'నమస్కారం', name: 'Telugu' },
+    { native: 'ನಮಸ್ಕಾರ', name: 'Kannada' },
+    { native: 'നമസ്കാരം', name: 'Malayalam' },
+    { native: 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ', name: 'Punjabi' },
+    { native: 'Hello!', name: 'English' },
+  ];
+
   const comparisonRows = [
     { feature: 'Bot Training', basic: 'Type Q&As one by one, build flows', pro: 'Upload PDF / photo / website — trained in minutes' },
     { feature: 'Answer Accuracy', basic: 'Makes up answers when unsure', pro: 'Grounded answers with source citations — never guesses' },
@@ -255,7 +270,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
     { feature: 'Delivery / Vendor Pricing', basic: 'Not handled', pro: 'Quote now → you confirm → final quote auto-resent' },
     { feature: 'Setup', basic: 'Build chatbot flows by hand', pro: 'Works from your business info — no flow-building' },
     { feature: 'Bot Improvement', basic: 'You guess what to fix', pro: 'AI finds the leak & writes the fix' },
-    { feature: 'Languages', basic: 'Basic / English only', pro: 'Mirrors Hinglish & regional scripts' },
+    { feature: 'Languages', basic: 'English only, or build one flow per language', pro: 'Auto-detects & sells in 11 Indian languages — zero setup' },
     { feature: 'Follow-ups', basic: 'Time-based blasts', pro: 'Behaviour-triggered abandoned-quote nudges' },
   ];
 
@@ -294,6 +309,10 @@ const LandingPage = ({ activeSection = 'all' }) => {
     {
       question: "How do I train the AI bot on my business — do I need to build chat flows?",
       answer: "No flows, no coding. Upload your price lists, brochures or policy documents (PDF, Word, CSV — even a photo of a printed price list), or simply paste your website link. ChatPro365 indexes everything within minutes and the bot answers customer questions strictly from YOUR content, citing the exact document it used — it never invents an answer. Upload a rate card and it also builds your sellable product catalog automatically. A built-in Test Playground lets you verify every answer and its source before going live, and the bot keeps learning from your team's replies over time."
+    },
+    {
+      question: "Which languages can the AI bot chat in?",
+      answer: "Eleven — English, Hinglish, Hindi, Marathi, Bengali, Gujarati, Tamil, Telugu, Kannada, Malayalam and Punjabi. There is nothing to configure: the AI detects the language (and script) each customer types in and replies in the same, switching automatically if the customer switches mid-chat. Everything follows the customer's language — answers, quotation messages, appointment confirmations, cancellations and follow-ups."
     },
     {
       question: "Do I need to be online 24/7 to manage customer chats?",
@@ -515,6 +534,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               {[
                 { value: '500+', label: 'Growing Businesses' },
                 { value: '3x', label: 'Conversion Rate Boost' },
+                { value: '11', label: 'Indian Languages Spoken' },
                 { value: '24/7', label: 'Automated Operations' },
                 { value: '40%', label: 'Average Lead Increase' },
               ].map((stat, i) => (
@@ -795,6 +815,73 @@ const LandingPage = ({ activeSection = 'all' }) => {
                 <span key={i} className="bg-white border border-zinc-200 text-zinc-600 text-sm font-medium px-4 py-2 rounded-full">{tag}</span>
               ))}
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
+          SECTION 3.6: LANGUAGES — BUILT FOR BHARAT
+      ════════════════════════════════════════ */}
+      <section className="py-12 md:py-16 bg-gradient-to-br from-orange-50/70 via-white to-emerald-50/70 border-b border-slate-100 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+
+            <motion.div variants={fadeUp} className="text-center max-w-3xl mx-auto mb-10">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-orange-700 text-sm font-bold mb-6">
+                <Globe className="w-4 h-4" /> Built for Bharat 🇮🇳
+              </div>
+              <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
+                Your Customers Speak 11 Languages.{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-emerald-600">So Does Your AI Salesman.</span>
+              </h2>
+              <p className="text-lead text-zinc-500 font-normal leading-relaxed">
+                No language settings. No separate chatbot flows. The AI detects the language your customer types in — even Hindi typed in English letters — and sells in that language: answers, quotation messages, booking confirmations and follow-ups included.
+              </p>
+            </motion.div>
+
+            {/* Language chips — native script as living proof */}
+            <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-3 mb-12 max-w-4xl mx-auto">
+              {languages.map((l, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -4, scale: 1.05 }}
+                  className="bg-white border border-zinc-200 rounded-2xl px-5 py-3 shadow-sm hover:border-emerald-300 hover:shadow-md transition-all text-center cursor-default"
+                >
+                  <div className="text-lg md:text-xl font-bold text-zinc-900 leading-snug mb-1">{l.native}</div>
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">{l.name}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Why this is different */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: Zap,
+                  title: 'Zero Setup',
+                  desc: 'Other platforms make you build a separate chatbot flow for every language. Here there is nothing to configure — the AI simply mirrors whatever language the customer uses.',
+                },
+                {
+                  icon: Brain,
+                  title: 'Detects Script & Slang',
+                  desc: 'Reads native scripts (தமிழ், বাংলা, मराठी…) and Roman-script Hinglish alike. If the customer switches language mid-chat, the AI switches with them.',
+                },
+                {
+                  icon: FileText,
+                  title: 'Every Step Localized',
+                  desc: 'Not just small talk — quotation messages, appointment confirmations, cancellations, reschedules and follow-up nudges all arrive in the customer\'s own language.',
+                },
+              ].map((b, i) => (
+                <motion.div key={i} variants={fadeUp} whileHover={{ y: -5 }} className="bg-white border border-zinc-200 rounded-3xl p-6 hover:border-orange-200 hover:shadow-lg transition-all duration-300">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500 to-emerald-500 flex items-center justify-center mb-5 shadow-md">
+                    <b.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-lg font-bold text-zinc-900 mb-2">{b.title}</h3>
+                  <p className="text-zinc-500 font-normal leading-relaxed text-sm">{b.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+
           </motion.div>
         </div>
       </section>
