@@ -643,14 +643,14 @@ const LandingPage = ({ activeSection = 'all' }) => {
             </h2>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {usps.map((usp, i) => (
-              <motion.div key={i} variants={fadeUp} whileHover={{ y: -8 }} className={`bg-gradient-to-br ${usp.bg} border ${usp.border} rounded-3xl p-6 hover:shadow-xl transition-all duration-300`}>
+              <motion.div key={i} variants={fadeUp} whileHover={{ y: -8 }} className={`bg-gradient-to-br ${usp.bg} border ${usp.border} rounded-3xl p-6 md:p-8 hover:shadow-xl transition-all duration-300 flex flex-col`}>
                 <div className={`w-14 h-14 bg-gradient-to-br ${usp.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
                   <usp.icon className="w-7 h-7 text-white" />
                 </div>
                 <h3 className="text-card-title font-bold mb-4 text-zinc-900 leading-snug">{usp.title}</h3>
-                <p className="text-lead text-zinc-600 font-normal leading-relaxed mb-6">{usp.desc}</p>
+                <p className="text-lead text-zinc-600 font-normal leading-relaxed mb-6 flex-grow">{usp.desc}</p>
                 <div className="flex flex-wrap gap-2">
                   {usp.badges.map((badge, j) => (
                     <span key={j} className={`bg-gradient-to-r ${usp.gradient} text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm`}>{badge}</span>
