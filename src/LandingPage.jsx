@@ -138,18 +138,25 @@ const LandingPage = ({ activeSection = 'all' }) => {
   const [activeFooterPage, setActiveFooterPage] = useState(null);
   const navigate = useNavigate();
 
-  // Scroll to a section by its route path; works from any page
+  // Scroll to a section by its route path; works from any page.
+  // Uses a short delay so that on mobile the hamburger menu has
+  // time to close before we attempt to find the target element.
   const scrollToSection = (routePath) => {
     const sectionId = NAV_SECTION_MAP[routePath];
     if (!sectionId) return;
-    const el = document.getElementById(sectionId);
-    if (el) {
-      // Already on landing page — just scroll
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      // Navigate to the route; ScrollToSection in App.jsx handles scroll
-      navigate(routePath);
-    }
+
+    const tryScroll = () => {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        // Element not found (different page) — navigate; ScrollToSection in App.jsx handles scroll
+        navigate(routePath);
+      }
+    };
+
+    // Small delay lets mobile menu close animation finish first
+    setTimeout(tryScroll, 120);
   };
 
   // Close the lead modal on Escape.
@@ -548,7 +555,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
                 id="hero-cta-demo"
               >
                 <span className="relative z-10 flex items-center gap-2">Start Free Trial <ArrowRight className="w-5 h-5" /></span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </motion.button>
 
               <motion.button

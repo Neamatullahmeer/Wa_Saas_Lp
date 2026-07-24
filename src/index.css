@@ -78,13 +78,22 @@
     tap-highlight-color: transparent;
   }
 
-  /* ✅ Minimum tap target */
+  /* ✅ Minimum tap target — buttons & button-role only.
+     Avoid forcing inline-flex on all <a> tags; it breaks
+     footer / nav text-links on mobile. */
   button,
-  a,
   [role="button"] {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
+  }
+
+  /* Links inside lists (footer, nav) get full-width tap area */
+  li > a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    width: 100%;
   }
 
   /* ✅ Smooth scroll offset for fixed navbar */
