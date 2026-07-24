@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { APP_BASE_URL } from './lib/apiConfig';
 import api from './lib/api';
 import {
@@ -121,12 +121,36 @@ const FAQItem = ({ question, answer }) => {
 // ─────────────────────────────────────────────
 // Main Component
 // ─────────────────────────────────────────────
+// Maps navbar labels to their section IDs
+const NAV_SECTION_MAP = {
+  '/about': 'about',
+  '/features': 'features',
+  '/compare': 'comparison',
+  '/pricing': 'pricing',
+  '/faq': 'faq',
+};
+
 const LandingPage = ({ activeSection = 'all' }) => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [leadData, setLeadData] = useState({ name: '', phone: '' });
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeFooterPage, setActiveFooterPage] = useState(null);
+  const navigate = useNavigate();
+
+  // Scroll to a section by its route path; works from any page
+  const scrollToSection = (routePath) => {
+    const sectionId = NAV_SECTION_MAP[routePath];
+    if (!sectionId) return;
+    const el = document.getElementById(sectionId);
+    if (el) {
+      // Already on landing page — just scroll
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // Navigate to the route; ScrollToSection in App.jsx handles scroll
+      navigate(routePath);
+    }
+  };
 
   // Close the lead modal on Escape.
   useEffect(() => {
@@ -416,12 +440,12 @@ const LandingPage = ({ activeSection = 'all' }) => {
               <ChatproLogo className="h-12 sm:h-14 w-auto drop-shadow-sm -ml-2" />
             </div>
             <div className="hidden md:flex space-x-8 text-zinc-500 font-medium">
-              <Link to="/about" className="hover:text-zinc-900 transition-colors">Why ChatPro365</Link>
-              <Link to="/features" className="hover:text-zinc-900 transition-colors">Features</Link>
-              <Link to="/compare" className="hover:text-zinc-900 transition-colors">Compare</Link>
-              <Link to="/pricing" className="hover:text-zinc-900 transition-colors">Pricing</Link>
-              <Link to="/about" className="hover:text-zinc-900 transition-colors">About Us</Link>
-              <Link to="/faq" className="hover:text-zinc-900 transition-colors">FAQ</Link>
+              <button onClick={() => scrollToSection('/about')} className="hover:text-zinc-900 transition-colors cursor-pointer">Why ChatPro365</button>
+              <button onClick={() => scrollToSection('/features')} className="hover:text-zinc-900 transition-colors cursor-pointer">Features</button>
+              <button onClick={() => scrollToSection('/compare')} className="hover:text-zinc-900 transition-colors cursor-pointer">Compare</button>
+              <button onClick={() => scrollToSection('/pricing')} className="hover:text-zinc-900 transition-colors cursor-pointer">Pricing</button>
+              <button onClick={() => scrollToSection('/about')} className="hover:text-zinc-900 transition-colors cursor-pointer">About Us</button>
+              <button onClick={() => scrollToSection('/faq')} className="hover:text-zinc-900 transition-colors cursor-pointer">FAQ</button>
             </div>
             <div className="hidden md:flex items-center gap-4">
               <a href={`${APP_BASE_URL}/login`} className="text-zinc-500 font-medium hover:text-zinc-900 transition-colors">Login</a>
@@ -455,14 +479,22 @@ const LandingPage = ({ activeSection = 'all' }) => {
               className="md:hidden overflow-hidden bg-white border-t border-zinc-100"
             >
               <div className="px-4 py-4 flex flex-col gap-1">
-                {['/about|Why ChatPro365', '/features|Features', '/compare|Compare', '/pricing|Pricing', '/about|About Us', '/faq|FAQ'].map((item) => {
-                  const [href, label] = item.split('|');
-                  return (
-                    <Link key={href} to={href} onClick={() => setMenuOpen(false)} className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-zinc-700 font-semibold hover:bg-zinc-50 transition-colors text-base">
-                      {label}
-                    </Link>
-                  );
-                })}
+                {[
+                  { route: '/about', label: 'Why ChatPro365' },
+                  { route: '/features', label: 'Features' },
+                  { route: '/compare', label: 'Compare' },
+                  { route: '/pricing', label: 'Pricing' },
+                  { route: '/about', label: 'About Us' },
+                  { route: '/faq', label: 'FAQ' },
+                ].map((item, idx) => (
+                  <button
+                    key={`${item.route}-${idx}`}
+                    onClick={() => { scrollToSection(item.route); setMenuOpen(false); }}
+                    className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-zinc-700 font-semibold hover:bg-zinc-50 transition-colors text-base text-left cursor-pointer"
+                  >
+                    {item.label}
+                  </button>
+                ))}
                 <div className="mt-3 pt-3 border-t border-zinc-100">
                   <button onClick={() => { setShowModal(true); setMenuOpen(false); }} className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white py-4 rounded-2xl font-bold text-base hover:opacity-90 transition-opacity flex items-center justify-center gap-1">
                     Start Free Trial →

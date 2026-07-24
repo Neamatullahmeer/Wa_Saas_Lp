@@ -7,10 +7,30 @@ import {
   RefundPolicyPage, AcceptableUsePage, ContactUsPage
 } from './FooterPages';
 
-const ScrollToTop = () => {
+// Maps route paths to section IDs on the landing page
+const ROUTE_TO_SECTION = {
+  '/features': 'features',
+  '/pricing': 'pricing',
+  '/compare': 'comparison',
+  '/about': 'about',
+  '/faq': 'faq',
+};
+
+const ScrollToSection = () => {
   const { pathname } = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const sectionId = ROUTE_TO_SECTION[pathname];
+    if (sectionId) {
+      // Small delay so the DOM is ready after route change
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo(0, 0);
+    }
   }, [pathname]);
   return null;
 };
@@ -26,7 +46,7 @@ const PageRoute = ({ component: Component }) => {
 function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
+      <ScrollToSection />
       <Routes>
         {/* Landing page (section anchors like /#features still work in-page) */}
         <Route path="/" element={<LandingPage />} />
