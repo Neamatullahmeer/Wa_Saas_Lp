@@ -20,3 +20,8 @@ export function render(url) {
     </MemoryRouter>
   );
 }
+
+// The build script gets the page list from here rather than importing the
+// manifest directly: blog posts are discovered with import.meta.glob, which only
+// resolves inside Vite. Routing this through the SSR bundle keeps one list.
+export { routes, sitemapRoutes } from './seo/manifest.js';

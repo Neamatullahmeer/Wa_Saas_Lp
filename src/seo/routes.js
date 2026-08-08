@@ -1,12 +1,9 @@
-// Single source of truth for every indexable URL on the marketing site.
+// The site's fixed pages. Blog posts are discovered from markdown instead and
+// live in ../content/blog.js; seo/manifest.js merges the two into the list that
+// routing, prerendering and the sitemap all read.
 //
-// Used twice:
-//   1. At build time by scripts/postbuild-seo.mjs — writes a real HTML file per
-//      route with its own <title>/description/canonical, and generates sitemap.xml.
-//   2. At runtime by <RouteSeo /> in App.jsx — keeps the tags correct when the
-//      visitor navigates client-side.
-//
-// Keep this file plain ESM with no imports so Node can read it directly.
+// Keep this file plain ESM with no imports — scripts/postbuild-seo.mjs loads it
+// directly in Node, outside Vite, for SITE and OG_IMAGE.
 
 export const SITE = 'https://chatpro365.com';
 
@@ -34,7 +31,7 @@ const page = (path, title, description, priority = '0.5', changefreq = 'monthly'
   changefreq,
 });
 
-export const routes = [
+export const staticRoutes = [
   {
     path: '/',
     title: 'ChatPro365 | Best WhatsApp Business API & AI Automation Platform',
@@ -147,14 +144,5 @@ export const routes = [
     '0.4'
   ),
 ];
-
-/** Route metadata for a pathname, or undefined if the URL is not a real page. */
-export const findRoute = (pathname) => {
-  const clean =
-    pathname !== '/' && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
-  return routes.find((r) => r.path === clean);
-};
-
-export const sitemapRoutes = routes.filter((r) => r.inSitemap);
 
 export { OG_IMAGE };

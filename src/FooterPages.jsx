@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { posts, findPost, relatedPosts } from './content/blog';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Shield, FileText, Globe, Cookie, HeadphonesIcon, Code2, BookOpen, Users, TrendingUp, CheckCircle, ArrowRight, MessageSquare, Zap, Star, RefreshCw, AlertTriangle, Mail, Phone, MapPin, Clock, Building2 } from 'lucide-react';
 
@@ -748,62 +749,7 @@ export const APIDocsPage = ({ isOpen, onClose }) => (
 // Blog Page
 // ─────────────────────────────────────────────
 export const BlogPage = ({ isOpen, onClose }) => {
-  const posts = [
-    {
-      category: 'WhatsApp Marketing',
-      color: 'from-green-600 to-emerald-600',
-      title: 'How to 10x Your WhatsApp Lead Conversion Rate in 2026',
-      excerpt: 'Discover the proven framework used by 500+ businesses to turn cold WhatsApp contacts into hot paying customers using AI-driven automation and smart segmentation.',
-      date: 'June 15, 2026',
-      readTime: '8 min read',
-      emoji: '🚀'
-    },
-    {
-      category: 'AI Automation',
-      color: 'from-emerald-600 to-blue-600',
-      title: 'The Complete Guide to Setting Up a WhatsApp AI Chatbot',
-      excerpt: 'Step-by-step guide on configuring ChatPro365\'s Category-Based AI Bot to handle customer queries, qualify leads, and route conversations — all without a single line of code.',
-      date: 'June 10, 2026',
-      readTime: '12 min read',
-      emoji: '🤖'
-    },
-    {
-      category: 'Sales Strategy',
-      color: 'from-orange-600 to-red-600',
-      title: 'Lead Scoring on WhatsApp: Stop Wasting Time on Cold Prospects',
-      excerpt: 'Learn how automatic lead scoring and the VIP Lead System help your sales team focus on high-intent buyers and close deals 3x faster than before.',
-      date: 'June 5, 2026',
-      readTime: '6 min read',
-      emoji: '🎯'
-    },
-    {
-      category: 'Drip Campaigns',
-      color: 'from-blue-600 to-indigo-600',
-      title: 'WhatsApp Drip Campaigns: The Ultimate Nurturing Strategy',
-      excerpt: 'How one e-commerce brand used a 7-step WhatsApp drip campaign to recover 38% of abandoned carts and generate ₹18 lakhs in additional revenue in one month.',
-      date: 'May 28, 2026',
-      readTime: '10 min read',
-      emoji: '💧'
-    },
-    {
-      category: 'Case Study',
-      color: 'from-emerald-600 to-teal-600',
-      title: 'Real Estate Agency Closes 25 Deals/Month Using WhatsApp Automation',
-      excerpt: 'A Mumbai-based real estate company shares how they scaled from 8 to 25 monthly closings after implementing ChatPro365\'s lead management and AI assistant.',
-      date: 'May 20, 2026',
-      readTime: '5 min read',
-      emoji: '🏠'
-    },
-    {
-      category: 'Product Update',
-      color: 'from-pink-600 to-rose-600',
-      title: 'New Feature: AI Quality Supervisor — Monitor Every Chat in Real-Time',
-      excerpt: 'Introducing the AI Quality Supervisor — a game-changing feature that analyzes agent chats, flags poor responses, and gives managers instant visibility into team performance.',
-      date: 'May 12, 2026',
-      readTime: '4 min read',
-      emoji: '👁️'
-    },
-  ];
+  if (!posts.length) return null;
 
   return (
     <PageModal isOpen={isOpen} onClose={onClose}>
@@ -817,40 +763,39 @@ export const BlogPage = ({ isOpen, onClose }) => {
           <div className="mt-6 h-px bg-gradient-to-r from-transparent via-orange-500/50 to-transparent" />
         </div>
 
-        {/* Featured Post */}
-        <div className="bg-gradient-to-br from-emerald-900/50 to-blue-900/50 border border-emerald-700/40 rounded-3xl p-8 mb-10">
+        {/* Featured Post — the whole card is one link, so crawlers follow it */}
+        <Link to={`/blog/${posts[0].slug}`} className="block bg-gradient-to-br from-emerald-900/50 to-blue-900/50 border border-emerald-700/40 hover:border-emerald-500/70 rounded-3xl p-8 mb-10 transition-colors">
           <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-300 bg-emerald-900/60 px-3 py-1 rounded-full border border-emerald-700/50 mb-4">⭐ Featured Post</span>
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-snug">
             {posts[0].emoji} {posts[0].title}
           </h2>
-          <p className="text-zinc-400 mb-6 leading-relaxed">{posts[0].excerpt}</p>
+          <p className="text-zinc-400 mb-6 leading-relaxed">{posts[0].description}</p>
           <div className="flex items-center gap-4">
             <span className="text-zinc-500 text-sm">{posts[0].date}</span>
             <span className="text-zinc-600">·</span>
             <span className="text-zinc-500 text-sm">{posts[0].readTime}</span>
-            <a href="https://wa.me/917457863240?text=Hi! I read the blog on ChatPro365 and want to know more" target="_blank" rel="noopener noreferrer"
-              className="ml-auto inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl font-semibold text-sm transition-colors">
-              Get This for My Business <ArrowRight className="w-4 h-4" />
-            </a>
+            <span className="ml-auto inline-flex items-center gap-2 text-emerald-400 font-semibold text-sm">
+              Read article <ArrowRight className="w-4 h-4" />
+            </span>
           </div>
-        </div>
+        </Link>
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.slice(1).map((post, i) => (
-            <div key={i} className="bg-zinc-900/60 border border-zinc-800 hover:border-zinc-600 rounded-2xl p-6 transition-all hover:-translate-y-1 duration-300">
+          {posts.slice(1).map((post) => (
+            <Link key={post.slug} to={`/blog/${post.slug}`} className="block bg-zinc-900/60 border border-zinc-800 hover:border-zinc-600 rounded-2xl p-6 transition-all hover:-translate-y-1 duration-300">
               <div className={`inline-flex items-center gap-1 text-xs font-bold text-white bg-gradient-to-r ${post.color} px-3 py-1 rounded-full mb-4`}>
                 {post.category}
               </div>
               <h3 className="text-lg font-bold text-white mb-3 leading-snug">
                 {post.emoji} {post.title}
               </h3>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-3">{post.excerpt}</p>
+              <p className="text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-3">{post.description}</p>
               <div className="flex items-center justify-between text-xs text-zinc-500">
                 <span>{post.date}</span>
                 <span>{post.readTime}</span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -862,6 +807,91 @@ export const BlogPage = ({ isOpen, onClose }) => {
           </a>
         </div>
       </div>
+    </PageModal>
+  );
+};
+
+// ─────────────────────────────────────────────
+// Blog Post Page
+// ─────────────────────────────────────────────
+// One of these is prerendered per markdown file in src/content/blog/. The body
+// HTML is produced at build time by the blogMarkdown plugin in vite.config.js —
+// it is our own content, not user input, so injecting it is safe here.
+export const BlogPostPage = () => {
+  const { slug } = useParams();
+  const post = findPost(slug);
+
+  // Unknown slugs are served the static 404 on a real page load; this only
+  // shows if someone reaches a dead link through client-side navigation.
+  if (!post) {
+    return (
+      <PageModal>
+        <div className="max-w-3xl mx-auto px-6 py-20 text-center">
+          <h1 className="text-3xl font-bold text-white mb-4">Post not found</h1>
+          <p className="text-zinc-400 mb-8">This article may have been moved or renamed.</p>
+          <Link to="/blog" className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-full font-semibold transition-colors">
+            Back to the blog
+          </Link>
+        </div>
+      </PageModal>
+    );
+  }
+
+  const related = relatedPosts(slug);
+
+  return (
+    <PageModal>
+      <article className="max-w-3xl mx-auto px-6 py-20 text-zinc-300">
+        <nav className="flex items-center gap-2 text-sm text-zinc-500 mb-8">
+          <Link to="/" className="hover:text-emerald-400 transition-colors">Home</Link>
+          <span>/</span>
+          <Link to="/blog" className="hover:text-emerald-400 transition-colors">Blog</Link>
+        </nav>
+
+        <div className={`inline-flex items-center gap-1 text-xs font-bold text-white bg-gradient-to-r ${post.color || 'from-emerald-600 to-blue-600'} px-3 py-1 rounded-full mb-5`}>
+          {post.category}
+        </div>
+
+        <h1 className="text-3xl md:text-4xl font-bold text-white mb-5 leading-tight">
+          {post.emoji} {post.title}
+        </h1>
+
+        <div className="flex items-center gap-3 text-sm text-zinc-500 mb-10 pb-10 border-b border-zinc-800">
+          <span>{post.date}</span>
+          <span className="text-zinc-700">·</span>
+          <span>{post.readTime}</span>
+        </div>
+
+        <div className="post-body" dangerouslySetInnerHTML={{ __html: post.html }} />
+
+        <div className="mt-14 bg-gradient-to-r from-emerald-900/40 to-blue-900/40 border border-emerald-700/40 rounded-2xl p-8 text-center">
+          <h2 className="text-xl font-bold text-white mb-2">Want this running on your WhatsApp?</h2>
+          <p className="text-zinc-400 mb-6">See what ChatPro365 does, or ask us anything about your setup.</p>
+          <div className="flex gap-3 justify-center flex-wrap">
+            <Link to="/" className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-full font-semibold transition-colors">
+              See the platform
+            </Link>
+            <Link to="/contact" className="inline-flex items-center gap-2 border border-zinc-700 hover:bg-zinc-900 text-zinc-300 px-6 py-3 rounded-full font-semibold transition-colors">
+              Contact us
+            </Link>
+          </div>
+        </div>
+
+        {related.length > 0 && (
+          <div className="mt-14">
+            <h2 className="text-xl font-bold text-white mb-6">Keep reading</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {related.map((r) => (
+                <Link key={r.slug} to={`/blog/${r.slug}`} className="block bg-zinc-900/60 border border-zinc-800 hover:border-zinc-600 rounded-2xl p-5 transition-colors">
+                  <p className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-2">{r.category}</p>
+                  <h3 className="font-bold text-white leading-snug mb-2">{r.title}</h3>
+                  <p className="text-zinc-500 text-sm">{r.readTime}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </article>
     </PageModal>
   );
 };

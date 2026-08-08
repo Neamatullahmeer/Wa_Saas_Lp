@@ -18,8 +18,10 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { SITE, OG_IMAGE, routes, sitemapRoutes } from '../src/seo/routes.js';
-import { render } from '../dist-ssr/entry-server.js';
+import { SITE, OG_IMAGE } from '../src/seo/routes.js';
+// Page list comes from the SSR bundle, not from the manifest directly: blog
+// posts are found with import.meta.glob, which only resolves inside Vite.
+import { render, routes, sitemapRoutes } from '../dist-ssr/entry-server.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -83,6 +85,35 @@ const rewriteJsonLd = (html, route, url) => {
     isPartOf: { '@id': `${SITE}/#website` },
     publisher: { '@id': `${SITE}/#organization` },
   });
+
+  // Blog posts additionally describe themselves as an article and declare where
+  // they sit, which is what lets Google show a Home › Blog › … breadcrumb.
+  if (route.article) {
+    kept.push(
+      {
+        '@type': 'BlogPosting',
+        '@id': `${url}#article`,
+        headline: route.article.headline,
+        description: route.description,
+        datePublished: route.article.datePublished,
+        dateModified: route.article.datePublished,
+        articleSection: route.article.section,
+        inLanguage: 'en-IN',
+        mainEntityOfPage: { '@id': `${url}#webpage` },
+        author: { '@id': `${SITE}/#organization` },
+        publisher: { '@id': `${SITE}/#organization` },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${url}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog` },
+          { '@type': 'ListItem', position: 3, name: route.article.headline },
+        ],
+      }
+    );
+  }
 
   const next = JSON.stringify({ '@context': graph['@context'], '@graph': kept }, null, 2);
   return html.replace(pattern, () => `<script type="application/ld+json">\n${next}\n  </script>`);

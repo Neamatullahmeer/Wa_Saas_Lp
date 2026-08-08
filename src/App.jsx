@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import LandingPage from './LandingPage';
-import { SITE, findRoute } from './seo/routes';
+import { SITE, findRoute } from './seo/manifest';
 import {
   PrivacyPolicyPage, TermsOfServicePage, GDPRPage, CookiePolicyPage,
-  HelpCenterPage, APIDocsPage, BlogPage, CommunityPage, CaseStudiesPage,
+  HelpCenterPage, APIDocsPage, BlogPage, BlogPostPage, CommunityPage, CaseStudiesPage,
   RefundPolicyPage, AcceptableUsePage, ContactUsPage
 } from './FooterPages';
 
@@ -138,6 +138,8 @@ export function AppRoutes() {
         <Route path="/help" element={<PageRoute component={HelpCenterPage} />} />
         <Route path="/api-docs" element={<PageRoute component={APIDocsPage} />} />
         <Route path="/blog" element={<PageRoute component={BlogPage} />} />
+        {/* One prerendered file per markdown post — see src/content/blog/ */}
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/community" element={<PageRoute component={CommunityPage} />} />
         <Route path="/case-studies" element={<PageRoute component={CaseStudiesPage} />} />
 
