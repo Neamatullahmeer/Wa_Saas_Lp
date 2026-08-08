@@ -1,11 +1,9 @@
 User-agent: *
 Allow: /
 
-# Block private/app routes from being indexed
-Disallow: /login
-Disallow: /register
-Disallow: /dashboard
-Disallow: /admin
+# The app dashboard lives on app.chatpro365.com and is blocked by its own
+# robots.txt. Nothing on this host needs disallowing — unknown URLs return a
+# real 404, so there is no private route for a crawler to stumble into.
 
 # Sitemap location — helps Googlebot discover all pages
 Sitemap: https://chatpro365.com/sitemap.xml

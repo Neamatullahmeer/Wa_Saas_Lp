@@ -455,7 +455,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               <button onClick={() => scrollToSection('/faq')} className="hover:text-zinc-900 transition-colors cursor-pointer">FAQ</button>
             </div>
             <div className="hidden md:flex items-center gap-4">
-              <a href={`${APP_BASE_URL}/login`} className="text-zinc-500 font-medium hover:text-zinc-900 transition-colors">Login</a>
+              <a href={`${APP_BASE_URL}/login`} rel="nofollow" className="text-zinc-500 font-medium hover:text-zinc-900 transition-colors">Login</a>
               <motion.button
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                 onClick={() => setShowModal(true)}
@@ -466,7 +466,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               </motion.button>
             </div>
             <div className="flex md:hidden items-center gap-2">
-              <a href={`${APP_BASE_URL}/login`} className="text-zinc-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-zinc-100 transition-colors" aria-label="Login">Login</a>
+              <a href={`${APP_BASE_URL}/login`} rel="nofollow" className="text-zinc-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-zinc-100 transition-colors" aria-label="Login">Login</a>
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="p-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 transition-colors"

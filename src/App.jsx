@@ -1,6 +1,7 @@
-import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import LandingPage from './LandingPage';
+import { SITE, findRoute } from './seo/routes';
 import {
   PrivacyPolicyPage, TermsOfServicePage, GDPRPage, CookiePolicyPage,
   HelpCenterPage, APIDocsPage, BlogPage, CommunityPage, CaseStudiesPage,
@@ -35,6 +36,47 @@ const ScrollToSection = () => {
   return null;
 };
 
+// Every route ships as its own static HTML file with the correct head already in
+// it (see scripts/postbuild-seo.mjs) — that is what crawlers read. This only has
+// to keep things straight during client-side navigation, and it does so by
+// editing the existing tags in place. Appending a second <link rel="canonical">
+// would make Google discard both.
+const setMeta = (selector, attr, value) => {
+  const el = document.head.querySelector(selector);
+  if (el) el.setAttribute(attr, value);
+};
+
+const RouteSeo = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const route = findRoute(pathname);
+
+    if (!route) {
+      document.title = 'Page Not Found | ChatPro365';
+      setMeta('meta[name="robots"]', 'content', 'noindex, follow');
+      return;
+    }
+
+    const url = route.path === '/' ? `${SITE}/` : `${SITE}${route.path}`;
+    const canonical = route.canonical === '/' ? `${SITE}/` : `${SITE}${route.canonical}`;
+
+    document.title = route.title;
+    setMeta('meta[name="robots"]', 'content', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+    setMeta('meta[name="title"]', 'content', route.title);
+    setMeta('meta[name="description"]', 'content', route.description);
+    setMeta('link[rel="canonical"]', 'href', canonical);
+    setMeta('meta[property="og:url"]', 'content', url);
+    setMeta('meta[property="og:title"]', 'content', route.title);
+    setMeta('meta[property="og:description"]', 'content', route.description);
+    setMeta('meta[name="twitter:url"]', 'content', url);
+    setMeta('meta[name="twitter:title"]', 'content', route.title);
+    setMeta('meta[name="twitter:description"]', 'content', route.description);
+  }, [pathname]);
+
+  return null;
+};
+
 // The footer / legal pages are built as modals (isOpen + onClose). When visited
 // as their own URL we render them full-page with isOpen forced on, and the close
 // button takes the visitor back to the home page.
@@ -43,10 +85,34 @@ const PageRoute = ({ component: Component }) => {
   return <Component isOpen={true} onClose={() => navigate('/')} />;
 };
 
+// Hard navigation to an unknown URL is served the static 404.html by Vercel with
+// a real 404 status. This only renders when the visitor reaches a dead link
+// through client-side routing.
+const NotFoundPage = () => (
+  <div className="min-h-screen bg-zinc-950 text-zinc-200 flex items-center justify-center px-6 text-center">
+    <div>
+      <div className="text-7xl font-extrabold text-emerald-500 leading-none">404</div>
+      <h1 className="text-2xl font-bold text-white mt-4 mb-2">This page doesn't exist</h1>
+      <p className="text-zinc-400 max-w-md mx-auto mb-8">
+        The link may be broken or the page may have moved. Let's get you back on track.
+      </p>
+      <div className="flex gap-3 justify-center flex-wrap">
+        <Link to="/" className="px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold transition-colors">
+          Go to homepage
+        </Link>
+        <Link to="/contact" className="px-6 py-3 rounded-full border border-zinc-700 hover:bg-zinc-900 text-zinc-300 font-semibold transition-colors">
+          Contact us
+        </Link>
+      </div>
+    </div>
+  </div>
+);
+
 function App() {
   return (
     <BrowserRouter>
       <ScrollToSection />
+      <RouteSeo />
       <Routes>
         {/* Landing page (section anchors like /#features still work in-page) */}
         <Route path="/" element={<LandingPage />} />
@@ -70,8 +136,8 @@ function App() {
         <Route path="/community" element={<PageRoute component={CommunityPage} />} />
         <Route path="/case-studies" element={<PageRoute component={CaseStudiesPage} />} />
 
-        {/* Unknown URLs → home */}
-        <Route path="*" element={<LandingPage />} />
+        {/* Unknown URLs → a real 404, not a silent copy of the landing page */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
