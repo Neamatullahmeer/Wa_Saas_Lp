@@ -5,18 +5,26 @@
 // canonical pointing at the homepage. Google read that as "these are all copies
 // of /" and indexed none of them.
 //
-// This script writes a real dist/<route>/index.html per route with its own head,
-// and regenerates sitemap.xml from the same list. Anything not generated here
-// is genuinely not a page, so Vercel serves 404.html for it.
+// This script writes a real dist/<route>/index.html per route with its own head
+// AND its markup already rendered into #root, and regenerates sitemap.xml from
+// the same list. Anything not generated here is genuinely not a page, so Vercel
+// serves 404.html for it.
+//
+// The rendering is static generation at build time — no server runs in
+// production. dist-ssr/entry-server.js comes from the `vite build --ssr` step in
+// the npm build script.
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { SITE, OG_IMAGE, routes, sitemapRoutes } from '../src/seo/routes.js';
+import { render } from '../dist-ssr/entry-server.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
+
+const ROOT_DIV = '<div id="root"></div>';
 
 const esc = (s) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -154,6 +162,14 @@ const buildPage = (baseHtml, route) => {
     html = rewriteJsonLd(html, route, url);
     html = rewriteNoscript(html, route);
   }
+
+  // Bake the rendered markup into #root. Do this last so nothing above can
+  // accidentally pattern-match against page content instead of the head.
+  if (!html.includes(ROOT_DIV)) {
+    throw new Error(`postbuild-seo: ${ROOT_DIV} not found in dist/index.html`);
+  }
+  const body = render(route.path);
+  html = html.replace(ROOT_DIV, () => `<div id="root">${body}</div>`);
 
   return html;
 };

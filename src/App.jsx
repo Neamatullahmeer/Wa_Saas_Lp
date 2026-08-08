@@ -108,9 +108,14 @@ const NotFoundPage = () => (
   </div>
 );
 
-function App() {
+// The route tree without a router around it, so the prerender build can wrap the
+// same tree in a MemoryRouter (see src/entry-server.jsx) while the browser gets
+// a BrowserRouter below. ScrollToSection and RouteSeo only act inside effects,
+// which never run during renderToString — nothing here touches the DOM on the
+// server.
+export function AppRoutes() {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToSection />
       <RouteSeo />
       <Routes>
@@ -139,6 +144,14 @@ function App() {
         {/* Unknown URLs → a real 404, not a silent copy of the landing page */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
     </BrowserRouter>
   );
 }

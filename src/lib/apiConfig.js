@@ -3,7 +3,10 @@
  * Yeh file automatically check karegi ki aap local par ho ya live website par.
  */
 
-const hostname = window.location.hostname;
+// `window` is absent during the build-time prerender (scripts/postbuild-seo.mjs),
+// and this runs at module load, so guard it. Falling through to the production
+// URLs is the right default there: the prerendered HTML ships to production.
+const hostname = typeof window === 'undefined' ? '' : window.location.hostname;
 
 // Agar aap apne computer par test kar rahe hain (localhost ya 127.0.0.1)
 const isLocal = hostname === 'localhost' || hostname === '127.0.0.1';
