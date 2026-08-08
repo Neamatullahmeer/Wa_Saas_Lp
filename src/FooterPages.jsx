@@ -1,13 +1,57 @@
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Shield, FileText, Globe, Cookie, HeadphonesIcon, Code2, BookOpen, Users, TrendingUp, CheckCircle, ArrowRight, MessageSquare, Zap, Star, RefreshCw, AlertTriangle, Mail, Phone, MapPin, Clock, Building2 } from 'lucide-react';
 
 // ─────────────────────────────────────────────
 // Shared Page Modal Wrapper
 // ─────────────────────────────────────────────
+// These pages started life as modals opened from the landing page, so the
+// wrapper took an onClose prop and never rendered it. Once they became real
+// URLs that was a dead end in both directions: a visitor arriving from search
+// had no way back to the site, and a crawler had no link to follow onward.
+// The header and footer below fix both — real <a> elements via <Link>, not
+// onClick handlers, so they are crawlable.
+const LEGAL_LINKS = [
+  { to: '/', label: 'Home' },
+  { to: '/contact', label: 'Contact' },
+  { to: '/privacy-policy', label: 'Privacy' },
+  { to: '/terms', label: 'Terms' },
+  { to: '/refund', label: 'Refund' },
+  { to: '/acceptable-use', label: 'Acceptable Use' },
+  { to: '/gdpr', label: 'GDPR' },
+  { to: '/cookie-policy', label: 'Cookies' },
+];
+
 const PageModal = ({ children }) => {
   return (
-    <div className="min-h-screen bg-[#09090b] pt-24 pb-12 relative z-10">
-      {children}
+    <div className="min-h-screen bg-[#09090b] relative z-10 flex flex-col">
+      <header className="fixed top-0 inset-x-0 z-20 bg-[#09090b]/90 backdrop-blur-sm border-b border-zinc-800">
+        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center">
+          <Link to="/" className="inline-flex items-center gap-2 text-white font-bold tracking-tight hover:text-emerald-400 transition-colors">
+            <ArrowRight className="w-4 h-4 rotate-180" /> ChatPro365
+          </Link>
+        </div>
+      </header>
+
+      <div className="flex-1 pt-24 pb-12">
+        {children}
+      </div>
+
+      <footer className="border-t border-zinc-800">
+        <div className="max-w-4xl mx-auto px-6 py-10">
+          <nav className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-zinc-500">
+            {LEGAL_LINKS.map((l) => (
+              <Link key={l.to} to={l.to} className="hover:text-emerald-400 transition-colors">
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+          {/* No dynamic year: the page is rendered at build time and hydrated
+              whenever the visitor arrives, so a computed year would mismatch
+              across a new year and break hydration. */}
+          <p className="text-zinc-600 text-xs mt-6">© ChatPro365. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 };
