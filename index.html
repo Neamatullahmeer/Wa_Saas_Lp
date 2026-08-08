@@ -17,8 +17,13 @@
   <meta name="apple-mobile-web-app-title" content="Chatpro365" />
 
   <!-- ✅ Favicon & App Icons -->
+  <!-- Google only shows a site's favicon in search results if it is square (1:1).
+       /favicon.svg used to be the full 800x500 logo lockup, so search fell back
+       to a generic globe; it is now the square mark, and the lockup lives in
+       /logo.svg. The PNGs are for iOS, which ignores SVG icons entirely. -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/manifest.json" />
 
   <!-- ✅ 1. Primary Meta Tags -->
@@ -64,7 +69,9 @@
         "url": "https://chatpro365.com",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://chatpro365.com/favicon.svg"
+          "url": "https://chatpro365.com/icon-512.png",
+          "width": 512,
+          "height": 512
         },
         "sameAs": [
           "https://wa.me/917457863240"
