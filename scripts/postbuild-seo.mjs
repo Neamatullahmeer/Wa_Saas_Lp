@@ -31,6 +31,27 @@ const swap = (html, label, pattern, replacement) => {
 };
 
 /**
+ * index.html carries a ~14KB <noscript> copy of the homepage for crawlers that
+ * do not run JavaScript. Copying that onto /privacy-policy would make every
+ * sub-page look like the homepage to exactly those crawlers, so sub-pages get a
+ * short stub instead. (The first <noscript> only holds the font stylesheet —
+ * match on the one wrapping a <div>.)
+ */
+const rewriteNoscript = (html, route) => {
+  const pattern = /<noscript>\s*<div[\s\S]*?<\/noscript>/;
+  if (!pattern.test(html)) {
+    throw new Error('postbuild-seo: content <noscript> block not found in dist/index.html');
+  }
+  const stub =
+    `<noscript>\n    <div style="max-width:640px;margin:0 auto;padding:2rem;font-family:system-ui,sans-serif">\n` +
+    `      <h1>${esc(route.title.split(' | ')[0])}</h1>\n` +
+    `      <p>${esc(route.description)}</p>\n` +
+    `      <p><a href="${SITE}/">Go to the ChatPro365 homepage</a></p>\n` +
+    `    </div>\n  </noscript>`;
+  return html.replace(pattern, () => stub);
+};
+
+/**
  * The base index.html carries the homepage's JSON-LD, including a FAQPage node.
  * Copying that onto /privacy-policy would be a structured-data mismatch, so
  * sub-pages keep only Organization + WebSite and get their own WebPage node.
@@ -129,7 +150,10 @@ const buildPage = (baseHtml, route) => {
     `<meta property="og:image" content="${OG_IMAGE}" />`
   );
 
-  if (route.path !== '/') html = rewriteJsonLd(html, route, url);
+  if (route.path !== '/') {
+    html = rewriteJsonLd(html, route, url);
+    html = rewriteNoscript(html, route);
+  }
 
   return html;
 };
