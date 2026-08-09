@@ -35,8 +35,10 @@ export const staticRoutes = [
   {
     path: '/',
     title: 'ChatPro365 | Best WhatsApp Business API & AI Automation Platform',
+    // Keep descriptions under ~160 characters — Google truncates past that, and
+    // the previous 209-character version lost everything after "bulk broadcasts".
     description:
-      'Turn WhatsApp into your 24/7 AI Sales Agent that sells in 11 Indian languages — Hindi, Hinglish, Tamil, Telugu, Bengali, Marathi & more. Auto quotations, CRM, bulk broadcasts, chatbot auto-replies. Start free!',
+      'Turn WhatsApp into a 24/7 AI sales agent that answers in 11 Indian languages, sends quotation PDFs, and follows up on its own. Free 14-day trial.',
     canonical: '/',
     inSitemap: true,
     priority: '1.0',

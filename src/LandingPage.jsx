@@ -1112,8 +1112,13 @@ const LandingPage = ({ activeSection = 'all' }) => {
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-bold mb-6 border border-white/20">
                   <Target className="w-4 h-4" /> Our Mission
                 </div>
+                {/* Google quotes this line as the homepage search snippet — it sits
+                    right under the "About ChatPro365" heading, which is exactly the
+                    pattern its snippet generator looks for on a brand query. Keep it
+                    specific to what the product does; generic SaaS phrasing here
+                    means a generic result in search. */}
                 <h3 className="text-xl md:text-2xl font-bold text-white mb-6 leading-snug">
-                  To help you automate business operations, elevate the customer experience, and dramatically increase your sales conversions.
+                  To put a tireless salesperson on every business's WhatsApp — one that answers in the customer's own language, quotes the right price, and follows up without being told.
                 </h3>
                 <p className="text-emerald-100 text-lg font-normal leading-relaxed">
                   We are dedicated to providing a platform that acts as the ultimate engine for your client management, intelligent automation, and limitless business growth.

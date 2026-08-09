@@ -1305,12 +1305,18 @@ export const ContactUsPage = ({ isOpen, onClose }) => {
               </div>
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1">{c.label}</p>
+                {/* Each line is wrapped in a <p> even when it is a link. An <a> is
+                    inline in the markup regardless of the CSS class on it, and
+                    crawlers reading the raw HTML ran the lines together —
+                    "sales@chatpro365.comSupport" was showing in the search result. */}
                 {c.lines.map((line, j) => {
                   const m = line.match(/[\w.+-]+@[\w.-]+\.\w+/);
-                  return m ? (
-                    <a key={j} href={`mailto:${m[0]}`} className="block text-zinc-300 font-normal leading-relaxed hover:text-emerald-400 transition-colors">{line}</a>
-                  ) : (
-                    <p key={j} className="text-zinc-300 font-normal leading-relaxed">{line}</p>
+                  return (
+                    <p key={j} className="text-zinc-300 font-normal leading-relaxed">
+                      {m ? (
+                        <a href={`mailto:${m[0]}`} className="hover:text-emerald-400 transition-colors">{line}</a>
+                      ) : line}
+                    </p>
                   );
                 })}
               </div>
