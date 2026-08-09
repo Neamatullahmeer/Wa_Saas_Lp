@@ -82,6 +82,7 @@ const rewriteJsonLd = (html, route, url) => {
     url,
     name: route.title,
     description: route.description,
+    inLanguage: 'en-IN',
     isPartOf: { '@id': `${SITE}/#website` },
     publisher: { '@id': `${SITE}/#organization` },
   });
