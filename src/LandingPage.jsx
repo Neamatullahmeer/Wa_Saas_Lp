@@ -1120,8 +1120,11 @@ const LandingPage = ({ activeSection = 'all' }) => {
                 <h3 className="text-xl md:text-2xl font-bold text-white mb-6 leading-snug">
                   To put a tireless salesperson on every business's WhatsApp — one that answers in the customer's own language, quotes the right price, and follows up without being told.
                 </h3>
+                {/* Second candidate for Google's snippet, right under the mission
+                    line — same rule applies: say what the product does, not what
+                    every SaaS says. */}
                 <p className="text-emerald-100 text-lg font-normal leading-relaxed">
-                  We are dedicated to providing a platform that acts as the ultimate engine for your client management, intelligent automation, and limitless business growth.
+                  Most Indian businesses already sell on WhatsApp — by hand, one message at a time, losing whoever asks at midnight. ChatPro365 learns your catalogue, prices and policies from the material you already have, and answers only from it.
                 </p>
               </div>
             </motion.div>
