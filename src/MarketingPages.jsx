@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import { PageModal } from './FooterPages';
 import { industries, findIndustry } from './content/industries';
-import { comparisons, findComparison, CHATPRO_PLANS, BUYER_CHECKLIST } from './content/comparisons';
+import { comparisons, findComparison, BUYER_CHECKLIST } from './content/comparisons';
 import { faqGroups } from './content/faq';
 import { APP_BASE_URL } from './lib/apiConfig';
 
@@ -635,7 +635,7 @@ export const ComparePage = () => (
         badge="Compare"
         icon={Scale}
         title="Comparing ChatPro365 with other WhatsApp platforms"
-        sub="Every vendor’s comparison page makes the vendor win, so here is our rule: we only state a competitor fact we have read on that competitor’s own public page, and we record the date we read it. Everything else describes what ChatPro365 does — and what you should ask us."
+        sub="Every vendor’s comparison page makes the vendor win, so here is our rule: we do not republish anyone else’s prices or invent their feature list — plans change weekly and a stale table would mislead you. We link to their own pages, describe what ChatPro365 does precisely enough that you can hold us to it, and give you the questions to ask both of us."
       />
 
       <Section title="The comparisons">
@@ -727,46 +727,31 @@ export const ComparisonPage = ({ slug: slugProp }) => {
 
         <PageHead badge="Comparison" icon={Scale} title={cmp.h1} sub={cmp.intro} />
 
-        <Section title="Published pricing, side by side">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6">
-              <h3 className="font-bold text-white mb-4">{cmp.competitor}</h3>
-              <ul className="space-y-2.5 text-sm">
-                {cmp.verified.rows.map((r, i) => (
-                  <li key={i} className="flex justify-between gap-4 text-zinc-300">
-                    <span className="text-zinc-400">{r.plan}</span>
-                    <span className="font-semibold">{r.price}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="text-zinc-500 text-xs mt-5 leading-relaxed">
-                Read from{' '}
-                <a href={cmp.verified.source} target="_blank" rel="noopener noreferrer nofollow"
-                  className="text-emerald-500 hover:text-emerald-400">{cmp.verified.label}</a>{' '}
-                on {cmp.verified.checkedOn}. {cmp.verified.note} Prices change — check their page before deciding.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-b from-emerald-900/50 to-blue-900/40 border border-emerald-600/60 rounded-2xl p-6">
-              <h3 className="font-bold text-white mb-4">ChatPro365</h3>
-              <ul className="space-y-2.5 text-sm">
-                {CHATPRO_PLANS.map((r, i) => (
-                  <li key={i} className="flex justify-between gap-4 text-zinc-100">
-                    <span className="text-zinc-300">{r.plan}</span>
-                    <span className="font-semibold">{r.price}{r.unit}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="text-zinc-400 text-xs mt-5 leading-relaxed">
-                The AI sales agent, quotation engine and follow-up automation are part of the plan,
-                not add-ons. WhatsApp conversation charges from Meta are billed on top, as they are
-                with every provider on the official API.
-              </p>
-              <Link to="/pricing" className="inline-block mt-4 text-emerald-300 hover:text-emerald-200 font-semibold text-sm">
-                Full pricing detail →
-              </Link>
-            </div>
+        <Section title="On pricing: read it at the source">
+          <p className="text-zinc-400 leading-relaxed mb-5">
+            We do not publish a rival’s price table here. Plans change every few weeks, and a
+            monthly figure on its own compares nothing when one platform includes the AI agent and
+            another sells it as an add-on. Open both pages and compare what sits inside the plan.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <a href={cmp.pricingLink.url} target="_blank" rel="noopener noreferrer nofollow"
+              className="bg-zinc-900/60 border border-zinc-800 hover:border-zinc-600 rounded-2xl p-6 transition-colors">
+              <h3 className="font-bold text-white mb-1">{cmp.competitor} pricing</h3>
+              <span className="text-emerald-500 text-sm">{cmp.pricingLink.label} →</span>
+            </a>
+            <Link to="/pricing"
+              className="bg-gradient-to-b from-emerald-900/50 to-blue-900/40 border border-emerald-600/60 hover:border-emerald-400 rounded-2xl p-6 transition-colors">
+              <h3 className="font-bold text-white mb-1">ChatPro365 pricing</h3>
+              <span className="text-emerald-300 text-sm">Plans, and what Meta charges on top →</span>
+            </Link>
           </div>
+          <ul className="space-y-3">
+            {cmp.watchFor.map((w, i) => (
+              <li key={i} className="flex gap-3 bg-zinc-900/60 border border-zinc-800 rounded-2xl p-4 text-zinc-300 text-sm">
+                <Scale className="w-5 h-5 text-emerald-400 shrink-0" /> {w}
+              </li>
+            ))}
+          </ul>
         </Section>
 
         <Section title="What ChatPro365 is built to do">
@@ -794,9 +779,9 @@ export const ComparisonPage = ({ slug: slugProp }) => {
 
         <p className="text-zinc-600 text-xs leading-relaxed mb-12">
           {cmp.competitor} is a trademark of its respective owner and is not affiliated with
-          ChatPro365. This page describes publicly available information as of{' '}
-          {cmp.verified.checkedOn} and our own product. If anything here is out of date, write to
-          support@chatpro365.com and we will correct it.
+          ChatPro365. This page describes our own product and points you to {cmp.competitor}’s
+          official pages for theirs; we do not speak for them, and their plans and features change.
+          If anything here is inaccurate, write to support@chatpro365.com and we will correct it.
         </p>
 
         <CtaBlock
