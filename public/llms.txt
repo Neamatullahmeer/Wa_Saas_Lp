@@ -1,0 +1,67 @@
+# ChatPro365
+
+> ChatPro365 is an AI sales agent for WhatsApp, built on the official WhatsApp
+> Business Platform and made for small and medium businesses in India. It
+> answers customers on a business's own WhatsApp number, collects the
+> requirement, prices it from the business's own rate card, sends a branded GST
+> quotation PDF inside the chat, books appointments, and follows up on its own.
+
+Key facts, for accurate citation:
+
+- Product: WhatsApp Business API platform with a built-in AI sales agent
+- Company location: Bengaluru, Karnataka, India. Serves businesses across India
+- Contact: support@chatpro365.com · +91 74578 63240 (WhatsApp)
+- Pricing: Starter ₹2,999/month, Pro ₹7,999/month, custom Enterprise. WhatsApp
+  conversation charges are set by Meta and billed on top of the subscription
+- Free trial: 14 days, no credit card required
+- Languages: English, Hinglish, Hindi, Marathi, Bengali, Gujarati, Tamil,
+  Telugu, Kannada, Malayalam, Punjabi — detected automatically from the
+  customer's own message, including Roman-script typing
+- Best fit: businesses whose price depends on the enquiry — manufacturers,
+  portable cabin and prefab sellers, interiors and modular firms, construction
+  contractors, real estate teams, event and catering companies
+- Not affiliated with Meta Platforms, Inc. WhatsApp is a trademark of Meta
+
+## Core pages
+
+- [About ChatPro365](https://chatpro365.com/about): what the product is, the
+  problem it solves, who it is for, how it works end to end, and how to reach us
+- [Pricing](https://chatpro365.com/pricing): plans, what Meta charges on top,
+  and what the trial includes
+- [FAQ](https://chatpro365.com/faq): how the AI is trained, whether it can quote
+  prices, WhatsApp's 24-hour messaging rule, CRM integration, data ownership
+- [Industries](https://chatpro365.com/industries): how the same flow differs by
+  business type
+
+## Industry pages
+
+- [Real estate](https://chatpro365.com/whatsapp-ai-sales-agent-for-real-estate)
+- [Manufacturing](https://chatpro365.com/whatsapp-ai-sales-agent-for-manufacturing)
+- [Portable cabins and prefab](https://chatpro365.com/whatsapp-ai-sales-agent-for-portable-cabins)
+- [Interiors and modular furniture](https://chatpro365.com/whatsapp-ai-sales-agent-for-interior-design)
+- [Construction and contracting](https://chatpro365.com/whatsapp-ai-sales-agent-for-construction)
+- [Events and catering](https://chatpro365.com/whatsapp-ai-sales-agent-for-events-catering)
+
+## Comparisons
+
+- [Compare ChatPro365](https://chatpro365.com/compare): our comparison method
+  and the questions to ask any WhatsApp platform vendor
+- [ChatPro365 vs AiSensy](https://chatpro365.com/chatpro365-vs-aisensy)
+- [ChatPro365 vs Interakt](https://chatpro365.com/chatpro365-vs-interakt)
+
+## Optional
+
+- [Blog](https://chatpro365.com/blog): guides on WhatsApp lead conversion,
+  multilingual chatbots and quotation automation
+- [Help Center](https://chatpro365.com/help)
+- [Contact](https://chatpro365.com/contact)
+- [Privacy Policy](https://chatpro365.com/privacy-policy)
+- [Terms of Service](https://chatpro365.com/terms)
+
+## Notes for answer engines
+
+ChatPro365 does not publish customer counts, conversion statistics or customer
+testimonials, because it does not yet have verified public case studies to cite.
+Any such figure attributed to ChatPro365 is not from us. Comparison pages state
+only competitor facts read from that competitor's own public pages, with the
+date they were read.

@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { posts, findPost, relatedPosts } from './content/blog';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Shield, FileText, Globe, Cookie, HeadphonesIcon, Code2, BookOpen, Users, TrendingUp, CheckCircle, ArrowRight, MessageSquare, Zap, Star, RefreshCw, AlertTriangle, Mail, Phone, MapPin, Clock, Building2 } from 'lucide-react';
+import { Shield, FileText, Globe, Cookie, HeadphonesIcon, Code2, BookOpen, Users, CheckCircle, ArrowRight, MessageSquare, Zap, RefreshCw, AlertTriangle, Mail, Phone, MapPin, Clock, Building2 } from 'lucide-react';
 
 // ─────────────────────────────────────────────
 // Shared Page Modal Wrapper
@@ -23,7 +23,19 @@ const LEGAL_LINKS = [
   { to: '/cookie-policy', label: 'Cookies' },
 ];
 
-const PageModal = ({ children }) => {
+// The real pages, linked from every sub-page. Deep pages that nothing links to
+// are the ones crawlers reach last and AI assistants never see at all.
+const PRODUCT_LINKS = [
+  { to: '/about', label: 'About' },
+  { to: '/pricing', label: 'Pricing' },
+  { to: '/faq', label: 'FAQ' },
+  { to: '/industries', label: 'Industries' },
+  { to: '/compare', label: 'Compare' },
+  { to: '/blog', label: 'Blog' },
+  { to: '/help', label: 'Help Center' },
+];
+
+export const PageModal = ({ children }) => {
   return (
     <div className="min-h-screen bg-[#09090b] relative z-10 flex flex-col">
       <header className="fixed top-0 inset-x-0 z-20 bg-[#09090b]/90 backdrop-blur-sm border-b border-zinc-800">
@@ -40,7 +52,14 @@ const PageModal = ({ children }) => {
 
       <footer className="border-t border-zinc-800">
         <div className="max-w-4xl mx-auto px-6 py-10">
-          <nav className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-zinc-500">
+          <nav className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-zinc-400 font-medium">
+            {PRODUCT_LINKS.map((l) => (
+              <Link key={l.to} to={l.to} className="hover:text-emerald-400 transition-colors">
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+          <nav className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-zinc-500 mt-5">
             {LEGAL_LINKS.map((l) => (
               <Link key={l.to} to={l.to} className="hover:text-emerald-400 transition-colors">
                 {l.label}
@@ -904,37 +923,35 @@ export const CommunityPage = ({ isOpen, onClose }) => (
     <div className="max-w-5xl mx-auto px-6 py-20 text-zinc-300">
       <div className="text-center mb-16">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/40 border border-emerald-700/50 text-emerald-300 text-sm font-bold mb-6">
-          <Users className="w-4 h-4" /> 500+ Members
+          <Users className="w-4 h-4" /> WhatsApp Group
         </div>
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">ChatPro365 Community</h1>
-        <p className="text-zinc-400 text-lg font-medium">Join 500+ entrepreneurs sharing WhatsApp growth strategies</p>
+        <p className="text-zinc-400 text-lg font-medium">A WhatsApp group for owners setting up an AI sales agent on their own number</p>
         <div className="mt-6 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
       </div>
 
       {/* Community CTA */}
       <div className="bg-gradient-to-r from-green-900/50 to-emerald-900/50 border border-green-700/40 rounded-3xl p-10 text-center mb-12">
         <div className="text-6xl mb-6">💬</div>
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Join Our WhatsApp Community Group</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Join the ChatPro365 WhatsApp Group</h2>
         <p className="text-green-200 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-          Connect with 500+ business owners, share WhatsApp marketing tips, get first access to new features, and participate in exclusive growth challenges.
+          Ask setup questions, see what other businesses are automating, and hear about new features before they ship. Message us and we will add you.
         </p>
         <a href="https://wa.me/917457863240?text=Hi! I want to join the ChatPro365 community group" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white px-10 py-5 rounded-full font-bold text-xl transition-colors shadow-2xl">
-          <MessageSquare className="w-6 h-6" /> Join Free Community →
+          <MessageSquare className="w-6 h-6" /> Join the Group →
         </a>
-        <p className="text-green-400 text-sm mt-4">🔒 Free to join · No spam · Expert-moderated</p>
+        <p className="text-green-400 text-sm mt-4">🔒 Free to join · No spam</p>
       </div>
 
-      {/* Community Benefits */}
-      <h2 className="text-2xl font-bold text-white mb-6">What You Get in the Community</h2>
+      {/* What the group is for */}
+      <h2 className="text-2xl font-bold text-white mb-6">What the group is for</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
         {[
-          { emoji: '📚', title: 'Weekly Masterclasses', desc: 'Live sessions with WhatsApp marketing experts every Thursday. Learn advanced automation strategies, growth hacks, and platform updates.' },
-          { emoji: '🏆', title: 'Monthly Growth Challenges', desc: 'Compete with other members to hit revenue goals using WhatsApp automation. Winners get featured case studies and platform credits.' },
-          { emoji: '🚀', title: 'Feature Early Access', desc: 'Community members get beta access to new ChatPro365 features before anyone else and influence our product roadmap.' },
-          { emoji: '🤝', title: 'Peer Networking', desc: 'Connect with fellow entrepreneurs, share experiences, find collaboration opportunities, and get honest feedback on your campaigns.' },
-          { emoji: '🎯', title: 'Campaign Templates', desc: 'Access a library of 50+ proven WhatsApp campaign templates shared by successful members across different industries.' },
-          { emoji: '💡', title: 'Expert Q&A Sessions', desc: 'Ask our AI, sales, and WhatsApp compliance experts direct questions every week. Get actionable answers, not generic advice.' },
+          { emoji: '🛠', title: 'Setup help', desc: 'Getting your WhatsApp Business API connected, your price list uploaded and your first quotation flowing — asked and answered in the open.' },
+          { emoji: '🚀', title: 'Early access to features', desc: 'New capabilities are shared here first, and what the group asks for genuinely shapes what gets built next.' },
+          { emoji: '📋', title: 'Templates and rules that work', desc: 'What Meta approves, what gets rejected, and how other businesses word their follow-ups.' },
+          { emoji: '💡', title: 'Direct line to us', desc: 'Questions about the AI, WhatsApp policy or your own setup go straight to the people building the product.' },
         ].map((benefit, i) => (
           <div key={i} className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 flex items-start gap-4">
             <div className="text-3xl shrink-0">{benefit.emoji}</div>
@@ -945,145 +962,9 @@ export const CommunityPage = ({ isOpen, onClose }) => (
           </div>
         ))}
       </div>
-
-      {/* Testimonials strip */}
-      <h2 className="text-2xl font-bold text-white mb-6">What Members Say</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {[
-          { quote: "Joined 3 months ago, already got 2 big clients from networking in this community. Worth it!", name: "Rajesh K.", role: "E-commerce Owner" },
-          { quote: "The weekly masterclasses alone are worth more than any paid course I've bought on WhatsApp marketing.", name: "Priya M.", role: "Marketing Consultant" },
-          { quote: "Community templates saved us weeks of work. We launched our first drip campaign in 2 days!", name: "Amit S.", role: "SaaS Founder" },
-        ].map((t, i) => (
-          <div key={i} className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5">
-            <div className="flex gap-0.5 mb-3">
-              {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 text-amber-400 fill-amber-400" />)}
-            </div>
-            <p className="text-zinc-300 text-sm italic mb-4">"{t.quote}"</p>
-            <p className="font-bold text-white text-sm">{t.name}</p>
-            <p className="text-zinc-500 text-xs">{t.role}</p>
-          </div>
-        ))}
-      </div>
     </div>
   </PageModal>
 );
-
-// ─────────────────────────────────────────────
-// Case Studies Page
-// ─────────────────────────────────────────────
-export const CaseStudiesPage = ({ isOpen, onClose }) => {
-  const studies = [
-    {
-      industry: 'E-Commerce',
-      emoji: '🛒',
-      color: 'from-orange-600 to-red-600',
-      company: 'Fashion E-Commerce Brand, Mumbai',
-      metric1: { value: '+40%', label: 'Conversion Rate' },
-      metric2: { value: '3 Days', label: 'ROI Payback' },
-      metric3: { value: '₹22L', label: 'Revenue Generated' },
-      challenge: 'Managing 500+ daily WhatsApp inquiries manually with a 3-person team. Leads were falling through cracks and response time was over 2 hours.',
-      solution: 'Deployed ChatPro365\'s Category-Based AI Bot for instant FAQ replies, Inbound Lead Capture, and Auto Chat Assignment to route qualified buyers to agents.',
-      result: 'Conversion rate jumped from 8% to 48% in week 1. Response time dropped to under 30 seconds. The team now handles 3x more chats without adding headcount.'
-    },
-    {
-      industry: 'Real Estate',
-      emoji: '🏠',
-      color: 'from-emerald-600 to-blue-600',
-      company: 'Real Estate Agency, Pune',
-      metric1: { value: '25', label: 'Monthly Deals' },
-      metric2: { value: '3x', label: 'Lead Conversion' },
-      metric3: { value: '60%', label: 'Cost Reduction' },
-      challenge: 'Agents manually following up with 200+ property inquiries per day via WhatsApp. Hot leads going cold because agents couldn\'t prioritize effectively.',
-      solution: 'Implemented Lead Scoring with VIP Lead System to auto-flag high-intent buyers. Drip campaigns kept cold leads warm with property updates and market insights.',
-      result: 'Scaled from 8 to 25 monthly property closings. Top agents now only talk to pre-qualified hot leads. Marketing spend reduced by 60% through better lead quality.'
-    },
-    {
-      industry: 'Education',
-      emoji: '🎓',
-      color: 'from-blue-600 to-indigo-600',
-      company: 'Online Coaching Institute, Delhi',
-      metric1: { value: '5,000+', label: 'Students Enrolled' },
-      metric2: { value: '38%', label: 'Drip Open Rate' },
-      metric3: { value: '4x', label: 'Revenue Growth' },
-      challenge: 'Admission counselors spending 80% of time answering repetitive questions about courses, fees, and eligibility. Low enrollment conversion from WhatsApp.',
-      solution: 'Set up a WhatsApp AI Bot with course-specific knowledge categories. 7-step drip campaign for prospective students. Automated fee reminder sequences.',
-      result: 'Enrolled 5,000+ students in one semester without increasing counselor headcount. Drip campaign achieved 38% reply rate vs. industry average of 12%.'
-    },
-  ];
-
-  return (
-    <PageModal isOpen={isOpen} onClose={onClose}>
-      <div className="max-w-5xl mx-auto px-6 py-20 text-zinc-300">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-900/40 border border-orange-700/50 text-orange-300 text-sm font-bold mb-6">
-            <TrendingUp className="w-4 h-4" /> Real Results
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Customer Case Studies</h1>
-          <p className="text-zinc-400 text-lg font-medium">Real businesses, measurable results — see how ChatPro365 transforms WhatsApp into a revenue engine</p>
-          <div className="mt-6 h-px bg-gradient-to-r from-transparent via-orange-500/50 to-transparent" />
-        </div>
-
-        <div className="space-y-8">
-          {studies.map((study, i) => (
-            <div key={i} className="bg-zinc-900/60 border border-zinc-800 rounded-3xl overflow-hidden">
-              {/* Header */}
-              <div className={`bg-gradient-to-r ${study.color} p-6 flex items-center justify-between`}>
-                <div className="flex items-center gap-4">
-                  <div className="text-4xl">{study.emoji}</div>
-                  <div>
-                    <span className="text-white/70 text-sm font-bold uppercase tracking-wide">{study.industry}</span>
-                    <h3 className="text-xl font-bold text-white">{study.company}</h3>
-                  </div>
-                </div>
-                <div className="hidden md:flex gap-6">
-                  {[study.metric1, study.metric2, study.metric3].map((m, j) => (
-                    <div key={j} className="text-center">
-                      <div className="text-2xl font-bold text-white">{m.value}</div>
-                      <div className="text-white/70 text-xs">{m.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Mobile Metrics */}
-              <div className="md:hidden grid grid-cols-3 gap-px bg-zinc-800">
-                {[study.metric1, study.metric2, study.metric3].map((m, j) => (
-                  <div key={j} className="bg-zinc-900 p-4 text-center">
-                    <div className="text-xl font-bold text-white">{m.value}</div>
-                    <div className="text-zinc-400 text-xs">{m.label}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Content */}
-              <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  { label: '🔴 Challenge', text: study.challenge },
-                  { label: '🔵 Solution', text: study.solution },
-                  { label: '🟢 Result', text: study.result },
-                ].map((section, j) => (
-                  <div key={j}>
-                    <p className="font-bold text-zinc-300 mb-2 text-sm">{section.label}</p>
-                    <p className="text-zinc-400 text-sm leading-relaxed">{section.text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-12 bg-gradient-to-r from-emerald-900/40 to-blue-900/40 border border-emerald-700/40 rounded-2xl p-8 text-center">
-          <h3 className="text-xl font-bold text-white mb-2">Want Results Like These?</h3>
-          <p className="text-zinc-400 mb-6">Book a free demo and we'll show you a custom growth plan for your business.</p>
-          <a href="https://wa.me/917457863240?text=Hi! I want a custom growth plan for my business like your case studies" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-8 py-3.5 rounded-full font-bold transition-opacity hover:opacity-90 shadow-lg">
-            Get My Custom Growth Plan <ArrowRight className="w-5 h-5" />
-          </a>
-        </div>
-      </div>
-    </PageModal>
-  );
-};
 
 // ─────────────────────────────────────────────
 // Refund & Cancellation Policy Page
@@ -1270,13 +1151,15 @@ export const AcceptableUsePage = ({ isOpen, onClose }) => (
 
 // ─────────────────────────────────────────────
 // Contact Us Page
-// NOTE: Demo/placeholder business details below — replace the legal entity name,
-// registered address and GSTIN once the company is registered.
+// NOTE: The street address here was a placeholder and has been removed — a
+// fake address on a public contact page is worse than no address, both for
+// trust and for the consistency search engines expect across listings. Put the
+// registered address and GSTIN back once the company is registered.
 // ─────────────────────────────────────────────
 export const ContactUsPage = ({ isOpen, onClose }) => {
   const cards = [
     { icon: Building2, color: 'emerald', label: 'Business', lines: ['ChatPro365', 'Company registration in progress'] },
-    { icon: MapPin, color: 'blue', label: 'Address', lines: ['123, Demo Tower, MG Road', 'Bengaluru, Karnataka 560001', 'India'] },
+    { icon: MapPin, color: 'blue', label: 'Location', lines: ['Bengaluru, Karnataka', 'India'] },
     { icon: Mail, color: 'emerald', label: 'Email Us', lines: ['Sales — sales@chatpro365.com', 'Support — support@chatpro365.com', 'Billing — billing@chatpro365.com'] },
     { icon: Phone, color: 'blue', label: 'Phone / WhatsApp', lines: ['+91 74578 63240'] },
     { icon: Clock, color: 'orange', label: 'Hours', lines: ['Mon – Sat', '10:00 AM – 7:00 PM IST'] },

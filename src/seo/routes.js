@@ -2,17 +2,23 @@
 // live in ../content/blog.js; seo/manifest.js merges the two into the list that
 // routing, prerendering and the sitemap all read.
 //
-// Keep this file plain ESM with no imports — scripts/postbuild-seo.mjs loads it
-// directly in Node, outside Vite, for SITE and OG_IMAGE.
+// This file is loaded directly by scripts/postbuild-seo.mjs in plain Node,
+// outside Vite — so it may only import other plain-data modules with explicit
+// file extensions (never a component, an icon pack, or anything that relies on
+// import.meta.glob).
+
+import { industries } from '../content/industries.js';
+import { comparisons } from '../content/comparisons.js';
+import { allFaqs } from '../content/faq.js';
 
 export const SITE = 'https://chatpro365.com';
 
 const OG_IMAGE = `${SITE}/og-image.png`;
 
-// The landing page is one long scrolling page. /features, /pricing etc. are
-// scroll-to-section aliases that render the exact same markup, so they point
-// their canonical back at the homepage and stay out of the sitemap — otherwise
-// Google sees six copies of one page.
+// /features renders the landing page scrolled to a section, so it points its
+// canonical back at the homepage and stays out of the sitemap — otherwise Google
+// sees two copies of one page. Pages that own real, distinct content (about,
+// pricing, faq, compare) are no longer aliases; they are pages.
 const sectionAlias = (path, title, description) => ({
   path,
   title,
@@ -21,7 +27,7 @@ const sectionAlias = (path, title, description) => ({
   inSitemap: false,
 });
 
-const page = (path, title, description, priority = '0.5', changefreq = 'monthly') => ({
+const page = (path, title, description, priority = '0.5', changefreq = 'monthly', extra = {}) => ({
   path,
   title,
   description,
@@ -29,7 +35,10 @@ const page = (path, title, description, priority = '0.5', changefreq = 'monthly'
   inSitemap: true,
   priority,
   changefreq,
+  ...extra,
 });
+
+const crumb = (name, item) => (item ? { name, item } : { name });
 
 export const staticRoutes = [
   {
@@ -45,34 +54,85 @@ export const staticRoutes = [
     changefreq: 'weekly',
   },
 
-  // Landing-page sections (canonical → homepage)
+  // Landing-page section (canonical → homepage)
   sectionAlias(
     '/features',
     'Features | ChatPro365 WhatsApp AI Sales Automation',
     'AI chatbot in 11 Indian languages, auto quotation PDFs, lead scoring, bulk broadcasts, drip campaigns and CRM webhooks — every ChatPro365 feature in one place.'
   ),
-  sectionAlias(
-    '/pricing',
-    'Pricing | ChatPro365 WhatsApp Business API Plans',
-    'Simple WhatsApp Business API pricing for Indian businesses. Starter and Pro plans with AI replies, broadcasts, CRM and team inbox included. 14-day free trial.'
-  ),
-  sectionAlias(
-    '/compare',
-    'ChatPro365 vs Other WhatsApp Automation Tools',
-    'See how ChatPro365 compares on multilingual AI selling, auto quotations, lead scoring and pricing against other WhatsApp Business API platforms.'
-  ),
-  sectionAlias(
+
+  // ── Entity, pricing and answers: real pages, not aliases ──
+  page(
     '/about',
-    'About ChatPro365 | WhatsApp AI Built for Bharat',
-    'ChatPro365 is a WhatsApp Business API platform built for Indian businesses — an AI sales agent that talks to your customers in their own language, around the clock.'
+    'About ChatPro365 | The AI Sales Agent for WhatsApp',
+    'What ChatPro365 is, who it is for, how the AI sells on WhatsApp, and how to reach the company — the plain description of the product and the business behind it.',
+    '0.9',
+    'monthly',
+    { breadcrumb: [crumb('Home', `${SITE}/`), crumb('About')] }
   ),
-  sectionAlias(
+  page(
+    '/pricing',
+    'Pricing | ChatPro365 WhatsApp AI Sales Agent Plans',
+    'ChatPro365 plans in rupees: Starter ₹2,999/month, Pro ₹7,999/month, custom Enterprise. What is included, what Meta charges on top, and the 14-day free trial.',
+    '0.9',
+    'monthly',
+    { breadcrumb: [crumb('Home', `${SITE}/`), crumb('Pricing')] }
+  ),
+  page(
     '/faq',
-    'FAQ | ChatPro365 WhatsApp Business API Questions Answered',
-    'Common questions about the WhatsApp Business API, AI chatbot languages, bulk broadcast limits, human handoff, CRM integration and ChatPro365 pricing.'
+    'ChatPro365 FAQ | WhatsApp AI Sales Agent Questions Answered',
+    'Straight answers about ChatPro365: how the AI is trained, whether it can quote prices, which Indian languages it speaks, WhatsApp’s 24-hour rule, CRM and pricing.',
+    '0.8',
+    'monthly',
+    {
+      faq: allFaqs,
+      breadcrumb: [crumb('Home', `${SITE}/`), crumb('FAQ')],
+    }
   ),
 
-  // Real standalone pages
+  // ── Industries ──
+  page(
+    '/industries',
+    'Industries | WhatsApp AI Sales Agent by Business Type | ChatPro365',
+    'How ChatPro365 sells on WhatsApp for real estate, manufacturing, portable cabins, interiors, construction and catering — the enquiry, the quotation, the follow-up.',
+    '0.8',
+    'monthly',
+    { breadcrumb: [crumb('Home', `${SITE}/`), crumb('Industries')] }
+  ),
+  ...industries.map((ind) =>
+    page(ind.path, ind.title, ind.description, '0.8', 'monthly', {
+      industry: ind.slug,
+      faq: ind.faq.map(({ q, a }) => ({ q, a })),
+      breadcrumb: [
+        crumb('Home', `${SITE}/`),
+        crumb('Industries', `${SITE}/industries`),
+        crumb(ind.name),
+      ],
+    })
+  ),
+
+  // ── Comparisons ──
+  page(
+    '/compare',
+    'Compare ChatPro365 | WhatsApp Business API Platform Comparisons',
+    'How ChatPro365 compares with other WhatsApp Business API platforms, what we can verify about each, and the questions worth asking any vendor before you buy.',
+    '0.7',
+    'monthly',
+    { breadcrumb: [crumb('Home', `${SITE}/`), crumb('Compare')] }
+  ),
+  ...comparisons.map((cmp) =>
+    page(cmp.path, cmp.title, cmp.description, '0.7', 'monthly', {
+      comparison: cmp.slug,
+      faq: cmp.faq.map(({ q, a }) => ({ q, a })),
+      breadcrumb: [
+        crumb('Home', `${SITE}/`),
+        crumb('Compare', `${SITE}/compare`),
+        crumb(cmp.competitor),
+      ],
+    })
+  ),
+
+  // ── Support, content and legal ──
   page(
     '/contact',
     'Contact ChatPro365 | WhatsApp Business API Support India',
@@ -92,15 +152,9 @@ export const staticRoutes = [
     '0.6'
   ),
   page(
-    '/case-studies',
-    'Case Studies | Real WhatsApp Automation Results',
-    'How e-commerce, real estate and service businesses in India used ChatPro365 to lift conversion rates, cut response times and close more deals on WhatsApp.',
-    '0.6'
-  ),
-  page(
     '/community',
     'Community | ChatPro365 WhatsApp Growth Group',
-    'Join 500+ Indian business owners sharing WhatsApp marketing tactics, automation tips and early access to new ChatPro365 features.',
+    'Join the ChatPro365 WhatsApp group for setup tips, automation ideas and early access to new features.',
     '0.4'
   ),
   page(

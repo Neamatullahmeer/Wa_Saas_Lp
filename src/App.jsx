@@ -4,17 +4,20 @@ import LandingPage from './LandingPage';
 import { SITE, findRoute } from './seo/manifest';
 import {
   PrivacyPolicyPage, TermsOfServicePage, GDPRPage, CookiePolicyPage,
-  HelpCenterPage, APIDocsPage, BlogPage, BlogPostPage, CommunityPage, CaseStudiesPage,
+  HelpCenterPage, APIDocsPage, BlogPage, BlogPostPage, CommunityPage,
   RefundPolicyPage, AcceptableUsePage, ContactUsPage
 } from './FooterPages';
+import {
+  AboutPage, PricingPage, FaqPage, IndustriesPage, IndustryPage,
+  ComparePage, ComparisonPage,
+} from './MarketingPages';
+import { industries } from './content/industries';
+import { comparisons } from './content/comparisons';
 
-// Maps route paths to section IDs on the landing page
+// Maps route paths to section IDs on the landing page. Only /features is still
+// an alias — about, pricing, faq and compare are real pages of their own now.
 const ROUTE_TO_SECTION = {
   '/features': 'features',
-  '/pricing': 'pricing',
-  '/compare': 'comparison',
-  '/about': 'about',
-  '/faq': 'faq',
 };
 
 const ScrollToSection = () => {
@@ -122,10 +125,23 @@ export function AppRoutes() {
         {/* Landing page (section anchors like /#features still work in-page) */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/features" element={<LandingPage />} />
-        <Route path="/pricing" element={<LandingPage />} />
-        <Route path="/compare" element={<LandingPage />} />
-        <Route path="/about" element={<LandingPage />} />
-        <Route path="/faq" element={<LandingPage />} />
+
+        {/* Pages that own their own content */}
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/faq" element={<FaqPage />} />
+
+        {/* Industries — keyword URLs, so the slug is passed in rather than parsed */}
+        <Route path="/industries" element={<IndustriesPage />} />
+        {industries.map((ind) => (
+          <Route key={ind.path} path={ind.path} element={<IndustryPage slug={ind.slug} />} />
+        ))}
+
+        {/* Comparisons */}
+        <Route path="/compare" element={<ComparePage />} />
+        {comparisons.map((cmp) => (
+          <Route key={cmp.path} path={cmp.path} element={<ComparisonPage slug={cmp.slug} />} />
+        ))}
 
         {/* Legal & Footer Pages (real URLs for SEO) */}
         <Route path="/privacy-policy" element={<PageRoute component={PrivacyPolicyPage} />} />
@@ -141,7 +157,6 @@ export function AppRoutes() {
         {/* One prerendered file per markdown post — see src/content/blog/ */}
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/community" element={<PageRoute component={CommunityPage} />} />
-        <Route path="/case-studies" element={<PageRoute component={CaseStudiesPage} />} />
 
         {/* Unknown URLs → a real 404, not a silent copy of the landing page */}
         <Route path="*" element={<NotFoundPage />} />

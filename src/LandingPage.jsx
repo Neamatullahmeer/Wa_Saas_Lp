@@ -10,11 +10,7 @@ import {
   UserCheck, Filter, Megaphone, Send, Brain, Eye, Crown, Lock, UploadCloud
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  PrivacyPolicyPage, TermsOfServicePage, GDPRPage, CookiePolicyPage,
-  HelpCenterPage, APIDocsPage, BlogPage, CommunityPage, CaseStudiesPage,
-  RefundPolicyPage, AcceptableUsePage, ContactUsPage
-} from './FooterPages';
+import { industries } from './content/industries';
 
 // ─────────────────────────────────────────────
 // Logo SVG
@@ -305,33 +301,6 @@ const LandingPage = ({ activeSection = 'all' }) => {
     { feature: 'Follow-ups', basic: 'Time-based blasts', pro: 'Behaviour-triggered abandoned-quote nudges' },
   ];
 
-  const testimonials = [
-    {
-      quote: "Before ChatPro365, managing our WhatsApp leads was a nightmare. Now, with the Inbound Lead Capture and Auto Chat Assignment, our conversion rate jumped by 40% and no lead is ever left unaddressed!",
-      name: "Siddharth M.",
-      role: "E-commerce Founder",
-      rating: 5,
-      avatar: "SM",
-      color: "from-emerald-500 to-blue-500"
-    },
-    {
-      quote: "The AI Quality Supervisor alone is worth it. We went from having zero visibility into our team's chats to having full performance dashboards. Remarkable product!",
-      name: "Priya K.",
-      role: "Sales Director, Real Estate",
-      rating: 5,
-      avatar: "PK",
-      color: "from-emerald-500 to-teal-500"
-    },
-    {
-      quote: "We ran a drip campaign to 2,000 cold leads and got 38% replies within 3 days. ChatPro365's automation is unmatched. It paid for itself in the first week.",
-      name: "Rohit A.",
-      role: "Digital Marketing Agency Owner",
-      rating: 5,
-      avatar: "RA",
-      color: "from-orange-500 to-red-500"
-    },
-  ];
-
   const faqs = [
     {
       question: "What is ChatPro365, and how does it use the WhatsApp Business API?",
@@ -427,7 +396,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
                 >
                   {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Start Free Trial <ArrowRight className="w-4 h-4" /></>}
                 </button>
-                <p className="text-xs text-center text-zinc-400 mt-4">⭐ Trusted by 500+ businesses · No Credit Card Required</p>
+                <p className="text-xs text-center text-zinc-400 mt-4">14-day free trial · No credit card required</p>
               </form>
             </motion.div>
           </div>
@@ -528,7 +497,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
             {/* Badge */}
             <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/70 backdrop-blur-md border border-emerald-100 text-emerald-700 text-sm font-bold mb-8 shadow-sm">
               <Sparkles className="w-4 h-4 text-blue-500 animate-pulse" />
-              ⭐ Trusted by 500+ Growing Businesses · No Credit Card Required
+              Sells in 11 Indian Languages · No Credit Card Required
             </motion.div>
 
             {/* Headline */}
@@ -571,11 +540,10 @@ const LandingPage = ({ activeSection = 'all' }) => {
             {/* Stats Strip */}
             <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-6 md:gap-16">
               {[
-                { value: '500+', label: 'Growing Businesses' },
-                { value: '3x', label: 'Conversion Rate Boost' },
                 { value: '11', label: 'Indian Languages Spoken' },
                 { value: '24/7', label: 'Automated Operations' },
-                { value: '40%', label: 'Average Lead Increase' },
+                { value: 'GST', label: 'Quotation PDFs In Chat' },
+                { value: '14', label: 'Day Free Trial' },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
                   <div className="text-2xl font-bold text-zinc-900">{stat.value}</div>
@@ -850,9 +818,20 @@ const LandingPage = ({ activeSection = 'all' }) => {
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="mt-12 text-center">
             <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Built for quote-driven businesses</p>
             <div className="flex flex-wrap justify-center gap-2.5">
-              {['Manufacturing', 'Interiors & Modular', 'Portable Cabins', 'Events & Catering', 'Construction', 'Services & B2B'].map((tag, i) => (
-                <span key={i} className="bg-white border border-zinc-200 text-zinc-600 text-sm font-medium px-4 py-2 rounded-full">{tag}</span>
+              {industries.map((ind) => (
+                <Link
+                  key={ind.slug}
+                  to={ind.path}
+                  className="bg-white border border-zinc-200 hover:border-emerald-400 hover:text-emerald-700 text-zinc-600 text-sm font-medium px-4 py-2 rounded-full transition-colors"
+                >
+                  {ind.name}
+                </Link>
               ))}
+            </div>
+            <div className="mt-4">
+              <Link to="/industries" className="text-sm font-semibold text-emerald-700 hover:text-emerald-800">
+                See how it works in your industry →
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -1045,42 +1024,6 @@ const LandingPage = ({ activeSection = 'all' }) => {
             <button onClick={() => setShowModal(true)} className="bg-gradient-to-r from-emerald-600 to-blue-600 text-white font-bold px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-xl text-lg inline-flex items-center gap-2">
               Start Your Free Trial Now <ArrowRight className="w-5 h-5" />
             </button>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════
-          SECTION 6: TESTIMONIALS
-      ════════════════════════════════════════ */}
-      <section className="py-12 md:py-16 bg-transparent border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 md:mb-10">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-100 text-amber-700 text-sm font-bold mb-6">
-              <Star className="w-4 h-4 fill-amber-500 text-amber-500" /> Social Proof
-            </div>
-            <h2 className="text-section-title font-semibold mb-4 tracking-tight text-zinc-900">
-              Loved by Hundreds of <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500">Founders & Sales Teams</span>
-            </h2>
-          </motion.div>
-
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <motion.div key={i} variants={fadeUp} whileHover={{ y: -8 }} className="bg-white rounded-3xl p-6 shadow-sm border border-zinc-200 hover:shadow-xl transition-all duration-300 flex flex-col">
-                <div className="flex gap-1 mb-6">
-                  {[...Array(t.rating)].map((_, s) => <Star key={s} className="w-5 h-5 fill-amber-400 text-amber-400" />)}
-                </div>
-                <p className="text-lead text-zinc-700 font-normal leading-relaxed flex-1 mb-6">"{t.quote}"</p>
-                <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 bg-gradient-to-br ${t.color} rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md`}>
-                    {t.avatar}
-                  </div>
-                  <div>
-                    <p className="font-bold text-zinc-900">{t.name}</p>
-                    <p className="text-zinc-500 text-sm font-medium">{t.role}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
           </motion.div>
         </div>
       </section>
@@ -1512,8 +1455,9 @@ const LandingPage = ({ activeSection = 'all' }) => {
               <ul className="space-y-4 text-base font-medium text-zinc-400">
                 <li><Link to="/features" className="hover:text-emerald-400 transition-colors cursor-pointer">Product Features</Link></li>
                 <li><Link to="/pricing" className="hover:text-emerald-400 transition-colors cursor-pointer">Pricing</Link></li>
-                <li><Link to="/compare" className="hover:text-emerald-400 transition-colors cursor-pointer">Compare Plans</Link></li>
-                <li><Link to="/case-studies" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Case Studies</Link></li>
+                <li><Link to="/industries" className="hover:text-emerald-400 transition-colors cursor-pointer">Industries</Link></li>
+                <li><Link to="/compare" className="hover:text-emerald-400 transition-colors cursor-pointer">Compare Platforms</Link></li>
+                <li><Link to="/about" className="hover:text-emerald-400 transition-colors cursor-pointer">About ChatPro365</Link></li>
                 <li><button onClick={() => setShowModal(true)} className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Start Free Trial</button></li>
               </ul>
             </div>
@@ -1521,6 +1465,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
             <div>
               <h4 className="font-bold text-white mb-6 text-lg tracking-tight">Resources</h4>
               <ul className="space-y-4 text-base font-medium text-zinc-400">
+                <li><Link to="/faq" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">FAQ</Link></li>
                 <li><Link to="/help" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Help Center</Link></li>
                 <li><Link to="/api-docs" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">API Documentation</Link></li>
                 <li><Link to="/blog" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Blog</Link></li>

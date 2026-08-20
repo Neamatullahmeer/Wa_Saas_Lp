@@ -116,6 +116,37 @@ const rewriteJsonLd = (html, route, url) => {
     );
   }
 
+  // Pages that declare their own trail (industries, comparisons, about…) get the
+  // same treatment. The last crumb is the page itself and carries no `item`,
+  // which is what schema.org expects for the current page.
+  if (Array.isArray(route.breadcrumb) && route.breadcrumb.length > 1) {
+    kept.push({
+      '@type': 'BreadcrumbList',
+      '@id': `${url}#breadcrumb`,
+      itemListElement: route.breadcrumb.map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: c.name,
+        ...(c.item ? { item: c.item } : {}),
+      })),
+    });
+  }
+
+  // A page that answers real questions says so in machine-readable form. The
+  // questions must exist as visible text on the page too — structured data that
+  // is not in the page body is a policy violation, not a shortcut.
+  if (Array.isArray(route.faq) && route.faq.length) {
+    kept.push({
+      '@type': 'FAQPage',
+      '@id': `${url}#faq`,
+      mainEntity: route.faq.map(({ q, a }) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    });
+  }
+
   const next = JSON.stringify({ '@context': graph['@context'], '@graph': kept }, null, 2);
   return html.replace(pattern, () => `<script type="application/ld+json">\n${next}\n  </script>`);
 };
