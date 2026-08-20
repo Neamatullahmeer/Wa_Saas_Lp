@@ -263,6 +263,28 @@ export const AboutPage = () => (
         </div>
       </Section>
 
+      <Section title="Who is behind ChatPro365">
+        <div className="space-y-4 text-zinc-400 leading-relaxed">
+          <p>
+            ChatPro365 was founded in 2025 by Neamatullah Meer, and is built and run from
+            Bengaluru, Karnataka, for businesses across India.
+          </p>
+          <p>
+            The product exists because of a gap its founder kept running into: Indian businesses
+            were already selling on WhatsApp by hand, and losing enquiries not for want of effort
+            but because nobody could answer a pricing question at midnight. ChatPro365 is the
+            attempt to close that gap properly — with an AI that quotes from your real rate card
+            rather than a chatbot that deflects.
+          </p>
+          <p>
+            <a className="text-emerald-400 hover:text-emerald-300 font-semibold"
+              href="https://www.linkedin.com/company/chatpro365/" target="_blank" rel="noopener noreferrer">
+              ChatPro365 on LinkedIn
+            </a>
+          </p>
+        </div>
+      </Section>
+
       <Section title="Relationship with WhatsApp and Meta">
         <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 text-zinc-400 leading-relaxed">
           <p className="flex gap-3">
