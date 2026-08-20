@@ -15,7 +15,7 @@ import { useParams } from 'react-router-dom';
 import {
   ArrowRight, Check, CheckCircle, MessageSquare, FileText, Globe, Bot, Users,
   Building2, Factory, Package, Layers, Hammer, Calendar, Shield, Sparkles,
-  HelpCircle, Scale, Mail, Smartphone, MapPin,
+  HelpCircle, Scale, Mail, Smartphone, MapPin, Link2,
 } from 'lucide-react';
 import { PageModal } from './FooterPages';
 import { industries, findIndustry } from './content/industries';
@@ -285,6 +285,10 @@ export const AboutPage = () => (
             <p className="flex items-center gap-3 text-zinc-300"><Smartphone className="w-4 h-4 text-emerald-400 shrink-0" /> <a className="hover:text-emerald-400" href={WA_LINK} target="_blank" rel="noopener noreferrer">+91 74578 63240</a></p>
             <p className="flex items-center gap-3 text-zinc-300"><MapPin className="w-4 h-4 text-emerald-400 shrink-0" /> Bengaluru, Karnataka, India</p>
             <p className="flex items-center gap-3 text-zinc-300"><Globe className="w-4 h-4 text-emerald-400 shrink-0" /> Serving businesses across India</p>
+            <p className="flex items-center gap-3 text-zinc-300">
+              <Link2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <a className="hover:text-emerald-400" href="https://www.linkedin.com/company/chatpro365/" target="_blank" rel="noopener noreferrer">ChatPro365 on LinkedIn</a>
+            </p>
           </div>
           <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6">
             <h3 className="font-bold text-white mb-3">Product areas</h3>
