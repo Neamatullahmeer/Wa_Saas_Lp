@@ -252,36 +252,6 @@
       href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet" />
   </noscript>
-  <!-- ✅ 6. Meta Pixel — ad measurement.
-
-       Base code sirf PageView bhejta hai. Lead jaisa asli event
-       src/lib/pixel.js se jaata hai, ek eventID ke saath, taaki server-side
-       Conversions API wahi event dobara bheje to Meta use DUPLICATE na gine.
-
-       Ye pixel _fbp aur _fbc cookies set karta hai — isi wajah se cookie
-       policy me "we set no cookies" wali baat badalni padi thi. Naya event
-       ya tool jodo to wo page bhi saath me update karo.
-
-       postbuild-seo.mjs har route ka HTML isi file se banata hai, isliye
-       yahan lagane se saare 28 pages par apne aap chala jaata hai. -->
-  <script>
-    !function (f, b, e, v, n, t, s) {
-      if (f.fbq) return; n = f.fbq = function () {
-        n.callMethod ?
-          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-      };
-      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
-      n.queue = []; t = b.createElement(e); t.async = !0;
-      t.src = v; s = b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t, s)
-    }(window, document, 'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '805768425496432');
-    fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none" alt=""
-      src="https://www.facebook.com/tr?id=805768425496432&ev=PageView&noscript=1" /></noscript>
-
 </head>
 
 <body>

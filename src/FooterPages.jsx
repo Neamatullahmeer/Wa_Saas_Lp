@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import { clearConsent } from './lib/consent';
 import { posts, findPost, relatedPosts } from './content/blog';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, FileText, Globe, Cookie, HeadphonesIcon, Code2, BookOpen, Users, CheckCircle, ArrowRight, MessageSquare, Zap, RefreshCw, AlertTriangle, Mail, Phone, MapPin, Clock, Building2 } from 'lucide-react';
@@ -451,7 +452,7 @@ export const CookiePolicyPage = ({ isOpen, onClose }) => (
       <div className="space-y-8">
 
         <div className="bg-amber-900/20 border border-amber-700/40 rounded-2xl p-6">
-          <p className="text-amber-200 leading-relaxed">This policy explains what ChatPro365 stores on your device when you visit chatpro365.com or use the platform at app.chatpro365.com. The short version: we run exactly one third-party tool, the Meta Pixel, so that we can tell which of our ads actually work. There is no analytics suite, no session recording, and nothing is sold or handed to data brokers. Everything stored on your device is listed below by name.</p>
+          <p className="text-amber-200 leading-relaxed">This policy explains what ChatPro365 stores on your device when you visit chatpro365.com or use the platform at app.chatpro365.com. The short version: we run exactly one third-party tool, the Meta Pixel, so that we can tell which of our ads actually work — and it only loads if you agree to it on the banner. There is no analytics suite, no session recording, and nothing is sold or handed to data brokers. Everything stored on your device is listed below by name.</p>
         </div>
 
         <section>
@@ -495,8 +496,8 @@ export const CookiePolicyPage = ({ isOpen, onClose }) => (
                 type: 'Advertising Measurement (Meta Pixel)',
                 color: 'orange',
                 required: false,
-                desc: 'We advertise on Facebook and Instagram. The Meta Pixel is how we tell which of those ads brought someone who actually signed up, rather than guessing. It reports page views plus two moments: submitting the trial form, and creating an account. These are the only cookies on this site.',
-                examples: ['_fbp — a random id for your browser, set by Meta', '_fbc — written when you arrive from a Meta ad', 'The same two events are also sent from our own server, so ad blockers do not distort our numbers', 'Your email and phone go to Meta only as an irreversible hash — never in readable form', 'We do not upload contact lists or build advertising audiences from your data']
+                desc: 'We advertise on Facebook and Instagram. The Meta Pixel is how we tell which of those ads brought someone who actually signed up, rather than guessing. It reports page views plus two moments: submitting the trial form, and creating an account. Nothing here loads or is sent unless you accept the banner — declining stops both the browser pixel and the copy our own server would otherwise send.',
+                examples: ['_fbp — a random id for your browser, set by Meta', '_fbc — written when you arrive from a Meta ad', 'The same two events are also sent from our own server, so ad blockers do not distort our numbers', 'Your email and phone go to Meta only as an irreversible hash — never in readable form', 'We do not upload contact lists or build advertising audiences from your data', 'cp_consent — your answer to the banner, remembered for six months']
               },
             ].map((category, i) => (
               <div key={i} className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6">
@@ -549,6 +550,7 @@ export const CookiePolicyPage = ({ isOpen, onClose }) => (
             <p className="text-zinc-400 mb-4">You stay in control of all of it:</p>
             <div className="space-y-3">
               {[
+                { method: 'Change Your Answer', desc: 'Use the button below to bring the banner back and choose again. Declining after having accepted stops any further reporting straight away.' },
                 { method: 'Clear Site Data', desc: 'In your browser settings, clearing site data for chatpro365.com removes everything listed above. On the platform this signs you out; nothing else is lost.' },
                 { method: 'Close the Tab', desc: 'Campaign attribution lives in sessionStorage, so closing the tab discards it automatically. You do not have to do anything.' },
                 { method: 'Sign Out', desc: 'Signing out of the platform removes the session keys straight away.' },
@@ -568,6 +570,16 @@ export const CookiePolicyPage = ({ isOpen, onClose }) => (
             </div>
           </div>
         </section>
+
+        <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 text-center">
+          <p className="text-zinc-400 mb-4">Want to change your answer about advertising measurement?</p>
+          <button
+            onClick={() => { clearConsent(); window.location.reload(); }}
+            className="inline-flex items-center gap-2 border border-zinc-700 hover:bg-zinc-800 text-zinc-200 px-6 py-3 rounded-xl font-semibold transition-colors"
+          >
+            <Cookie className="w-4 h-4" /> Show the banner again
+          </button>
+        </div>
 
         <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 text-center">
           <p className="text-zinc-400 mb-4">Questions about our cookie practices?</p>

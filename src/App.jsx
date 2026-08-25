@@ -12,6 +12,7 @@ import {
   ComparePage, ComparisonPage,
 } from './MarketingPages';
 import { captureAttribution } from './lib/attribution';
+import ConsentBanner from './ConsentBanner';
 import { industries } from './content/industries';
 import { comparisons } from './content/comparisons';
 
@@ -133,6 +134,7 @@ export function AppRoutes() {
   return (
     <>
       <AttributionCapture />
+      <ConsentBanner />
       <ScrollToSection />
       <RouteSeo />
       <Routes>

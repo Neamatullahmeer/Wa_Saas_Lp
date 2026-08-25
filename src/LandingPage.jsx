@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { APP_BASE_URL } from './lib/apiConfig';
 import { getAttribution, appendAttribution } from './lib/attribution';
 import { newEventId, getMetaMatchIds, trackPixelEvent } from './lib/pixel';
+import { hasConsent } from './lib/consent';
 import api from './lib/api';
 import {
   Bot, MessageSquare, Zap, Clock, Users, ArrowRight, Shield,
@@ -191,7 +192,13 @@ const LandingPage = ({ activeSection = 'all' }) => {
         phone: leadData.phone,
         source: 'Landing Page Get Started',
         attribution: { ...getAttribution(), ...getMetaMatchIds() },
-        eventId
+        eventId,
+        /* Gates the server-side copy of this conversion too. Sending it from
+           our backend after someone declined would defeat the banner entirely
+           — the data reaches Meta either way, and which machine posted it is
+           not the point. The lead itself is still stored: that is first-party
+           data the person handed us to get the trial they asked for. */
+        consent: hasConsent()
       });
     } catch (error) {
       // Deliberately not blocking: the visitor still goes to the register page.
