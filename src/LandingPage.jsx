@@ -395,9 +395,10 @@ const LandingPage = ({ activeSection = 'all' }) => {
                 <X className="w-5 h-5" />
               </button>
               <div className="text-center mb-6 mt-2">
-                <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <Zap className="w-8 h-8 text-white" />
-                </div>
+                {/* The real logo, not a generic icon. This modal is where an ad
+                    click turns into a signup — the one moment the visitor most
+                    needs to be sure whose trial they are starting. */}
+                <ChatproLogo className="h-24 w-auto mx-auto mb-3" />
                 <h3 className="text-2xl font-bold text-zinc-900">Start Your Free Trial</h3>
                 <p className="text-zinc-500 font-medium mt-2">Enter your details and we'll set it up instantly.</p>
               </div>
