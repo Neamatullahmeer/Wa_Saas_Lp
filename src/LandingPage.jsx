@@ -18,6 +18,30 @@ import { industries } from './content/industries';
 // ─────────────────────────────────────────────
 // Logo SVG
 // ─────────────────────────────────────────────
+/* What the lead sells. One dropdown, deliberately — every extra field on a
+   paid landing page costs completions, and this is the only answer that changes
+   the first sales call: the pitch for a furniture shop (catalogue, quotation
+   PDF) is nothing like the one for a clinic (appointments, reminders).
+
+   It also decides which demo to send. The demo bot runs category-specific
+   personas, so a lead who says "furniture" can be pointed straight at the
+   furniture demo instead of a generic tour.
+
+   The first four line up with the personas that exist today; the rest cover the
+   industries the site already has pages for. "Other" is always there so nobody
+   abandons the form over a list that does not describe them. */
+const BUSINESS_CATEGORIES = [
+  'Real Estate / Property',
+  'Furniture / Interiors',
+  'Clinic / Healthcare',
+  'Education / Coaching',
+  'Manufacturing / Industrial',
+  'Construction / Building Material',
+  'Events / Catering',
+  'Retail / E-commerce',
+  'Other',
+];
+
 const ChatproLogo = ({ className = "h-12 w-auto" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" className={className} role="img" aria-label="ChatPro365 Logo - WhatsApp Business Automation">
     <defs>
@@ -132,7 +156,7 @@ const NAV_SECTION_MAP = {
 const LandingPage = ({ activeSection = 'all' }) => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [leadData, setLeadData] = useState({ name: '', phone: '' });
+  const [leadData, setLeadData] = useState({ name: '', phone: '', businessCategory: '' });
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeFooterPage, setActiveFooterPage] = useState(null);
   const navigate = useNavigate();
@@ -190,6 +214,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
       await api.post('/platform-leads/capture', {
         name: leadData.name,
         phone: leadData.phone,
+        businessCategory: leadData.businessCategory,
         source: 'Landing Page Get Started',
         attribution: { ...getAttribution(), ...getMetaMatchIds() },
         eventId,
@@ -418,6 +443,20 @@ const LandingPage = ({ activeSection = 'all' }) => {
                     value={leadData.phone} onChange={(e) => setLeadData({ ...leadData, phone: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all outline-none"
                   />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-zinc-700 mb-1.5">What do you sell?</label>
+                  <select
+                    required
+                    value={leadData.businessCategory}
+                    onChange={(e) => setLeadData({ ...leadData, businessCategory: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all outline-none text-zinc-900"
+                  >
+                    <option value="" disabled>Select your business type</option>
+                    {BUSINESS_CATEGORIES.map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
                 </div>
                 <button
                   type="submit" disabled={loading}
