@@ -41,6 +41,19 @@
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://chatpro365.com/" />
 
+  <!-- ✅ Meta domain verification.
+
+       Iske bina iOS par attribution kaam nahi karti: Aggregated Event
+       Measurement (jisse tay hota hai ki ATT ke baad kaunsa event ginega)
+       sirf verified domain par milta hai. Bhaarat me iPhone traffic itna
+       kam nahi ki isse chhoda ja sake.
+
+       HEAD me hi rehna zaroori hai aur JavaScript se nahi aana chahiye —
+       Meta ka crawler dynamic head nahi padhta. Yahan hone se prerender
+       (scripts/postbuild-seo.mjs) ise har route ke static HTML me daal
+       deta hai, isliye home page ke alawa baaki 27 page bhi cover hain. -->
+  <meta name="facebook-domain-verification" content="w3tww5p9dgpzhtuw0578nm9qn1a359" />
+
   <!-- ✅ 2. Open Graph / Facebook / WhatsApp Link Previews -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://chatpro365.com/" />
