@@ -155,7 +155,6 @@ export const PrivacyPolicyPage = ({ isOpen, onClose }) => (
                 { name: 'WhatsApp / Meta', desc: 'As required by the Official WhatsApp Business API integration.' },
                 { name: 'Payment Processors', desc: 'Razorpay / Stripe for secure billing transactions.' },
                 { name: 'Cloud Infrastructure', desc: 'AWS / Google Cloud for secure data hosting and storage.' },
-                { name: 'Analytics Tools', desc: 'Anonymized usage data for product improvement insights.' },
               ].map((p, i) => (
                 <div key={i} className="bg-zinc-800/50 rounded-xl p-4 border border-zinc-700">
                   <p className="font-semibold text-zinc-200 mb-1">{p.name}</p>
@@ -444,54 +443,52 @@ export const CookiePolicyPage = ({ isOpen, onClose }) => (
           <Cookie className="w-4 h-4" /> Cookie Information
         </div>
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Cookie Policy</h1>
-        <p className="text-zinc-400 text-lg font-medium">Last updated: June 19, 2026</p>
+        <p className="text-zinc-400 text-lg font-medium">Last updated: August 25, 2026</p>
         <div className="mt-6 h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
       </div>
 
       <div className="space-y-8">
 
         <div className="bg-amber-900/20 border border-amber-700/40 rounded-2xl p-6">
-          <p className="text-amber-200 leading-relaxed">This Cookie Policy explains how ChatPro365 uses cookies and similar tracking technologies when you visit our website or use our platform. By continuing to use our services, you consent to the use of cookies as described in this policy.</p>
+          <p className="text-amber-200 leading-relaxed">This policy explains what ChatPro365 stores on your device when you visit chatpro365.com or use the platform at app.chatpro365.com. The short version: we do not set any cookies at all, and we do not run third-party analytics or advertising trackers. What we do store is described in full below.</p>
         </div>
 
         <section>
-          <h2 className="text-2xl font-bold text-white mb-4">What Are Cookies?</h2>
-          <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6">
-            <p className="text-zinc-400 leading-relaxed">Cookies are small text files stored on your device when you visit a website. They help websites remember your preferences, maintain your session, and collect analytics data to improve user experience. Cookies cannot run programs or transmit viruses to your device.</p>
+          <h2 className="text-2xl font-bold text-white mb-4">Cookies and Similar Technologies</h2>
+          <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 space-y-4">
+            <p className="text-zinc-400 leading-relaxed">Cookies are small text files a website stores on your device and sends back to its server with every request. <strong className="text-zinc-200">ChatPro365 does not set cookies.</strong> Instead we use two browser storage mechanisms that stay on your device and are never transmitted automatically:</p>
+            <ul className="space-y-2 text-zinc-400 text-sm">
+              <li><strong className="text-zinc-200">localStorage</strong> — persists until you clear it. Used by the platform to keep you signed in and to remember interface preferences.</li>
+              <li><strong className="text-zinc-200">sessionStorage</strong> — cleared automatically when you close the tab. Used on the marketing site to remember which campaign brought you here.</li>
+            </ul>
+            <p className="text-zinc-400 leading-relaxed text-sm">Both are covered by this policy because they serve the same purpose as cookies from your point of view, even though the technology differs.</p>
           </div>
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold text-white mb-4">Types of Cookies We Use</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">What We Store</h2>
           <div className="space-y-4">
             {[
               {
-                type: 'Strictly Necessary Cookies',
+                type: 'Sign-in and Session',
                 color: 'emerald',
                 required: true,
-                desc: 'Essential for the platform to function. Cannot be disabled.',
-                examples: ['Session authentication tokens', 'CSRF security tokens', 'User preference settings', 'Load balancer routing']
+                desc: 'Keeps you logged in to the platform at app.chatpro365.com. Stored in localStorage; clearing it signs you out. Not present on this marketing site.',
+                examples: ['token — your signed-in session', 'user — your name, role and business', 'superAdminToken — staff console session', 'chatpro_token — legacy session key']
               },
               {
-                type: 'Performance & Analytics Cookies',
+                type: 'Interface Preferences',
                 color: 'blue',
                 required: false,
-                desc: 'Help us understand how visitors interact with our platform.',
-                examples: ['Google Analytics (anonymized)', 'Platform usage heatmaps', 'Page load performance metrics', 'Error tracking (Sentry)']
+                desc: 'Remembers small choices so the dashboard looks the same next time. Nothing here identifies you to anyone else.',
+                examples: ['sidebar-collapsed — sidebar open or closed', 'businessName — shown in the header']
               },
               {
-                type: 'Functional Cookies',
-                color: 'emerald',
-                required: false,
-                desc: 'Enable enhanced functionality and personalization.',
-                examples: ['Language preferences', 'Dashboard layout preferences', 'Recently viewed contacts', 'Chat window state']
-              },
-              {
-                type: 'Marketing Cookies',
+                type: 'Campaign Attribution',
                 color: 'orange',
                 required: false,
-                desc: 'Used to deliver relevant advertisements and track campaign effectiveness.',
-                examples: ['Facebook Pixel (if applicable)', 'Google Ads conversion tracking', 'Retargeting identifiers']
+                desc: 'On this marketing site only. When you arrive from an ad or a tagged link, the campaign details in that link are held for the length of your visit so that a signup can be credited to the right campaign. Stored in sessionStorage, which your browser clears the moment you close the tab.',
+                examples: ['cp_attribution — campaign, source and search term from your link', 'Cleared automatically when the tab closes', 'Sent only to our own servers', 'Never used to build a profile or follow you across other sites']
               },
             ].map((category, i) => (
               <div key={i} className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6">
@@ -516,15 +513,38 @@ export const CookiePolicyPage = ({ isOpen, onClose }) => (
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold text-white mb-4">Managing Your Cookie Preferences</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">What We Do Not Use</h2>
           <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6">
-            <p className="text-zinc-400 mb-4">You can control cookies through:</p>
+            <p className="text-zinc-400 mb-4 leading-relaxed">As of the date at the top of this page, none of the following run on chatpro365.com or app.chatpro365.com:</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              {[
+                'Third-party analytics (Google Analytics and similar)',
+                'Advertising or retargeting pixels',
+                'Session recording or heatmap tools',
+                'Cross-site tracking of any kind',
+                'Data brokers or audience-sharing networks',
+                'Cookies — we set none at all',
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2 text-sm text-zinc-400">
+                  <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 shrink-0" />
+                  {item}
+                </div>
+              ))}
+            </div>
+            <p className="text-zinc-500 text-sm mt-5 leading-relaxed">We are evaluating analytics and advertising measurement tools. If any are added, this page will be updated to name them before they go live, and a consent notice will be added where the law requires one.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-white mb-4">Managing What Is Stored</h2>
+          <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6">
+            <p className="text-zinc-400 mb-4">You stay in control of all of it:</p>
             <div className="space-y-3">
               {[
-                { method: 'Browser Settings', desc: 'Most browsers allow you to refuse cookies or delete existing ones. See your browser\'s help documentation.' },
-                { method: 'Our Cookie Banner', desc: 'Customize your preferences when you first visit our website.' },
-                { method: 'Platform Settings', desc: 'Logged-in users can manage analytics preferences from Account Settings.' },
-                { method: 'Opt-Out Tools', desc: 'Use Google\'s opt-out tool or NAI opt-out for third-party advertising cookies.' },
+                { method: 'Clear Site Data', desc: 'In your browser settings, clearing site data for chatpro365.com removes everything listed above. On the platform this signs you out; nothing else is lost.' },
+                { method: 'Close the Tab', desc: 'Campaign attribution lives in sessionStorage, so closing the tab discards it automatically. You do not have to do anything.' },
+                { method: 'Sign Out', desc: 'Signing out of the platform removes the session keys straight away.' },
+                { method: 'Private Browsing', desc: 'The site works in private or incognito windows, and everything stored is discarded when you close the window. Blocking storage entirely only affects the sign-in session.' },
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-4 bg-zinc-800/50 rounded-xl p-4">
                   <div className="w-8 h-8 bg-amber-600/30 rounded-lg flex items-center justify-center shrink-0">

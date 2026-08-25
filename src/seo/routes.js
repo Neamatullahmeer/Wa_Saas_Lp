@@ -196,7 +196,7 @@ export const staticRoutes = [
   page(
     '/cookie-policy',
     'Cookie Policy | ChatPro365',
-    'Which cookies ChatPro365 uses, what they do, and how you can control them.',
+    'ChatPro365 sets no cookies and runs no third-party trackers. What we do store in your browser, why, and how to clear it.',
     '0.4'
   ),
 ];
