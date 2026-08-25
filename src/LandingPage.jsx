@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { APP_BASE_URL } from './lib/apiConfig';
 import { getAttribution, appendAttribution } from './lib/attribution';
+import { newEventId, getMetaMatchIds, trackPixelEvent } from './lib/pixel';
 import api from './lib/api';
 import {
   Bot, MessageSquare, Zap, Clock, Users, ArrowRight, Shield,
@@ -177,12 +178,20 @@ const LandingPage = ({ activeSection = 'all' }) => {
       `${dashboardUrl}/register?phone=${encodeURIComponent(leadData.phone)}&name=${encodeURIComponent(leadData.name)}`
     );
 
+    /* One id for this conversion, shared by both copies of the event: the
+       browser one fired just below and the server-side one our backend sends
+       to Meta's Conversions API. Same id means Meta counts one conversion
+       instead of two. */
+    const eventId = newEventId();
+    trackPixelEvent('Lead', { content_name: 'Free trial form' }, eventId);
+
     try {
       await api.post('/platform-leads/capture', {
         name: leadData.name,
         phone: leadData.phone,
         source: 'Landing Page Get Started',
-        attribution: getAttribution()
+        attribution: { ...getAttribution(), ...getMetaMatchIds() },
+        eventId
       });
     } catch (error) {
       // Deliberately not blocking: the visitor still goes to the register page.

@@ -155,6 +155,7 @@ export const PrivacyPolicyPage = ({ isOpen, onClose }) => (
                 { name: 'WhatsApp / Meta', desc: 'As required by the Official WhatsApp Business API integration.' },
                 { name: 'Payment Processors', desc: 'Razorpay / Stripe for secure billing transactions.' },
                 { name: 'Cloud Infrastructure', desc: 'AWS / Google Cloud for secure data hosting and storage.' },
+                { name: 'Meta (Ad Measurement)', desc: 'Only when you arrive from one of our ads: that you submitted the form or created an account. Email and phone are sent as an irreversible hash, never in readable form.' },
               ].map((p, i) => (
                 <div key={i} className="bg-zinc-800/50 rounded-xl p-4 border border-zinc-700">
                   <p className="font-semibold text-zinc-200 mb-1">{p.name}</p>
@@ -450,13 +451,13 @@ export const CookiePolicyPage = ({ isOpen, onClose }) => (
       <div className="space-y-8">
 
         <div className="bg-amber-900/20 border border-amber-700/40 rounded-2xl p-6">
-          <p className="text-amber-200 leading-relaxed">This policy explains what ChatPro365 stores on your device when you visit chatpro365.com or use the platform at app.chatpro365.com. The short version: we do not set any cookies at all, and we do not run third-party analytics or advertising trackers. What we do store is described in full below.</p>
+          <p className="text-amber-200 leading-relaxed">This policy explains what ChatPro365 stores on your device when you visit chatpro365.com or use the platform at app.chatpro365.com. The short version: we run exactly one third-party tool, the Meta Pixel, so that we can tell which of our ads actually work. There is no analytics suite, no session recording, and nothing is sold or handed to data brokers. Everything stored on your device is listed below by name.</p>
         </div>
 
         <section>
           <h2 className="text-2xl font-bold text-white mb-4">Cookies and Similar Technologies</h2>
           <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 space-y-4">
-            <p className="text-zinc-400 leading-relaxed">Cookies are small text files a website stores on your device and sends back to its server with every request. <strong className="text-zinc-200">ChatPro365 does not set cookies.</strong> Instead we use two browser storage mechanisms that stay on your device and are never transmitted automatically:</p>
+            <p className="text-zinc-400 leading-relaxed">Cookies are small text files a website stores on your device and sends back to its server with every request. ChatPro365 itself sets none — the only cookies here come from the Meta Pixel, and they are named below. Everything else we keep uses two browser storage mechanisms that stay on your device and are never transmitted automatically:</p>
             <ul className="space-y-2 text-zinc-400 text-sm">
               <li><strong className="text-zinc-200">localStorage</strong> — persists until you clear it. Used by the platform to keep you signed in and to remember interface preferences.</li>
               <li><strong className="text-zinc-200">sessionStorage</strong> — cleared automatically when you close the tab. Used on the marketing site to remember which campaign brought you here.</li>
@@ -490,6 +491,13 @@ export const CookiePolicyPage = ({ isOpen, onClose }) => (
                 desc: 'On this marketing site only. When you arrive from an ad or a tagged link, the campaign details in that link are held for the length of your visit so that a signup can be credited to the right campaign. Stored in sessionStorage, which your browser clears the moment you close the tab.',
                 examples: ['cp_attribution — campaign, source and search term from your link', 'Cleared automatically when the tab closes', 'Sent only to our own servers', 'Never used to build a profile or follow you across other sites']
               },
+              {
+                type: 'Advertising Measurement (Meta Pixel)',
+                color: 'orange',
+                required: false,
+                desc: 'We advertise on Facebook and Instagram. The Meta Pixel is how we tell which of those ads brought someone who actually signed up, rather than guessing. It reports page views plus two moments: submitting the trial form, and creating an account. These are the only cookies on this site.',
+                examples: ['_fbp — a random id for your browser, set by Meta', '_fbc — written when you arrive from a Meta ad', 'The same two events are also sent from our own server, so ad blockers do not distort our numbers', 'Your email and phone go to Meta only as an irreversible hash — never in readable form', 'We do not upload contact lists or build advertising audiences from your data']
+              },
             ].map((category, i) => (
               <div key={i} className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6">
                 <div className="flex items-center justify-between mb-3">
@@ -518,12 +526,12 @@ export const CookiePolicyPage = ({ isOpen, onClose }) => (
             <p className="text-zinc-400 mb-4 leading-relaxed">As of the date at the top of this page, none of the following run on chatpro365.com or app.chatpro365.com:</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {[
-                'Third-party analytics (Google Analytics and similar)',
-                'Advertising or retargeting pixels',
-                'Session recording or heatmap tools',
-                'Cross-site tracking of any kind',
+                'Third-party analytics suites (Google Analytics and similar)',
+                'Session recording, heatmaps or screen capture',
+                'Retargeting audiences built from your data',
+                'Contact lists uploaded to any ad platform',
                 'Data brokers or audience-sharing networks',
-                'Cookies — we set none at all',
+                'Selling or renting your information to anyone',
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-2 text-sm text-zinc-400">
                   <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 shrink-0" />
@@ -531,7 +539,7 @@ export const CookiePolicyPage = ({ isOpen, onClose }) => (
                 </div>
               ))}
             </div>
-            <p className="text-zinc-500 text-sm mt-5 leading-relaxed">We are evaluating analytics and advertising measurement tools. If any are added, this page will be updated to name them before they go live, and a consent notice will be added where the law requires one.</p>
+            <p className="text-zinc-500 text-sm mt-5 leading-relaxed">The Meta Pixel described above is the only third-party tool on this site. If we ever add another, this page will name it here before it goes live.</p>
           </div>
         </section>
 
@@ -545,6 +553,7 @@ export const CookiePolicyPage = ({ isOpen, onClose }) => (
                 { method: 'Close the Tab', desc: 'Campaign attribution lives in sessionStorage, so closing the tab discards it automatically. You do not have to do anything.' },
                 { method: 'Sign Out', desc: 'Signing out of the platform removes the session keys straight away.' },
                 { method: 'Private Browsing', desc: 'The site works in private or incognito windows, and everything stored is discarded when you close the window. Blocking storage entirely only affects the sign-in session.' },
+                { method: 'Opt Out of Ad Tracking', desc: 'Your Meta account settings control how Meta uses activity from sites like ours (Settings → Ads → Ad settings). Browser tracking protection and most content blockers stop the pixel from loading here at all, and the site works exactly the same without it.' },
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-4 bg-zinc-800/50 rounded-xl p-4">
                   <div className="w-8 h-8 bg-amber-600/30 rounded-lg flex items-center justify-center shrink-0">

@@ -196,7 +196,7 @@ export const staticRoutes = [
   page(
     '/cookie-policy',
     'Cookie Policy | ChatPro365',
-    'ChatPro365 sets no cookies and runs no third-party trackers. What we do store in your browser, why, and how to clear it.',
+    'Exactly what ChatPro365 stores in your browser and why — the Meta Pixel, your sign-in session, and nothing else. Including how to clear it.',
     '0.4'
   ),
 ];
