@@ -156,7 +156,7 @@ export const PrivacyPolicyPage = ({ isOpen, onClose }) => (
                 { name: 'WhatsApp / Meta', desc: 'As required by the Official WhatsApp Business API integration.' },
                 { name: 'Payment Processors', desc: 'Razorpay / Stripe for secure billing transactions.' },
                 { name: 'Cloud Infrastructure', desc: 'AWS / Google Cloud for secure data hosting and storage.' },
-                { name: 'Meta (Ad Measurement)', desc: 'Only when you arrive from one of our ads: that you submitted the form or created an account. Email and phone are sent as an irreversible hash, never in readable form.' },
+                { name: 'Meta (Ad Measurement)', desc: 'Only when you arrive from one of our ads: that you submitted the form, created an account, or opened a WhatsApp chat straight from an ad. Email and phone are sent as an irreversible hash, never in readable form.' },
               ].map((p, i) => (
                 <div key={i} className="bg-zinc-800/50 rounded-xl p-4 border border-zinc-700">
                   <p className="font-semibold text-zinc-200 mb-1">{p.name}</p>
