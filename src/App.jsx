@@ -11,6 +11,7 @@ import {
   AboutPage, PricingPage, FaqPage, IndustriesPage, IndustryPage,
   ComparePage, ComparisonPage,
 } from './MarketingPages';
+import { captureAttribution } from './lib/attribution';
 import { industries } from './content/industries';
 import { comparisons } from './content/comparisons';
 
@@ -18,6 +19,18 @@ import { comparisons } from './content/comparisons';
 // an alias — about, pricing, faq and compare are real pages of their own now.
 const ROUTE_TO_SECTION = {
   '/features': 'features',
+};
+
+// Records the campaign a visitor arrived from, once, on the first page they
+// land on. It has to happen here rather than in the lead form, because an ad
+// sends people to whichever page the ad points at and the ?gclid= is gone from
+// the URL by the time they reach the form. The effect never runs during
+// renderToString, so the prerender build is unaffected.
+const AttributionCapture = () => {
+  useEffect(() => {
+    captureAttribution();
+  }, []);
+  return null;
 };
 
 const ScrollToSection = () => {
@@ -119,6 +132,7 @@ const NotFoundPage = () => (
 export function AppRoutes() {
   return (
     <>
+      <AttributionCapture />
       <ScrollToSection />
       <RouteSeo />
       <Routes>

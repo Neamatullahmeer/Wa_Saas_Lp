@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { APP_BASE_URL } from './lib/apiConfig';
+import { getAttribution, appendAttribution } from './lib/attribution';
 import api from './lib/api';
 import {
   Bot, MessageSquare, Zap, Clock, Users, ArrowRight, Shield,
@@ -167,14 +168,25 @@ const LandingPage = ({ activeSection = 'all' }) => {
     e.preventDefault();
     setLoading(true);
     const dashboardUrl = APP_BASE_URL || 'http://localhost:5173';
-    const targetUrl = `${dashboardUrl}/register?phone=${encodeURIComponent(leadData.phone)}&name=${encodeURIComponent(leadData.name)}`;
+
+    // The campaign params ride along to the app as well, not just into the
+    // capture call. Signup finishes on a different domain, so without this the
+    // trail ends at the form fill and there is no way to tell which keyword
+    // produced an account that actually pays.
+    const targetUrl = appendAttribution(
+      `${dashboardUrl}/register?phone=${encodeURIComponent(leadData.phone)}&name=${encodeURIComponent(leadData.name)}`
+    );
+
     try {
       await api.post('/platform-leads/capture', {
         name: leadData.name,
         phone: leadData.phone,
-        source: 'Landing Page Get Started'
+        source: 'Landing Page Get Started',
+        attribution: getAttribution()
       });
     } catch (error) {
+      // Deliberately not blocking: the visitor still goes to the register page.
+      // Losing the CRM copy of a lead is bad, losing the signup is worse.
       console.error("Lead Capture failed", error);
     }
     window.location.href = targetUrl;
