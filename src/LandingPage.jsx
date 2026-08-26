@@ -597,7 +597,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
 
               <motion.button
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-                onClick={() => window.open('https://wa.me/917457863240?text=Hi! I want to know more about ChatPro365', '_blank')}
+                onClick={() => window.open('https://wa.me/918291929081?text=Hi! I want to know more about ChatPro365', '_blank')}
                 className="bg-white text-zinc-900 border border-zinc-200 px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md w-full sm:w-auto"
                 id="hero-cta-whatsapp"
               >
@@ -1484,7 +1484,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
 
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.4 }} className="text-center mt-12">
             <p className="text-zinc-500 font-medium mb-4">Still have questions?</p>
-            <a href="https://wa.me/917457863240?text=Hi! I have a question about ChatPro365" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-3.5 rounded-full transition-colors shadow-lg text-base">
+            <a href="https://wa.me/918291929081?text=Hi! I have a question about ChatPro365" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-3.5 rounded-full transition-colors shadow-lg text-base">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
               Chat With Us on WhatsApp
             </a>
@@ -1505,14 +1505,14 @@ const LandingPage = ({ activeSection = 'all' }) => {
               </p>
               <div className="space-y-2 mb-8 text-zinc-400 text-sm font-medium">
                 <a href="mailto:support@chatpro365.com" className="flex items-center gap-2 hover:text-emerald-400 transition-colors"><Mail className="w-4 h-4 shrink-0" /> support@chatpro365.com</a>
-                <a href="https://wa.me/917457863240" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-emerald-400 transition-colors"><Smartphone className="w-4 h-4 shrink-0" /> +91 74578 63240</a>
+                <a href="https://wa.me/918291929081" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-emerald-400 transition-colors"><Smartphone className="w-4 h-4 shrink-0" /> +91 82919 29081</a>
                 <p className="flex items-start gap-2"><MapPin className="w-4 h-4 shrink-0 mt-0.5" /> Bengaluru, Karnataka, India</p>
               </div>
               <div className="flex gap-4">
                 <a href="https://chatpro365.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our website" className="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center text-zinc-400 hover:text-emerald-400 hover:bg-zinc-700 transition-all border border-zinc-700">
                   <Globe className="w-5 h-5" />
                 </a>
-                <a href="https://wa.me/917457863240" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp" className="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center text-zinc-400 hover:text-emerald-400 hover:bg-zinc-700 transition-all border border-zinc-700">
+                <a href="https://wa.me/918291929081" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp" className="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center text-zinc-400 hover:text-emerald-400 hover:bg-zinc-700 transition-all border border-zinc-700">
                   <Smartphone className="w-5 h-5" />
                 </a>
                 <a href="https://www.linkedin.com/company/chatpro365/" target="_blank" rel="noopener noreferrer" aria-label="ChatPro365 on LinkedIn" className="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center text-zinc-400 hover:text-emerald-400 hover:bg-zinc-700 transition-all border border-zinc-700">
@@ -1580,7 +1580,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
 
       {/* ── Floating WhatsApp Button ── */}
       <a
-        href="https://wa.me/917457863240"
+        href="https://wa.me/918291929081"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 bg-[#25D366] hover:bg-[#128C7E] text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 flex items-center justify-center group"

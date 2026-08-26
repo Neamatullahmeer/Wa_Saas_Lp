@@ -861,7 +861,7 @@ export const BlogPage = ({ isOpen, onClose }) => {
 
         <div className="mt-12 text-center">
           <p className="text-zinc-400 mb-4">Want personalized growth strategies for your business?</p>
-          <a href="https://wa.me/917457863240?text=Hi! I want personalized WhatsApp growth strategies for my business" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/918291929081?text=Hi! I want personalized WhatsApp growth strategies for my business" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white px-8 py-3.5 rounded-full font-bold transition-colors shadow-lg">
             <MessageSquare className="w-5 h-5" /> Chat with Our Growth Expert
           </a>
@@ -1202,7 +1202,7 @@ export const ContactUsPage = ({ isOpen, onClose }) => {
     { icon: Building2, color: 'emerald', label: 'Business', lines: ['ChatPro365', 'Company registration in progress'] },
     { icon: MapPin, color: 'blue', label: 'Location', lines: ['Bengaluru, Karnataka', 'India'] },
     { icon: Mail, color: 'emerald', label: 'Email Us', lines: ['Sales — sales@chatpro365.com', 'Support — support@chatpro365.com', 'Billing — billing@chatpro365.com'] },
-    { icon: Phone, color: 'blue', label: 'Phone / WhatsApp', lines: ['+91 74578 63240'] },
+    { icon: Phone, color: 'blue', label: 'Phone / WhatsApp', lines: ['+91 82919 29081'] },
     { icon: Clock, color: 'orange', label: 'Hours', lines: ['Mon – Sat', '10:00 AM – 7:00 PM IST'] },
   ];
   return (
@@ -1251,7 +1251,7 @@ export const ContactUsPage = ({ isOpen, onClose }) => {
         <div className="bg-gradient-to-r from-emerald-900/40 to-blue-900/40 border border-emerald-700/40 rounded-2xl p-8 text-center">
           <h3 className="text-xl font-bold text-white mb-2">Prefer to chat?</h3>
           <p className="text-zinc-400 mb-6">Message us on WhatsApp and our team will help you right away.</p>
-          <a href="https://wa.me/917457863240?text=Hi! I have a question about ChatPro365" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/918291929081?text=Hi! I have a question about ChatPro365" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white px-8 py-3.5 rounded-full font-bold transition-colors shadow-lg">
             <MessageSquare className="w-5 h-5" /> Chat on WhatsApp
           </a>

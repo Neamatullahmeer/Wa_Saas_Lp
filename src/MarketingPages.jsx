@@ -23,7 +23,7 @@ import { comparisons, findComparison, BUYER_CHECKLIST } from './content/comparis
 import { faqGroups } from './content/faq';
 import { APP_BASE_URL } from './lib/apiConfig';
 
-const WA_LINK = 'https://wa.me/917457863240';
+const WA_LINK = 'https://wa.me/918291929081';
 const TRIAL_LINK = `${APP_BASE_URL}/register`;
 
 // Icon keys live in the data files (which must stay import-free for the build),
@@ -304,7 +304,7 @@ export const AboutPage = () => (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 space-y-3">
             <p className="flex items-center gap-3 text-zinc-300"><Mail className="w-4 h-4 text-emerald-400 shrink-0" /> <a className="hover:text-emerald-400" href="mailto:support@chatpro365.com">support@chatpro365.com</a></p>
-            <p className="flex items-center gap-3 text-zinc-300"><Smartphone className="w-4 h-4 text-emerald-400 shrink-0" /> <a className="hover:text-emerald-400" href={WA_LINK} target="_blank" rel="noopener noreferrer">+91 74578 63240</a></p>
+            <p className="flex items-center gap-3 text-zinc-300"><Smartphone className="w-4 h-4 text-emerald-400 shrink-0" /> <a className="hover:text-emerald-400" href={WA_LINK} target="_blank" rel="noopener noreferrer">+91 82919 29081</a></p>
             <p className="flex items-center gap-3 text-zinc-300"><MapPin className="w-4 h-4 text-emerald-400 shrink-0" /> Bengaluru, Karnataka, India</p>
             <p className="flex items-center gap-3 text-zinc-300"><Globe className="w-4 h-4 text-emerald-400 shrink-0" /> Serving businesses across India</p>
             <p className="flex items-center gap-3 text-zinc-300">
