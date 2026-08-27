@@ -397,7 +397,7 @@ export const PricingPage = () => (
       <PageHead
         badge="Pricing"
         icon={FileText}
-        title="Plain pricing, in rupees"
+        title="WhatsApp Business API pricing, in rupees"
         sub="Two published plans and a custom tier. WhatsApp conversation charges are set by Meta and billed on top — that is true of every platform on the official API, and anyone who tells you otherwise is hiding a line item."
       />
 

@@ -15,12 +15,12 @@ export const industries = [
     path: '/whatsapp-ai-sales-agent-for-real-estate',
     name: 'Real Estate',
     icon: 'building',
-    title: 'WhatsApp AI Sales Agent for Real Estate | ChatPro365',
+    title: 'WhatsApp Chatbot for Real Estate | AI Sales Agent | ChatPro365',
     description:
-      'Qualify property enquiries on WhatsApp automatically — budget, location, possession — book site visits and follow up with buyers in 11 Indian languages.',
+      'WhatsApp automation for real estate agents: qualify enquiries on budget, location and possession, book site visits, and follow up automatically.',
     h1: 'WhatsApp AI Sales Agent for Real Estate',
     intro:
-      'Property enquiries arrive on WhatsApp at every hour, from portal listings, hoardings, Instagram and Click-to-WhatsApp ads. Most ask the same four things — price, location, size, possession — and most go cold because an agent on a site visit cannot answer at 11pm. ChatPro365 puts an AI agent on that number: it answers from your actual inventory, asks the qualifying questions your team would ask, books the site visit into a calendar, and keeps following up until the buyer replies.',
+      'Property enquiries arrive on WhatsApp at every hour, from portal listings, hoardings, Instagram and Click-to-WhatsApp ads. Most ask the same four things — price, location, size, possession — and most go cold because an agent on a site visit cannot answer at 11pm. ChatPro365 puts an AI agent on that number: it answers from your actual inventory, asks the qualifying questions your team would ask, books the site visit into a calendar, and keeps following up until the buyer replies. If you have been looking for a WhatsApp chatbot for real estate, this is that — except it qualifies the buyer and books the site visit instead of only answering questions.',
     problems: [
       {
         title: 'Every lead asks the same four questions',
@@ -88,12 +88,12 @@ export const industries = [
     path: '/whatsapp-ai-sales-agent-for-manufacturing',
     name: 'Manufacturing',
     icon: 'factory',
-    title: 'WhatsApp AI Sales Agent for Manufacturers | ChatPro365',
+    title: 'WhatsApp Chatbot for Manufacturers | Quotation AI | ChatPro365',
     description:
-      'Handle bulk enquiries on WhatsApp: collect specs and quantity, apply your rate card with GST, and send a branded quotation PDF automatically.',
+      'WhatsApp automation for manufacturers: collect specs and quantity, apply your rate card with GST, and send a branded quotation PDF inside the chat.',
     h1: 'WhatsApp AI Sales Agent for Manufacturers',
     intro:
-      'A manufacturing enquiry is never one message. It is a size, a material, a quantity, a delivery location and a dozen follow-up questions — and the answer is a quotation somebody has to sit down and prepare. ChatPro365 collects the specification the way your sales engineer would, applies your own rate card, adds GST, and sends a branded quotation PDF inside the same WhatsApp chat, usually before the buyer has left the conversation.',
+      'A manufacturing enquiry is never one message. It is a size, a material, a quantity, a delivery location and a dozen follow-up questions — and the answer is a quotation somebody has to sit down and prepare. ChatPro365 collects the specification the way your sales engineer would, applies your own rate card, adds GST, and sends a branded quotation PDF inside the same WhatsApp chat, usually before the buyer has left the conversation. It is a WhatsApp chatbot for manufacturers that does the part a chatbot usually cannot — it prices the enquiry and sends the quotation.',
     problems: [
       {
         title: 'Quotations take hours, buyers wait minutes',
@@ -156,12 +156,12 @@ export const industries = [
     path: '/whatsapp-ai-sales-agent-for-portable-cabins',
     name: 'Portable Cabins & Prefab',
     icon: 'package',
-    title: 'WhatsApp AI Sales Agent for Portable Cabin & Prefab Sellers | ChatPro365',
+    title: 'WhatsApp Chatbot for Portable Cabin & Prefab Sellers | ChatPro365',
     description:
-      'Turn "what is the rate of a 20x15 cabin?" into a branded GST quotation PDF on WhatsApp — size, add-ons, delivery and follow-up handled automatically.',
+      'WhatsApp automation for portable cabin and prefab sellers: turn "rate of a 20x15 cabin?" into a branded GST quotation PDF, delivery and follow-up included.',
     h1: 'WhatsApp AI Sales Agent for Portable Cabins & Prefab Structures',
     intro:
-      'Portable cabin buyers ask in square feet and expect a number back. The trouble is that the number depends on size, insulation, flooring, toilet units, delivery distance and GST — so the honest answer takes a call and a spreadsheet. ChatPro365 does that arithmetic inside the chat: it asks for the size and the add-ons, prices them from your own rate card, and sends a branded quotation PDF with GST while the buyer is still typing.',
+      'Portable cabin buyers ask in square feet and expect a number back. The trouble is that the number depends on size, insulation, flooring, toilet units, delivery distance and GST — so the honest answer takes a call and a spreadsheet. ChatPro365 does that arithmetic inside the chat: it asks for the size and the add-ons, prices them from your own rate card, and sends a branded quotation PDF with GST while the buyer is still typing. It is the WhatsApp chatbot for cabin and prefab sellers that answers the rate question properly, because it asks what changes the rate first.',
     problems: [
       {
         title: '"Rate kya hai?" has no one-line answer',
@@ -224,12 +224,12 @@ export const industries = [
     path: '/whatsapp-ai-sales-agent-for-interior-design',
     name: 'Interiors & Modular',
     icon: 'layers',
-    title: 'WhatsApp AI Sales Agent for Interior Designers & Modular Furniture | ChatPro365',
+    title: 'WhatsApp Chatbot for Interior Designers & Modular | ChatPro365',
     description:
-      'Qualify interior enquiries on WhatsApp — scope, carpet area, budget, timeline — send itemised estimates with GST and book design consultations automatically.',
+      'WhatsApp automation for interior designers and modular furniture: qualify scope, carpet area, budget and timeline, then send itemised estimates with GST.',
     h1: 'WhatsApp AI Sales Agent for Interiors & Modular Furniture',
     intro:
-      'Interior enquiries start vague — "kitchen ka kitna lagega?" — and end in a detailed estimate. The distance between those two is a series of questions about carpet area, material, finish and budget that your designers repeat all day. ChatPro365 asks them on WhatsApp, prices the scope from your own rate card, sends an itemised estimate with GST, and books the design consultation.',
+      'Interior enquiries start vague — "kitchen ka kitna lagega?" — and end in a detailed estimate. The distance between those two is a series of questions about carpet area, material, finish and budget that your designers repeat all day. ChatPro365 asks them on WhatsApp, prices the scope from your own rate card, sends an itemised estimate with GST, and books the design consultation. As a WhatsApp chatbot for interior designers it does more than reply — it gets the enquiry all the way to a written estimate.',
     problems: [
       {
         title: 'Every enquiry needs the same discovery call',
@@ -292,12 +292,12 @@ export const industries = [
     path: '/whatsapp-ai-sales-agent-for-construction',
     name: 'Construction & Contracting',
     icon: 'hammer',
-    title: 'WhatsApp AI Sales Agent for Construction & Contracting | ChatPro365',
+    title: 'WhatsApp Chatbot for Construction & Contractors | ChatPro365',
     description:
-      'Capture construction enquiries on WhatsApp, qualify scope and site details, send itemised estimates with GST, and follow up on pending quotations automatically.',
+      'WhatsApp automation for construction firms and contractors: capture enquiries, qualify scope and site details, send itemised estimates with GST and follow up.',
     h1: 'WhatsApp AI Sales Agent for Construction & Contracting',
     intro:
-      'Construction enquiries are long-cycle and detail-heavy: plot size, built-up area, floors, finish level, site location, timeline. Site engineers cannot chase them on WhatsApp while they are on site, so enquiries sit unanswered and estimates go out late. ChatPro365 keeps that conversation alive — qualifying the project, sending an itemised estimate from your rate card, and following up until the client answers.',
+      'Construction enquiries are long-cycle and detail-heavy: plot size, built-up area, floors, finish level, site location, timeline. Site engineers cannot chase them on WhatsApp while they are on site, so enquiries sit unanswered and estimates go out late. ChatPro365 keeps that conversation alive — qualifying the project, sending an itemised estimate from your rate card, and following up until the client answers. It is a WhatsApp chatbot for contractors that keeps working while your site engineers are on site and nobody is watching the phone.',
     problems: [
       {
         title: 'Enquiries wait for someone off site',
@@ -356,12 +356,12 @@ export const industries = [
     path: '/whatsapp-ai-sales-agent-for-events-catering',
     name: 'Events & Catering',
     icon: 'calendar',
-    title: 'WhatsApp AI Sales Agent for Events & Catering | ChatPro365',
+    title: 'WhatsApp Chatbot for Catering & Event Planners | ChatPro365',
     description:
-      'Answer event enquiries on WhatsApp instantly — date, guest count, menu, venue — send per-plate quotations with GST and hold the date, automatically.',
+      'WhatsApp automation for caterers and event planners: answer date, guest count, menu and venue instantly, then send a per-plate quotation with GST.',
     h1: 'WhatsApp AI Sales Agent for Events & Catering',
     intro:
-      'Event enquiries are decided fast and lost faster. A host messages four caterers on the same evening with the same three facts — date, guest count, venue — and books whoever answered with a clear per-plate price first. ChatPro365 answers immediately, checks whether the date is open, prices the menu per plate with GST, and books the tasting or site visit before your competitor has read the message.',
+      'Event enquiries are decided fast and lost faster. A host messages four caterers on the same evening with the same three facts — date, guest count, venue — and books whoever answered with a clear per-plate price first. ChatPro365 answers immediately, checks whether the date is open, prices the menu per plate with GST, and books the tasting or site visit before your competitor has read the message. It is a WhatsApp chatbot for caterers that replies first — which, on an enquiry sent to four vendors the same evening, is most of the battle.',
     problems: [
       {
         title: 'Enquiries come in the evening',

@@ -72,8 +72,8 @@ export const staticRoutes = [
   ),
   page(
     '/pricing',
-    'Pricing | ChatPro365 WhatsApp AI Sales Agent Plans',
-    'ChatPro365 plans in rupees: Starter ₹2,999/month, Pro ₹7,999/month, custom Enterprise. What is included, what Meta charges on top, and the 14-day free trial.',
+    'WhatsApp Business API Pricing in India | ChatPro365 Plans',
+    'WhatsApp Business API pricing in India: ChatPro365 plans in rupees, what each includes, what Meta charges on top per conversation, and the 14-day free trial.',
     '0.9',
     'monthly',
     { breadcrumb: [crumb('Home', `${SITE}/`), crumb('Pricing')] }
@@ -93,7 +93,7 @@ export const staticRoutes = [
   // ── Industries ──
   page(
     '/industries',
-    'Industries | WhatsApp AI Sales Agent by Business Type | ChatPro365',
+    'WhatsApp Chatbot by Industry | AI Sales Agent | ChatPro365',
     'How ChatPro365 sells on WhatsApp for real estate, manufacturing, portable cabins, interiors, construction and catering — the enquiry, the quotation, the follow-up.',
     '0.8',
     'monthly',

@@ -206,7 +206,7 @@ export const PrivacyPolicyPage = ({ isOpen, onClose }) => (
               <a href="mailto:privacy@chatpro365.com" className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-3 rounded-xl font-semibold transition-colors">
                 📧 privacy@chatpro365.com
               </a>
-              <a href="https://wa.me/917457863240?text=Hi! I have a privacy question about ChatPro365" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white px-5 py-3 rounded-xl font-semibold transition-colors">
+              <a href="https://wa.me/918291929081?text=Hi! I have a privacy question about ChatPro365" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white px-5 py-3 rounded-xl font-semibold transition-colors">
                 💬 WhatsApp Support
               </a>
             </div>
@@ -614,7 +614,7 @@ export const HelpCenterPage = ({ isOpen, onClose }) => (
           {
             icon: MessageSquare, color: 'from-green-600 to-emerald-600',
             title: 'WhatsApp Support', desc: 'Fastest response — usually within 5 minutes',
-            cta: 'Chat Now', href: 'https://wa.me/917457863240?text=Hi! I need help with ChatPro365',
+            cta: 'Chat Now', href: 'https://wa.me/918291929081?text=Hi! I need help with ChatPro365',
             badge: '🟢 Online Now'
           },
           {
@@ -679,7 +679,7 @@ export const HelpCenterPage = ({ isOpen, onClose }) => (
       <div className="bg-gradient-to-r from-emerald-900/40 to-blue-900/40 border border-emerald-700/40 rounded-2xl p-8 text-center">
         <h3 className="text-xl font-bold text-white mb-2">Can't find what you're looking for?</h3>
         <p className="text-zinc-400 mb-6">Our support team is available 24/7 via WhatsApp and responds within minutes.</p>
-        <a href="https://wa.me/917457863240?text=Hi! I need help with ChatPro365" target="_blank" rel="noopener noreferrer"
+        <a href="https://wa.me/918291929081?text=Hi! I need help with ChatPro365" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white px-8 py-3.5 rounded-full font-bold transition-colors shadow-lg">
           <MessageSquare className="w-5 h-5" /> Get Instant Help on WhatsApp
         </a>
@@ -778,7 +778,7 @@ export const APIDocsPage = ({ isOpen, onClose }) => (
             <span className="text-white">{'  },\n'}</span>
             <span className="text-white">{'  body: JSON.stringify({\n'}</span>
             <span className="text-white">{'    phone: '}</span>
-            <span className="text-emerald-300">{"'+917457863240'"}</span>
+            <span className="text-emerald-300">{"'+918291929081'"}</span>
             <span className="text-white">{',\n'}</span>
             <span className="text-white">{'    message: '}</span>
             <span className="text-emerald-300">{"'Hello from ChatPro365 API! 🚀'\n"}</span>
@@ -978,7 +978,7 @@ export const CommunityPage = ({ isOpen, onClose }) => (
         <p className="text-green-200 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
           Ask setup questions, see what other businesses are automating, and hear about new features before they ship. Message us and we will add you.
         </p>
-        <a href="https://wa.me/917457863240?text=Hi! I want to join the ChatPro365 community group" target="_blank" rel="noopener noreferrer"
+        <a href="https://wa.me/918291929081?text=Hi! I want to join the ChatPro365 community group" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white px-10 py-5 rounded-full font-bold text-xl transition-colors shadow-2xl">
           <MessageSquare className="w-6 h-6" /> Join the Group →
         </a>
