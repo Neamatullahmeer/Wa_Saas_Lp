@@ -1387,7 +1387,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               </ul>
               <motion.button
                 whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                onClick={() => window.open('https://wa.me/918291929081?text=Hi! I want to know about the Enterprise plan for ChatPro365', '_blank')}
+                onClick={() => window.open('https://wa.me/917457863240?text=Hi! I want to know about the Enterprise plan for ChatPro365', '_blank')}
                 className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white font-bold py-3.5 rounded-xl hover:opacity-90 transition-all shadow-lg justify-center"
               >
                 Contact Sales
