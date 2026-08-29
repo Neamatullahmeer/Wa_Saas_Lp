@@ -56,24 +56,23 @@ const ConsentBanner = () => {
       aria-label="Cookie consent"
       className="fixed bottom-0 inset-x-0 z-[100] bg-zinc-950/95 backdrop-blur-md border-t border-zinc-800"
     >
-      <div className="max-w-5xl mx-auto px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-4">
-        <p className="text-sm text-zinc-300 leading-relaxed flex-1">
-          We use the Meta Pixel to measure our ads — it sets two cookies. Nothing else
-          on the site changes either way.{' '}
+      <div className="max-w-5xl mx-auto px-4 py-2.5 flex items-center gap-3">
+        <p className="text-[11px] sm:text-xs text-zinc-400 leading-snug flex-1">
+          Meta Pixel measures our ads — two cookies.{' '}
           <Link to="/cookie-policy" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2">
             What we store
           </Link>
         </p>
-        <div className="flex gap-3 shrink-0">
+        <div className="flex gap-2 shrink-0">
           <button
             onClick={() => choose(DENIED)}
-            className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl border border-zinc-700 text-zinc-300 font-semibold text-sm hover:bg-zinc-800 transition-colors"
+            className="px-3.5 py-1.5 rounded-lg border border-zinc-700 text-zinc-300 font-semibold text-xs hover:bg-zinc-800 transition-colors"
           >
             Decline
           </button>
           <button
             onClick={() => choose(GRANTED)}
-            className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-sm transition-colors"
+            className="px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-xs transition-colors"
           >
             Accept
           </button>
