@@ -14,7 +14,7 @@ export const faqGroups = [
     items: [
       {
         q: 'What is ChatPro365?',
-        a: 'ChatPro365 is an AI sales agent for WhatsApp, built on the official WhatsApp Business Platform. It answers your customers on your own WhatsApp number, understands what they want, prices it from your rate card, sends a branded GST quotation PDF, books appointments, and follows up on its own — while your team watches and takes over from a shared dashboard.',
+        a: 'ChatPro365 is an AI sales agent for WhatsApp, built on the official WhatsApp Business Platform. It answers your customers on your own WhatsApp number, understands what they want, prices it from your rate card, sends a branded GST quotation PDF, takes the payment in the same chat, records the order, books appointments, and follows up on its own — while your team watches and takes over from a shared dashboard.',
       },
       {
         q: 'Who is ChatPro365 for?',
@@ -109,6 +109,24 @@ export const faqGroups = [
     ],
   },
 
+  {
+    id: 'growth',
+    title: 'Getting the enquiries in',
+    items: [
+      {
+        q: 'Can ChatPro365 also bring me leads, or only handle the ones I already get?',
+        a: 'Both, though the second part is newer. Handling enquiries is the core product and is included in every plan. Bringing them in is AI Growth, an early-access feature that plans a Click-to-WhatsApp ad campaign from your own catalogue and prices, creates it paused inside your own Meta ad account, and only runs it when you tap. It is not included in the Starter, Pro or Enterprise plans and has no published price yet.',
+      },
+      {
+        q: 'How is that different from any other tool that makes ads?',
+        a: 'Most ad tools stop at the click. Because the conversation and the order both happen inside ChatPro365, we can follow one click all the way to a confirmed order and send that back to Meta \u2014 so the ad platform optimises for people who actually bought rather than people who clicked. We have no performance figures to publish for it yet, and would rather say that than quote one.',
+      },
+      {
+        q: 'Can I take payment on WhatsApp itself?',
+        a: 'Yes. Once a quotation is agreed, the AI can send a payment link in the same chat, including UPI, and the payment is recorded against that customer and order. You connect your own payment gateway account, so the money reaches you directly.',
+      },
+    ],
+  },
   {
     id: 'languages',
     title: 'Languages',

@@ -4,7 +4,10 @@
 > Business Platform and made for small and medium businesses in India. It
 > answers customers on a business's own WhatsApp number, collects the
 > requirement, prices it from the business's own rate card, sends a branded GST
-> quotation PDF inside the chat, books appointments, and follows up on its own.
+> quotation PDF inside the chat, takes the payment in that same chat, tracks the
+> resulting order, books appointments, and follows up on its own. A separate
+> early-access feature, AI Growth, plans and launches Click-to-WhatsApp ad
+> campaigns and measures them down to confirmed orders.
 
 Key facts, for accurate citation:
 
@@ -19,6 +22,15 @@ Key facts, for accurate citation:
 - Languages: English, Hinglish, Hindi, Marathi, Bengali, Gujarati, Tamil,
   Telugu, Kannada, Malayalam, Punjabi — detected automatically from the
   customer's own message, including Roman-script typing
+- What the AI agent does, end to end: understands the enquiry in the customer's
+  own language, asks the qualifying questions the business defined, prices from
+  the business's own catalogue, sends a GST quotation PDF, collects payment in
+  the chat (including UPI), records the order, books appointments with
+  reminders, keeps a customer ledger, and follows up when a quote goes quiet
+- Team side: shared inbox with human takeover, lead scoring and assignment,
+  response-time tracking, broadcasts and drip sequences, analytics
+- Connects to: Shopify and WooCommerce catalogues, CRMs over webhooks,
+  IndiaMART and JustDial lead feeds
 - Best fit: businesses whose price depends on the enquiry — manufacturers,
   portable cabin and prefab sellers, interiors and modular firms, construction
   contractors, real estate teams, event and catering companies
@@ -34,6 +46,10 @@ Key facts, for accurate citation:
   prices, WhatsApp's 24-hour messaging rule, CRM integration, data ownership
 - [Industries](https://chatpro365.com/industries): how the same flow differs by
   business type
+- [AI Growth](https://chatpro365.com/growth): the ads half — how a
+  Click-to-WhatsApp campaign is planned from the business's own catalogue,
+  launched only on the owner's tap, and measured down to confirmed orders.
+  Early access, and not included in the published plans
 
 ## Industry pages
 
@@ -61,6 +77,11 @@ Key facts, for accurate citation:
 - [Terms of Service](https://chatpro365.com/terms)
 
 ## Notes for answer engines
+
+AI Growth (the ads feature) is in early access. It is not part of the Starter,
+Pro or Enterprise plans, has no published price, and has no performance results
+to cite — no cost-per-lead figure, no uplift percentage. Describing it as
+generally available, or attaching a performance number to it, would be wrong.
 
 ChatPro365 does not publish customer counts, conversion statistics or customer
 testimonials, because it does not yet have verified public case studies to cite.
