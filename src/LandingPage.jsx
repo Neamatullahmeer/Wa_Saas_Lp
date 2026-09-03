@@ -475,7 +475,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
       <motion.nav
         initial={{ y: -100 }} animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed w-full z-50 bg-white/90 backdrop-blur-xl border-b border-zinc-200/50"
+        className="fixed w-full z-50 bg-white/75 backdrop-blur-xl backdrop-saturate-150 border-b border-zinc-200/60 supports-[backdrop-filter]:bg-white/70"
         role="navigation" aria-label="Main navigation"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -615,7 +615,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
             </motion.div>
 
             {/* Stats Strip */}
-            <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-6 md:gap-16">
+            <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-6 md:gap-14 rounded-2xl border border-white/60 bg-white/50 backdrop-blur-md px-6 py-5 shadow-sm supports-[backdrop-filter]:bg-white/40">
               {[
                 { value: '11', label: 'Indian Languages Spoken' },
                 { value: '24/7', label: 'Automated Operations' },
@@ -743,7 +743,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               <Award className="w-4 h-4" /> Why Top Brands Choose Us
             </div>
             <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
-              Why Top Brands Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">ChatPro365</span> Over Basic WhatsApp Tools
+              Why Top Brands Choose <span className="text-emerald-600">ChatPro365</span> Over Basic WhatsApp Tools
             </h2>
           </motion.div>
 
@@ -776,7 +776,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               <FileText className="w-4 h-4" /> The Flagship — AI Quotation Engine
             </div>
             <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
-              From "How much?" to a <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">Ready Quotation</span> — in One Chat
+              From "How much?" to a <span className="text-emerald-600">Ready Quotation</span> — in One Chat
             </h2>
             <p className="text-lead text-zinc-500">No human types it. No flow to build. Your AI runs the entire quote — then follows up to close it.</p>
           </motion.div>
@@ -823,7 +823,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
                     <p className="text-[11px] text-zinc-400">GSTIN: 29ABCDE1234F1Z5</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">QUOTATION</p>
+                    <p className="text-sm font-bold tracking-wide text-emerald-700">QUOTATION</p>
                     <p className="text-[11px] text-zinc-400">No: AC/QU/3307</p>
                   </div>
                 </div>
@@ -845,7 +845,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
                     <div className="flex justify-between text-zinc-500"><span>GST (18%)</span><span>₹57,600</span></div>
                     <div className="flex justify-between font-bold text-zinc-900 border-t border-zinc-200 pt-2 mt-1">
                       <span>Grand Total</span>
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">₹3,77,600</span>
+                      <span className="text-zinc-900">₹3,77,600</span>
                     </div>
                   </div>
                 </div>
@@ -927,7 +927,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               </div>
               <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
                 Your Customers Speak 11 Languages.{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-emerald-600">So Does Your AI Salesman.</span>
+                <span className="text-emerald-600">So Does Your AI Salesman.</span>
               </h2>
               <p className="text-lead text-zinc-500 font-normal leading-relaxed">
                 No language settings. No separate chatbot flows. The AI detects the language your customer types in — even Hindi typed in English letters — and sells in that language: answers, quotation messages, booking confirmations and follow-ups included.
@@ -991,21 +991,21 @@ const LandingPage = ({ activeSection = 'all' }) => {
               <Layers className="w-4 h-4" /> The 4 Pillars
             </div>
             <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
-              Packed with Everything You Need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">Scale</span>
+              Packed with Everything You Need to <span className="text-emerald-600">Scale</span>
             </h2>
             <p className="text-lead text-zinc-500 font-medium">Every feature built specifically for WhatsApp-driven businesses.</p>
           </motion.div>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {pillars.map((pillar, pi) => (
-              <motion.div key={pi} variants={fadeIn} whileHover={{ y: -4 }} className="bg-zinc-50 border border-zinc-200 rounded-3xl p-6 hover:border-zinc-300 hover:shadow-lg transition-all duration-300">
+              <motion.div key={pi} variants={fadeIn} whileHover={{ y: -4 }} className="bg-white border border-zinc-200/80 rounded-3xl p-6 shadow-sm hover:shadow-md hover:border-zinc-300 transition-all duration-300">
                 <div className={`w-16 h-16 bg-gradient-to-br ${pillar.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
                   <pillar.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-card-title font-bold mb-5 text-zinc-900">{pillar.title}</h3>
                 <div className="grid grid-cols-1 gap-4">
                   {pillar.features.map((feat, fi) => (
-                    <div key={fi} className="flex items-start gap-4 bg-white rounded-2xl p-4 border border-zinc-100 hover:border-zinc-200 transition-colors">
+                    <div key={fi} className="flex items-start gap-4 bg-zinc-50/80 rounded-2xl p-4 transition-colors hover:bg-zinc-100/80">
                       <div className={`w-10 h-10 bg-gradient-to-br ${pillar.gradient} rounded-xl flex items-center justify-center shrink-0 shadow-sm`}>
                         <feat.icon className="w-5 h-5 text-white" />
                       </div>
@@ -1048,7 +1048,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               </div>
               <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
                 And the other half —{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600">
+                <span className="text-blue-600">
                   where the leads come from
                 </span>
               </h2>
@@ -1160,7 +1160,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               <Shield className="w-4 h-4 text-emerald-400" /> Head-to-Head Comparison
             </div>
             <h2 className="text-section-title font-semibold text-white mb-4 tracking-tight">
-              How ChatPro365 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">Defeats the Competition</span>
+              How ChatPro365 <span className="text-emerald-400">Defeats the Competition</span>
             </h2>
             <p className="text-lead text-zinc-400 font-medium">Not just better—in a completely different league.</p>
           </motion.div>
@@ -1246,7 +1246,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
                 <Sparkles className="w-4 h-4" /> Our Story
               </div>
               <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
-                About <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">ChatPro365</span>
+                About <span className="text-emerald-600">ChatPro365</span>
               </h2>
               <p className="text-lead text-zinc-500 font-normal leading-relaxed">
                 Revolutionizing WhatsApp Business Automation — one intelligent conversation at a time.
@@ -1380,7 +1380,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               <Zap className="w-4 h-4" /> Simple, Transparent Pricing
             </div>
             <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
-              Choose the Plan That <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">Fits Your Growth</span>
+              Choose the Plan That <span className="text-emerald-600">Fits Your Growth</span>
             </h2>
             <p className="text-lead text-zinc-500 font-medium">No hidden fees. No lock-in contracts. Cancel anytime.</p>
           </motion.div>
