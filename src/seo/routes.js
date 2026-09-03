@@ -10,6 +10,7 @@
 import { industries } from '../content/industries.js';
 import { comparisons } from '../content/comparisons.js';
 import { allFaqs } from '../content/faq.js';
+import { growthFaqs } from '../content/growth.js';
 
 export const SITE = 'https://chatpro365.com';
 
@@ -112,6 +113,20 @@ export const staticRoutes = [
   ),
 
   // ── Comparisons ──
+  // AI Growth (ads) — early access. In the sitemap because it is real content
+  // the buyer asks for by name; low priority because it cannot be bought yet.
+  page(
+    '/growth',
+    'AI Growth | Click-to-WhatsApp Ads Measured by Orders — ChatPro365',
+    'Plan a Click-to-WhatsApp campaign from your own catalogue, launch it with one tap, and see which chats became confirmed orders. Early access.',
+    '0.6',
+    'monthly',
+    {
+      breadcrumb: [crumb('Home', `${SITE}/`), crumb('AI Growth')],
+      faq: growthFaqs.map(({ q, a }) => ({ q, a })),
+    }
+  ),
+
   page(
     '/compare',
     'Compare ChatPro365 | WhatsApp Business API Platform Comparisons',

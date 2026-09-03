@@ -15,12 +15,13 @@ import { useParams } from 'react-router-dom';
 import {
   ArrowRight, Check, CheckCircle, MessageSquare, FileText, Globe, Bot, Users,
   Building2, Factory, Package, Layers, Hammer, Calendar, Shield, Sparkles,
-  HelpCircle, Scale, Mail, Smartphone, MapPin, Link2,
+  HelpCircle, Scale, Mail, Smartphone, MapPin, Link2, TrendingUp, Lock,
 } from 'lucide-react';
 import { PageModal } from './FooterPages';
 import { industries, findIndustry } from './content/industries';
 import { comparisons, findComparison, BUYER_CHECKLIST } from './content/comparisons';
 import { faqGroups } from './content/faq';
+import { growthSteps, growthGuards, growthStatus, growthFaqs } from './content/growth';
 import { APP_BASE_URL } from './lib/apiConfig';
 
 const WA_LINK = 'https://wa.me/918291929081';
@@ -726,6 +727,78 @@ export const ComparePage = () => (
         title="Compare on your own catalogue"
         sub="Run the trial with your real price list — it settles more arguments than a feature table."
         waText="Hi! I am comparing WhatsApp platforms and want to understand ChatPro365."
+      />
+    </div>
+  </PageModal>
+);
+
+// ─────────────────────────────────────────────
+// AI Growth (ads)
+//
+// ⚠️ The honest-status block is not a disclaimer bolted on the end — it is
+//    the reason this page can exist at all. The feature has no results yet, so
+//    the page sells the mechanism and the restraint, and says so plainly.
+// ─────────────────────────────────────────────
+export const GrowthPage = () => (
+  <PageModal>
+    <div className="max-w-4xl mx-auto px-6 py-16 text-zinc-300">
+      <Crumbs trail={[{ label: 'Home', to: '/' }, { label: 'AI Growth' }]} />
+
+      <PageHead
+        badge="Early access"
+        icon={TrendingUp}
+        title="Ads judged by orders, not clicks"
+        sub="Meta can see the click and that a chat started. It cannot see who actually bought — that happens inside your WhatsApp. ChatPro365 can, and that is the number your ads should be optimised on."
+      />
+
+      <Section title="How it works">
+        <div className="space-y-4">
+          {growthSteps.map((st, i) => (
+            <div key={i} className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 flex gap-5">
+              <span className="text-emerald-400 font-bold text-lg tabular-nums shrink-0 pt-0.5">
+                {i + 1}
+              </span>
+              <div>
+                <h3 className="font-bold text-white mb-2">{st.title}</h3>
+                <p className="text-zinc-400 text-sm leading-relaxed">{st.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="What it will never do">
+        <p className="text-zinc-400 leading-relaxed mb-6 max-w-3xl">
+          Every one of these is enforced in our code, not asked of the AI in an instruction it
+          might one day ignore. An ads tool that can spend your money on its own is not a tool
+          you should have to trust.
+        </p>
+        <CardGrid items={growthGuards.map((g) => ({ title: g.title, desc: g.desc }))} />
+      </Section>
+
+      {/* ⭐ The point of the page. It goes ABOVE the call to action, not below
+          it — buried at the bottom it reads as a disclaimer, here it reads as
+          the reason to believe the rest. */}
+      <Section title={growthStatus.heading}>
+        <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 md:p-8">
+          <div className="flex gap-4">
+            <Lock className="w-5 h-5 text-zinc-500 shrink-0 mt-1" />
+            <div className="space-y-4">
+              <p className="text-zinc-300 leading-relaxed">{growthStatus.body}</p>
+              <p className="text-zinc-400 leading-relaxed">{growthStatus.ask}</p>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Common questions">
+        <FaqList items={growthFaqs} />
+      </Section>
+
+      <CtaBlock
+        title="Ask for early access"
+        sub="Already running Click-to-WhatsApp ads? Tell us what you sell and what you spend, and we will get in touch when it opens up."
+        waText="Hi! I want early access to ChatPro365 AI Growth (ads)."
       />
     </div>
   </PageModal>

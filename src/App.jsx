@@ -10,6 +10,7 @@ import {
 import {
   AboutPage, PricingPage, FaqPage, IndustriesPage, IndustryPage,
   ComparePage, ComparisonPage,
+  GrowthPage,
 } from './MarketingPages';
 import { captureAttribution } from './lib/attribution';
 import ConsentBanner from './ConsentBanner';
@@ -154,6 +155,7 @@ export function AppRoutes() {
         ))}
 
         {/* Comparisons */}
+        <Route path="/growth" element={<GrowthPage />} />
         <Route path="/compare" element={<ComparePage />} />
         {comparisons.map((cmp) => (
           <Route key={cmp.path} path={cmp.path} element={<ComparisonPage slug={cmp.slug} />} />
