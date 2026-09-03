@@ -568,18 +568,27 @@ const LandingPage = ({ activeSection = 'all' }) => {
               Sells in 11 Indian Languages · No Credit Card Required
             </motion.div>
 
-            {/* Headline */}
+            {/* Headline
+                ⚠️ Pehle yahan "Quote, Follow Up & Close Deals" tha — aur wo
+                   kahani WAHIN se shuru hoti thi jahan customer message kar
+                   chuka ho, aur wahin khatam jahan deal band ho. Product ab
+                   dono taraf aage jaata hai: paisa usi chat me aata hai, aur
+                   (early access me) enquiry bhi khud aati hai.
+                ⚠️ "Get paid" isliye likha ja sakta hai ki wo LIVE hai. Ads ka
+                   zikr hero me JAAN-BOOJH KAR nahi — wo abhi plans me shaamil
+                   nahi hai, aur hero me daalne se khareedne wala maan leta ki
+                   hai. Uske liye neeche apna section hai. */}
             <motion.h1 variants={fadeUp} className="text-hero font-semibold tracking-tight mb-6 max-w-5xl mx-auto">
               Don't Just Reply on WhatsApp.{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">
-                Quote, Follow Up & Close Deals
+                Quote, Follow Up & Get Paid
               </span>{' '}
               — Automatically.
             </motion.h1>
 
             {/* Sub-headline */}
             <motion.p variants={fadeUp} className="text-lead text-zinc-500 max-w-3xl mx-auto mb-10 font-normal leading-relaxed">
-              Meet <strong className="text-zinc-800">ChatPro365</strong> — the AI salesman for WhatsApp. It chats with your customer, understands the requirement, calculates the price, and sends a branded <strong className="text-zinc-800">GST quotation PDF</strong> — no human, no typing. Then it remembers them and follows up like your best salesperson.
+              Meet <strong className="text-zinc-800">ChatPro365</strong> — the AI salesman for WhatsApp. It works out what your customer wants, prices it from your own rate card, sends a branded <strong className="text-zinc-800">GST quotation PDF</strong> and takes the payment in the same chat — no human, no typing. Then it remembers them and follows up like your best salesperson. And with <strong className="text-zinc-800">AI Growth</strong>, now in early access, it brings the enquiry in too.
             </motion.p>
 
             {/* CTAs */}

@@ -48,7 +48,7 @@ export const staticRoutes = [
     // Keep descriptions under ~160 characters — Google truncates past that, and
     // the previous 209-character version lost everything after "bulk broadcasts".
     description:
-      'Turn WhatsApp into a 24/7 AI sales agent that answers in 11 Indian languages, sends quotation PDFs, and follows up on its own. Free 14-day trial.',
+      'Turn WhatsApp into a 24/7 AI sales agent that quotes from your own rate card, takes payment in the chat and follows up on its own. 11 Indian languages.',
     canonical: '/',
     inSitemap: true,
     priority: '1.0',
