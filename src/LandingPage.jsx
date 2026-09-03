@@ -158,6 +158,20 @@ const LandingPage = ({ activeSection = 'all' }) => {
   const [loading, setLoading] = useState(false);
   const [leadData, setLeadData] = useState({ name: '', phone: '', businessCategory: '' });
   const [menuOpen, setMenuOpen] = useState(false);
+  /* ⚠️ Hero ab dark hai. Uske upar hamesha-safed patti chubhti hai — aur
+     logo ke andar ka gehra text us safed patti ke bina dark ground par
+     gayab ho jaata. Isliye patti do halat me hai: upar paardarshi
+     (light text, safed logo), scroll ke baad wahi safed glass jo pehle
+     thi. Threshold 24px — itna hi ki ek halke se scroll par bhi
+     patti tay ho jaye, warna wo hero ke kinare par jhilmilati hai. */
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   const [activeFooterPage, setActiveFooterPage] = useState(null);
   const navigate = useNavigate();
 
@@ -475,24 +489,28 @@ const LandingPage = ({ activeSection = 'all' }) => {
       <motion.nav
         initial={{ y: -100 }} animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed w-full z-50 bg-white/75 backdrop-blur-xl backdrop-saturate-150 border-b border-zinc-200/60 supports-[backdrop-filter]:bg-white/70"
+        className={`fixed w-full z-50 transition-colors duration-300 ${
+          scrolled
+            ? 'bg-white/75 backdrop-blur-xl backdrop-saturate-150 border-b border-zinc-200/60 supports-[backdrop-filter]:bg-white/70'
+            : 'bg-transparent border-b border-white/5'
+        }`}
         role="navigation" aria-label="Main navigation"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => { window.scrollTo(0, 0); setMenuOpen(false); }} role="link" aria-label="ChatPro365 home">
-              <ChatproLogo className="h-12 sm:h-14 w-auto drop-shadow-sm -ml-2" />
+              <ChatproLogo className={`h-12 sm:h-14 w-auto drop-shadow-sm -ml-2 transition-[filter] duration-300 ${scrolled ? '' : 'brightness-0 invert'}`} />
             </div>
-            <div className="hidden md:flex space-x-8 text-zinc-500 font-medium">
-              <button onClick={() => scrollToSection('/about')} className="hover:text-zinc-900 transition-colors cursor-pointer">Why ChatPro365</button>
-              <button onClick={() => scrollToSection('/features')} className="hover:text-zinc-900 transition-colors cursor-pointer">Features</button>
-              <button onClick={() => scrollToSection('/compare')} className="hover:text-zinc-900 transition-colors cursor-pointer">Compare</button>
-              <button onClick={() => scrollToSection('/pricing')} className="hover:text-zinc-900 transition-colors cursor-pointer">Pricing</button>
-              <button onClick={() => scrollToSection('/about')} className="hover:text-zinc-900 transition-colors cursor-pointer">About Us</button>
-              <button onClick={() => scrollToSection('/faq')} className="hover:text-zinc-900 transition-colors cursor-pointer">FAQ</button>
+            <div className={`hidden md:flex space-x-8 font-medium transition-colors duration-300 ${scrolled ? 'text-zinc-500' : 'text-zinc-300'}`}>
+              <button onClick={() => scrollToSection('/about')} className={`transition-colors cursor-pointer ${scrolled ? 'hover:text-zinc-900' : 'hover:text-white'}`}>Why ChatPro365</button>
+              <button onClick={() => scrollToSection('/features')} className={`transition-colors cursor-pointer ${scrolled ? 'hover:text-zinc-900' : 'hover:text-white'}`}>Features</button>
+              <button onClick={() => scrollToSection('/compare')} className={`transition-colors cursor-pointer ${scrolled ? 'hover:text-zinc-900' : 'hover:text-white'}`}>Compare</button>
+              <button onClick={() => scrollToSection('/pricing')} className={`transition-colors cursor-pointer ${scrolled ? 'hover:text-zinc-900' : 'hover:text-white'}`}>Pricing</button>
+              <button onClick={() => scrollToSection('/about')} className={`transition-colors cursor-pointer ${scrolled ? 'hover:text-zinc-900' : 'hover:text-white'}`}>About Us</button>
+              <button onClick={() => scrollToSection('/faq')} className={`transition-colors cursor-pointer ${scrolled ? 'hover:text-zinc-900' : 'hover:text-white'}`}>FAQ</button>
             </div>
             <div className="hidden md:flex items-center gap-4">
-              <a href={`${APP_BASE_URL}/login`} rel="nofollow" className="text-zinc-500 font-medium hover:text-zinc-900 transition-colors">Login</a>
+              <a href={`${APP_BASE_URL}/login`} rel="nofollow" className={`font-medium transition-colors ${scrolled ? 'text-zinc-500 hover:text-zinc-900' : 'text-zinc-300 hover:text-white'}`}>Login</a>
               <motion.button
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                 onClick={() => setShowModal(true)}
@@ -503,14 +521,16 @@ const LandingPage = ({ activeSection = 'all' }) => {
               </motion.button>
             </div>
             <div className="flex md:hidden items-center gap-2">
-              <a href={`${APP_BASE_URL}/login`} rel="nofollow" className="text-zinc-600 font-semibold text-sm px-3 py-2 rounded-xl hover:bg-zinc-100 transition-colors" aria-label="Login">Login</a>
+              <a href={`${APP_BASE_URL}/login`} rel="nofollow" className={`font-semibold text-sm px-3 py-2 rounded-xl transition-colors ${scrolled ? 'text-zinc-600 hover:bg-zinc-100' : 'text-zinc-200 hover:bg-white/10'}`} aria-label="Login">Login</a>
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="p-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 transition-colors"
+                className={`p-2.5 rounded-xl transition-colors ${scrolled ? 'bg-zinc-100 hover:bg-zinc-200' : 'bg-white/10 hover:bg-white/20 border border-white/10'}`}
                 aria-label={menuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={menuOpen}
               >
-                {menuOpen ? <X className="w-5 h-5 text-zinc-800" /> : <Menu className="w-5 h-5 text-zinc-800" />}
+                {menuOpen
+                  ? <X className={`w-5 h-5 ${scrolled ? 'text-zinc-800' : 'text-white'}`} />
+                  : <Menu className={`w-5 h-5 ${scrolled ? 'text-zinc-800' : 'text-white'}`} />}
               </button>
             </div>
           </div>
@@ -553,18 +573,28 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 1: HERO
       ════════════════════════════════════════ */}
-      <section className="relative pt-24 pb-10 sm:pt-28 lg:pt-32 lg:pb-16 overflow-hidden" aria-label="Hero section">
-        {/* Background blobs */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1400px] h-[700px] opacity-25 bg-gradient-to-b from-emerald-500 via-blue-400 to-transparent blur-[140px] -z-10 rounded-full mix-blend-multiply" />
-        <div className="absolute top-20 left-0 w-[400px] h-[400px] opacity-20 bg-gradient-to-br from-emerald-400 to-teal-300 blur-[100px] -z-10 rounded-full" />
-        <div className="absolute top-20 right-0 w-[400px] h-[400px] opacity-20 bg-gradient-to-br from-orange-400 to-amber-300 blur-[100px] -z-10 rounded-full" />
+      <section className="relative bg-zinc-950 pt-28 pb-16 sm:pt-32 lg:pt-36 lg:pb-24 overflow-hidden" aria-label="Hero section">
+        {/* Roshni — CSS se, image se nahi. Ek 4K background image mid-range
+            Android par pehle paint me hi saikdon millisecond kha jaati, aur
+            wahi hamare customer ka phone hai. */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1200px] h-[700px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.35),transparent_65%)] blur-[120px]" />
+          <div className="absolute top-24 -left-32 w-[560px] h-[560px] rounded-full bg-[radial-gradient(circle,rgba(251,146,60,0.28),transparent_60%)] blur-[110px]" />
+          <div className="absolute top-10 -right-24 w-[620px] h-[620px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.26),transparent_60%)] blur-[120px]" />
+          {/* Halki si lakeerein — reference wali "streaks" ka shaant roop */}
+          <div className="absolute inset-x-0 top-1/3 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          <div className="absolute inset-x-0 bottom-1/4 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+        </div>
+        {/* Neeche safed section se milne wali seema — kata hua kinara
+            achanak lagta hai, ye use ghol deta hai. */}
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-white" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="flex flex-col items-center">
 
             {/* Badge */}
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/70 backdrop-blur-md border border-emerald-100 text-emerald-700 text-sm font-bold mb-8 shadow-sm">
-              <Sparkles className="w-4 h-4 text-blue-500 animate-pulse" />
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.06] backdrop-blur-md border border-white/15 text-zinc-200 text-sm font-semibold mb-8 shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset]">
+              <Sparkles className="w-4 h-4 text-emerald-300" />
               Sells in 11 Indian Languages · No Credit Card Required
             </motion.div>
 
@@ -578,17 +608,17 @@ const LandingPage = ({ activeSection = 'all' }) => {
                    zikr hero me JAAN-BOOJH KAR nahi — wo abhi plans me shaamil
                    nahi hai, aur hero me daalne se khareedne wala maan leta ki
                    hai. Uske liye neeche apna section hai. */}
-            <motion.h1 variants={fadeUp} className="text-hero font-semibold tracking-tight mb-6 max-w-5xl mx-auto">
+            <motion.h1 variants={fadeUp} className="text-hero font-semibold tracking-tight mb-6 max-w-5xl mx-auto text-white">
               Don't Just Reply on WhatsApp.{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-sky-300">
                 Quote, Follow Up & Get Paid
               </span>{' '}
               — Automatically.
             </motion.h1>
 
             {/* Sub-headline */}
-            <motion.p variants={fadeUp} className="text-lead text-zinc-500 max-w-3xl mx-auto mb-10 font-normal leading-relaxed">
-              Meet <strong className="text-zinc-800">ChatPro365</strong> — the AI salesman for WhatsApp. It works out what your customer wants, prices it from your own rate card, sends a branded <strong className="text-zinc-800">GST quotation PDF</strong> and takes the payment in the same chat — no human, no typing. Then it remembers them and follows up like your best salesperson. And with <strong className="text-zinc-800">AI Growth</strong>, now in early access, it brings the enquiry in too.
+            <motion.p variants={fadeUp} className="text-lead text-zinc-400 max-w-3xl mx-auto mb-10 font-normal leading-relaxed">
+              Meet <strong className="text-white">ChatPro365</strong> — the AI salesman for WhatsApp. It works out what your customer wants, prices it from your own rate card, sends a branded <strong className="text-white">GST quotation PDF</strong> and takes the payment in the same chat — no human, no typing. Then it remembers them and follows up like your best salesperson. And with <strong className="text-white">AI Growth</strong>, now in early access, it brings the enquiry in too.
             </motion.p>
 
             {/* CTAs */}
@@ -607,15 +637,15 @@ const LandingPage = ({ activeSection = 'all' }) => {
               <motion.button
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                 onClick={() => window.open('https://wa.me/918291929081?text=Hi! I want to know more about ChatPro365', '_blank')}
-                className="bg-white text-zinc-900 border border-zinc-200 px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md w-full sm:w-auto"
+                className="bg-white/[0.06] text-white border border-white/15 backdrop-blur-md px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-2 hover:bg-white/[0.12] w-full sm:w-auto"
                 id="hero-cta-whatsapp"
               >
-                <MessageSquare className="w-5 h-5 text-blue-500" /> Chat With Us on WhatsApp
+                <MessageSquare className="w-5 h-5 text-emerald-300" /> Chat With Us on WhatsApp
               </motion.button>
             </motion.div>
 
             {/* Stats Strip */}
-            <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-6 md:gap-14 rounded-2xl border border-white/60 bg-white/50 backdrop-blur-md px-6 py-5 shadow-sm supports-[backdrop-filter]:bg-white/40">
+            <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-8 md:gap-16 rounded-2xl border border-white/10 bg-white/[0.05] backdrop-blur-xl px-8 py-6 shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset] supports-[backdrop-filter]:bg-white/[0.04]">
               {[
                 { value: '11', label: 'Indian Languages Spoken' },
                 { value: '24/7', label: 'Automated Operations' },
@@ -623,8 +653,8 @@ const LandingPage = ({ activeSection = 'all' }) => {
                 { value: '14', label: 'Day Free Trial' },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
-                  <div className="text-2xl font-bold text-zinc-900">{stat.value}</div>
-                  <div className="text-sm text-zinc-500 font-medium mt-1">{stat.label}</div>
+                  <div className="text-2xl font-bold text-white tabular-nums">{stat.value}</div>
+                  <div className="text-sm text-zinc-400 font-medium mt-1">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
