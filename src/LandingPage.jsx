@@ -1014,6 +1014,134 @@ const LandingPage = ({ activeSection = 'all' }) => {
       </section>
 
       {/* ════════════════════════════════════════
+          SECTION 4b: AI GROWTH — where the leads come from
+
+          ⚠️ Everything above this point assumes an enquiry has already
+             landed. This is the only section that answers "aur lead
+             kahan se aayegi?" — and that question is half of what the
+             buyer is actually worried about.
+
+          ⚠️ Content rule (same as the marketing pages): no result, no
+             percentage, no customer. This feature has never run a
+             campaign, so the section sells the LOOP and says plainly
+             that it is early access and not in the plans below. It sits
+             directly above pricing, so leaving that unsaid would read
+             as "included".
+      ════════════════════════════════════════ */}
+      <section className="py-12 md:py-16 bg-gradient-to-br from-slate-50 via-white to-blue-50/60 border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+
+            {/* ── The argument ── */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-sm font-bold mb-6">
+                <Megaphone className="w-4 h-4" /> AI Growth · Early access
+              </div>
+              <h2 className="text-section-title font-semibold mb-6 tracking-tight text-zinc-900">
+                And the other half —{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600">
+                  where the leads come from
+                </span>
+              </h2>
+              <p className="text-lead text-zinc-500 font-medium mb-8">
+                Everything above assumes someone has already messaged you. AI Growth is the part
+                that brings them — it writes the ad from your own catalogue, sends the click
+                straight into your WhatsApp, and then tells Meta which of those people actually
+                bought. You stop worrying about where enquiries come from and who handles them,
+                because it is one system.
+              </p>
+
+              <div className="space-y-4 mb-8">
+                {[
+                  { icon: Sparkles, title: 'It plans from your own business', desc: 'Your products, your prices, and the qualification questions you already set — not a template.' },
+                  { icon: Lock, title: 'Nothing spends without your tap', desc: 'Every campaign is created paused inside your own Meta account. Switching it on is a separate decision.' },
+                  { icon: TrendingUp, title: 'The ads learn from orders', desc: 'Confirmed orders go back to Meta, so it optimises for people who buy instead of people who click.' },
+                ].map((it, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center shrink-0 shadow-sm">
+                      <it.icon className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-zinc-900 text-sm">{it.title}</p>
+                      <p className="text-zinc-500 text-sm mt-0.5 font-medium">{it.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                <Link
+                  to="/growth"
+                  className="inline-flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white px-6 py-3 rounded-full font-bold transition-colors"
+                >
+                  See how it works <ArrowRight className="w-4 h-4" />
+                </Link>
+                {/* ⭐ Ye line pricing se theek pehle hai — bina iske khareedne
+                    wala maan lega ki ye Starter me shaamil hai. */}
+                <p className="text-zinc-500 text-sm font-medium">
+                  Early access — not included in the plans below yet.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* ── The loop, drawn ──
+                Ek stock banner ke bajaye wahi tareeka dikhaya gaya hai jo
+                bikta hai: click se order tak, aur wapas Meta tak. Aakhri
+                kadam jaan-boojh kar alag dikhta hai (dashed) — wahi ek
+                cheez hai jo doosron ke paas nahi hoti. */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-white border border-zinc-200 rounded-3xl p-6 md:p-8 shadow-sm"
+            >
+              <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-6">
+                One loop, end to end
+              </p>
+
+              <div className="relative">
+                <span aria-hidden className="absolute left-5 top-6 bottom-16 w-px bg-gradient-to-b from-blue-200 via-emerald-200 to-emerald-100" />
+                <div className="space-y-4">
+                  {[
+                    { icon: Megaphone, label: 'Ad on Facebook or Instagram', sub: 'Written from your catalogue' },
+                    { icon: MessageSquare, label: 'WhatsApp opens, already typed', sub: 'Not a blank "Hi"' },
+                    { icon: UserCheck, label: 'Your AI agent qualifies and quotes', sub: 'On your own price list' },
+                    { icon: Package, label: 'Order confirmed', sub: 'In your dashboard, not a guess' },
+                  ].map((st, i) => (
+                    <div key={i} className="relative flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-full bg-white border-2 border-zinc-200 flex items-center justify-center shrink-0 z-10">
+                        <st.icon className="w-4 h-4 text-zinc-700" />
+                      </div>
+                      <div className="pt-1.5">
+                        <p className="font-bold text-zinc-900 text-sm leading-tight">{st.label}</p>
+                        <p className="text-zinc-500 text-xs mt-0.5 font-medium">{st.sub}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-5 flex items-start gap-4 rounded-2xl border-2 border-dashed border-emerald-300 bg-emerald-50/60 p-4">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center shrink-0 shadow-sm">
+                    <TrendingUp className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="pt-0.5">
+                    <p className="font-bold text-emerald-800 text-sm leading-tight">
+                      Back to Meta: this one bought
+                    </p>
+                    <p className="text-emerald-700/80 text-xs mt-0.5 font-medium">
+                      The step your ad platform cannot see on its own — the sale happens inside
+                      your WhatsApp.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
           SECTION 5: COMPARISON TABLE
       ════════════════════════════════════════ */}
       <section id="comparison" className="py-12 md:py-16 bg-zinc-950 border-t border-zinc-800">
