@@ -88,6 +88,14 @@ export const growthFaqs = [
   },
   {
     q: 'What does it cost?',
-    a: 'Pricing for this part is not published yet. It is invite-only while it is in early access, and it is not included in the Starter, Pro or Enterprise plans on our pricing page.',
+    a: '₹2,999 a month on top of a Pro or Enterprise plan, and the AI cost of running it is included. Above ₹2,00,000 of monthly ad spend it is ₹7,999. Your ad budget is separate and is paid to Meta directly — it never passes through us. You can cancel Growth without touching your ChatPro365 plan.',
+  },
+  {
+    q: 'How does that compare to hiring someone?',
+    a: 'An ads freelancer in India starts around ₹8,000 a month and an agency runs well past that, usually charging 10-20% of what you spend. Growth costs a third of the freelancer and works from something neither of them can see: your own chat-to-order data, so it knows which ad produced a paying customer rather than which one produced clicks.',
+  },
+  {
+    q: 'Does the AI spend my budget by itself?',
+    a: 'No. It researches, plans, writes the brief and prepares the campaign — you approve before anything goes live, and you set the budget. Nothing is launched or raised without you.',
   },
 ];

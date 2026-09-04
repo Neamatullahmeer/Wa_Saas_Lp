@@ -431,6 +431,39 @@ export const PricingPage = () => (
         ))}
       </div>
 
+      <Section title="The ads agent, as an add-on">
+        <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 space-y-5">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="text-3xl font-bold text-white">&#8377;2,999</span>
+            <span className="text-zinc-400 text-sm">/month, on top of Pro or Enterprise</span>
+          </div>
+          <p className="text-zinc-400 leading-relaxed">
+            Growth researches your market, plans the campaign, writes the creative brief and
+            launches click-to-WhatsApp ads &mdash; then reads back what each ad actually earned,
+            because the chat, the order and the payment all happen inside ChatPro365. It recommends;
+            you approve every rupee. The AI never spends your budget on its own.
+          </p>
+          <ul className="space-y-2.5">
+            {[
+              'Ad spend is paid to Meta directly, never through us',
+              'The AI cost of running Growth is included &mdash; no separate metering',
+              'Above &#8377;2,00,000 of monthly ad spend, Growth is &#8377;7,999/month',
+              'Cancel it without touching your ChatPro365 plan',
+            ].map((f, i) => (
+              <li key={i} className="flex gap-2.5 text-sm text-zinc-300">
+                <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <span dangerouslySetInnerHTML={{ __html: f }} />
+              </li>
+            ))}
+          </ul>
+          <p className="text-zinc-500 text-sm leading-relaxed">
+            An ads freelancer in India starts around &#8377;8,000 a month and cannot see what
+            happened after the click. Growth costs a third of that and is built on the one thing an
+            outside agency never gets: your own chat-to-order data.
+          </p>
+        </div>
+      </Section>
+
       <Section title="What Meta charges on top">
         <div className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 text-zinc-400 leading-relaxed space-y-3">
           <p>
