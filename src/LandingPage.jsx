@@ -1386,7 +1386,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
                   ChatPro365 is designed to give founders and managers complete peace of mind.
                 </h3>
                 <p className="text-zinc-400 text-lg font-normal leading-relaxed mb-8 max-w-3xl">
-                  Equipped with a powerful Super Admin Panel, Real-Time Notifications, and Business Control Features, you hold the reins to your entire operation. Whether it is managing Subscriptions, Support Tickets, Appointments, or File &amp; Image Sharing, we make it happen on autopilot.
+                  Equipped with a powerful Super Admin Panel, Real-Time Notifications, and Business Control Features, you hold the reins to your entire operation. Whether it is managing Subscriptions, Support Tickets, Appointments, or File & Image Sharing, we make it happen on autopilot.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   {['Super Admin Panel', 'Real-Time Notifications', 'Support Tickets', 'Appointment Booking', 'File & Image Sharing', 'Subscription Management'].map((tag, i) => (
@@ -1437,11 +1437,13 @@ const LandingPage = ({ activeSection = 'all' }) => {
                 {[
                   '1 WhatsApp Number',
                   'Up to 3 Agents',
-                  '5,000 Monthly Messages',
-                  'AI Auto-Reply Bot',
-                  'Human + AI Hybrid Chat',
+                  'AI Auto-Replies, Trained on Your Documents',
+                  'Lead Capture, Tagging & Scoring',
+                  'GST Quotation PDFs',
+                  'Appointment Booking & Reminders',
+                  'Smart Follow-ups & Drip Sequences',
+                  'Shared Team Inbox',
                   'Bulk Broadcast Campaigns',
-                  'Basic Lead Management',
                   'Real-Time Dashboard',
                   'Email Support',
                 ].map((feat, i) => (
@@ -1484,17 +1486,17 @@ const LandingPage = ({ activeSection = 'all' }) => {
               </div>
               <ul className="space-y-3 flex-1 mb-8 relative z-10">
                 {[
-                  '3 WhatsApp Numbers',
+                  'Everything in Starter',
+                  '1 WhatsApp Number',
                   'Up to 15 Agents',
-                  '25,000 Monthly Messages',
-                  'Human + AI Hybrid Chat',
+                  'Higher Usage Limits',
                   'Voice Notes & AI Voice Replies',
-                  'Lead Scoring & VIP System',
-                  'Drip Campaign Automation',
-                  'AI Quality Supervisor',
-                  'SLA Management',
                   'CRM Integration (Webhook)',
-                  'AI Performance Analytics',
+                  'Shopify & WooCommerce Sync',
+                  'Behaviour-Triggered Follow-ups',
+                  'Approval Inbox',
+                  'AI Quality Supervisor',
+                  'Advanced Analytics',
                   'Priority Support',
                 ].map((feat, i) => (
                   <li key={i} className="flex items-center gap-3">
@@ -1521,7 +1523,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
                   <Shield className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-1">Enterprise</h3>
-                <p className="text-zinc-400 text-sm font-medium">For large-scale operations with custom needs, unlimited messages, and dedicated support.</p>
+                <p className="text-zinc-400 text-sm font-medium">For large-scale operations with custom workflows, dedicated support and an SLA.</p>
               </div>
               <div className="mb-6">
                 <div className="flex items-end gap-1">
@@ -1531,18 +1533,15 @@ const LandingPage = ({ activeSection = 'all' }) => {
               </div>
               <ul className="space-y-3 flex-1 mb-8">
                 {[
-                  'Unlimited WhatsApp Numbers',
-                  'Unlimited Agents',
-                  'Unlimited Messages',
                   'Everything in Pro',
-                  'Voice Notes & AI Voice Replies',
-                  'White-Label Options',
-                  'Custom AI Training',
+                  'Unlimited Agents',
+                  'Custom Limits, Roles & Permissions',
                   'Dedicated Account Manager',
-                  'Custom Integrations',
-                  'On-Premise Deployment',
-                  '24/7 Priority Support',
-                  'SLA Guarantee',
+                  'Custom Integrations (API & Webhooks)',
+                  'Advanced Data & Analytics with Export',
+                  'SLA & 24/7 Priority Support',
+                  'Onboarding & Team Training',
+                  'Security, Privacy & Compliance',
                 ].map((feat, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
@@ -1719,7 +1718,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
               <ul className="space-y-4 text-base font-medium text-zinc-400">
                 <li><Link to="/privacy-policy" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Privacy Policy</Link></li>
                 <li><Link to="/terms" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Terms of Service</Link></li>
-                <li><Link to="/refund" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Refund &amp; Cancellation</Link></li>
+                <li><Link to="/refund" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Refund & Cancellation</Link></li>
                 <li><Link to="/acceptable-use" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Acceptable Use Policy</Link></li>
                 <li><Link to="/gdpr" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">GDPR Compliance</Link></li>
                 <li><Link to="/cookie-policy" className="hover:text-emerald-400 transition-colors text-left cursor-pointer">Cookie Policy</Link></li>

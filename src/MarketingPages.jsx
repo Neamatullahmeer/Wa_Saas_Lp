@@ -369,6 +369,7 @@ const PLAN_DETAIL = [
     features: [
       'Everything in Starter',
       'Higher usage limits',
+      'Voice notes and AI voice replies',
       'CRM webhooks — leads in and out',
       'Shopify and WooCommerce catalogue sync',
       'Behaviour-triggered follow-up with approval inbox',
@@ -380,12 +381,14 @@ const PLAN_DETAIL = [
     name: 'Enterprise',
     price: 'Custom',
     unit: '',
-    for: 'Multiple numbers, large teams, or requirements that need a conversation.',
+    for: 'Large teams, custom workflows, or requirements that need a conversation.',
     features: [
       'Everything in Pro',
-      'Multiple WhatsApp numbers',
-      'Custom limits and onboarding',
-      'Dedicated support',
+      'Custom limits, roles and workflows',
+      'Dedicated account manager',
+      'Custom integrations — API and webhooks',
+      'Onboarding and team training',
+      'SLA-backed 24/7 priority support',
     ],
   },
 ];
