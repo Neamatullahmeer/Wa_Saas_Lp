@@ -65,34 +65,46 @@ const SparkleStar = ({ className = "" }) => (
 );
 
 /*
-  Stage master layout = 760 × 780 px, everything absolutely placed.
-  Phone sits dead-centre: 300 wide × 633 tall  →  left 230, top 74.
-  Every satellite badge keeps the offset it holds in the reference render
-  (measured off the 1600×1600 art and rescaled to this phone width).
+  ONE fixed-geometry composition — 760 × 866 px — that only ever gets scaled.
+  Title, phone and every satellite badge live inside it, so the artwork keeps
+  the exact proportions of the reference render at every screen width; the
+  breakpoint ladder below only picks a scale that fits the available width
+  (viewport − 16px), which is why nothing clips on a 360px Android either.
+
+    phone      300 × 633  →  left 230, top 160  (dead centre)
+    scale      s = fits(vw)      →  rendered width 760·s
+
+  Badge offsets were measured off the 1600×1600 reference art and rescaled to
+  this phone width, so the distance from phone to every badge is the same ratio
+  as the original.
 */
 export default function HeroGlassShowcase({ onOpenModal }) {
   return (
-    <div id="hero-3d-showcase" className="relative mx-auto w-full max-w-5xl py-1 sm:py-4 px-1 sm:px-4 select-none overflow-visible">
-
-      {/* ── Brand title ── */}
-      <div className="text-center mb-1 sm:mb-3">
-        <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-          ChatPro<span className="text-emerald-400 drop-shadow-[0_0_18px_#34d399]">365</span>
-        </h2>
-      </div>
+    <div id="hero-3d-showcase" className="relative mx-auto w-full max-w-5xl py-1 sm:py-4 px-0 sm:px-4 select-none overflow-visible">
 
       {/* ── Ambient atmosphere: broad emerald core + cyan wash on the right ── */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-visible">
-        <div className="absolute top-[58%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[760px] sm:w-[920px] h-[540px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.26)_0%,rgba(16,185,129,0.12)_45%,transparent_72%)] blur-[90px]" />
-        <div className="absolute top-[62%] left-[56%] w-[420px] h-[340px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.16)_0%,transparent_70%)] blur-[80px]" />
+        <div className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[760px] sm:w-[920px] h-[540px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.26)_0%,rgba(16,185,129,0.12)_45%,transparent_72%)] blur-[90px]" />
+        <div className="absolute top-[64%] left-[56%] w-[420px] h-[340px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.16)_0%,transparent_70%)] blur-[80px]" />
       </div>
 
-      {/* ── Responsive stage ── */}
-      <div className="relative flex items-center justify-center h-[390px] sm:h-[525px] md:h-[600px] lg:h-[665px] w-full overflow-visible">
-        <div className="relative w-[760px] h-[780px] shrink-0 transform scale-[0.48] sm:scale-[0.66] md:scale-[0.76] lg:scale-[0.84] origin-center transition-transform duration-300">
+      {/* ── Responsive stage: heights track 866 × scale so there is no dead band ── */}
+      <div className="relative flex items-center justify-center w-full overflow-visible
+                      h-[340px] min-[360px]:h-[384px] min-[390px]:h-[419px] min-[420px]:h-[453px]
+                      min-[460px]:h-[497px] min-[520px]:h-[549px]
+                      sm:h-[575px] md:h-[662px] lg:h-[731px]">
+        <div className="relative w-[760px] h-[866px] shrink-0 origin-center transition-transform duration-300
+                        scale-[0.39] min-[360px]:scale-[0.44] min-[390px]:scale-[0.48] min-[420px]:scale-[0.52]
+                        min-[460px]:scale-[0.57] min-[520px]:scale-[0.63]
+                        sm:scale-[0.66] md:scale-[0.76] lg:scale-[0.84]">
+
+          {/* ══════════ 0. Brand title — part of the artwork, so it scales with it ══════════ */}
+          <h2 className="absolute left-0 top-[14px] w-full text-center text-[58px] leading-none font-extrabold text-white tracking-tight z-30">
+            ChatPro<span className="text-emerald-400 drop-shadow-[0_0_18px_#34d399]">365</span>
+          </h2>
 
           {/* ══════════ GLOWING CIRCUIT CONNECTORS ══════════ */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none z-[15] overflow-visible" viewBox="0 0 760 780" xmlns="http://www.w3.org/2000/svg">
+          <svg className="absolute inset-0 w-full h-full pointer-events-none z-[15] overflow-visible" viewBox="0 0 760 866" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="wireGreen" x1="100%" y1="100%" x2="0%" y2="0%">
                 <stop offset="0%" stopColor="#10b981" stopOpacity="0.1" />
@@ -112,23 +124,23 @@ export default function HeroGlassShowcase({ onOpenModal }) {
             </defs>
 
             {/* decorative wisp above the 24/7 tile */}
-            <path d="M 100 92 C 100 62, 74 46, 46 44" fill="none" stroke="url(#wireCyan)" strokeWidth="1.6" className="circuit-dash" />
-            <circle cx="46" cy="44" r="3.5" fill="#34d399" className="drop-shadow-[0_0_8px_#34d399]" />
+            <path d="M 100 178 C 100 148, 74 132, 46 130" fill="none" stroke="url(#wireCyan)" strokeWidth="1.6" className="circuit-dash" />
+            <circle cx="46" cy="130" r="3.5" fill="#34d399" className="drop-shadow-[0_0_8px_#34d399]" />
 
             {/* phone → up into the "24/7 AI Automation" card */}
             <path
-              d="M 214 338 L 110 338 C 96 338, 90 330, 90 316 L 90 296"
+              d="M 214 424 L 110 424 C 96 424, 90 416, 90 402 L 90 382"
               fill="none" stroke="url(#wireGreen)" strokeWidth="1.8"
               className="circuit-dash" markerEnd="url(#arrowGreen)"
             />
 
             {/* decorative orbital arc, top right */}
-            <path d="M 530 34 C 590 48, 622 86, 620 132" fill="none" stroke="url(#wireCyan)" strokeWidth="1.6" className="circuit-dash" />
-            <circle cx="530" cy="34" r="3.5" fill="#22d3ee" className="drop-shadow-[0_0_10px_#22d3ee]" />
+            <path d="M 530 120 C 590 134, 622 172, 620 218" fill="none" stroke="url(#wireCyan)" strokeWidth="1.6" className="circuit-dash" />
+            <circle cx="530" cy="120" r="3.5" fill="#22d3ee" className="drop-shadow-[0_0_10px_#22d3ee]" />
 
             {/* phone → down into the "Instant Lead Qualification" cluster */}
             <path
-              d="M 660 298 C 674 340, 664 394, 638 416"
+              d="M 660 384 C 674 426, 664 480, 638 502"
               fill="none" stroke="url(#wireCyan)" strokeWidth="1.8"
               className="circuit-dash" markerEnd="url(#arrowCyan)"
             />
@@ -138,7 +150,7 @@ export default function HeroGlassShowcase({ onOpenModal }) {
           <motion.div
             animate={{ y: [-6, 6, -6] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[8px] top-[139px] w-[189px] z-30"
+            className="absolute left-[8px] top-[225px] w-[189px] z-30"
           >
             <div className="glass-panel-3d rounded-[26px] pt-[52px] pb-[22px] px-4 flex flex-col items-center text-center hover:scale-[1.04] transition-transform duration-300 shadow-[0_18px_40px_rgba(0,0,0,0.55)]">
               <div className="text-[34px] font-extrabold text-white leading-none tracking-tight drop-shadow-md">24/7</div>
@@ -161,7 +173,7 @@ export default function HeroGlassShowcase({ onOpenModal }) {
           <motion.div
             animate={{ y: [-5, 5, -5] }}
             transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[136px] top-[305px] z-30"
+            className="absolute left-[136px] top-[391px] z-30"
           >
             <div className="glass-pill rounded-[17px] pl-2 pr-4 h-[50px] flex items-center gap-2.5 hover:scale-105 transition-transform duration-300 shadow-[0_0_22px_rgba(245,158,11,0.28)]">
               <div className="w-[34px] h-[34px] rounded-full overflow-hidden border-2 border-amber-400/70 shrink-0 bg-gradient-to-tr from-amber-500 to-yellow-300">
@@ -179,7 +191,7 @@ export default function HeroGlassShowcase({ onOpenModal }) {
           <motion.div
             animate={{ y: [5, -5, 5] }}
             transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[477px] top-[202px] z-30"
+            className="absolute left-[477px] top-[288px] z-30"
           >
             <div className="glass-pill rounded-[17px] pl-2 pr-5 h-[51px] min-w-[176px] flex items-center gap-3 hover:scale-105 transition-transform duration-300 shadow-[0_0_22px_rgba(56,189,248,0.3)]">
               <div className="w-[35px] h-[35px] rounded-full overflow-hidden border-2 border-cyan-400/70 shrink-0 bg-gradient-to-tr from-cyan-500 to-sky-300">
@@ -197,7 +209,7 @@ export default function HeroGlassShowcase({ onOpenModal }) {
           <motion.div
             animate={{ y: [-5, 6, -5] }}
             transition={{ duration: 6.4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[446px] top-[447px] w-[296px] h-[186px] z-30"
+            className="absolute left-[446px] top-[533px] w-[296px] h-[186px] z-30"
           >
             <div className="absolute left-[116px] top-0 w-[82px] h-[82px]">
               <div className="glass-tile-3d w-full h-full rounded-[22px] flex items-center justify-center shadow-[0_0_26px_rgba(16,185,129,0.45)] hover:scale-110 transition-transform duration-300">
@@ -225,7 +237,7 @@ export default function HeroGlassShowcase({ onOpenModal }) {
           <motion.div
             animate={{ y: [6, -6, 6] }}
             transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[16px] top-[444px] z-30"
+            className="absolute left-[16px] top-[530px] z-30"
           >
             <div className="w-[82px] h-[82px] glass-tile-3d rounded-[22px] flex items-center justify-center shadow-[0_0_26px_rgba(16,185,129,0.45)] hover:scale-110 transition-transform duration-300">
               <WhatsAppIcon className="w-11 h-11 text-emerald-400 drop-shadow-[0_0_10px_#34d399]" />
@@ -238,7 +250,7 @@ export default function HeroGlassShowcase({ onOpenModal }) {
           </motion.div>
 
           {/* ══════════ 6. RIGHT — luminous node + data streaks ══════════ */}
-          <div className="absolute left-[546px] top-[266px] z-[26] pointer-events-none flex items-center gap-3">
+          <div className="absolute left-[546px] top-[352px] z-[26] pointer-events-none flex items-center gap-3">
             <div className="relative flex items-center justify-center w-[18px] h-[18px]">
               <div className="absolute w-[18px] h-[18px] rounded-full border border-cyan-400/50 animate-ping opacity-60" />
               <div className="w-[11px] h-[11px] rounded-full bg-cyan-400 shadow-[0_0_16px_#22d3ee,0_0_30px_#06b6d4]" />
@@ -251,16 +263,16 @@ export default function HeroGlassShowcase({ onOpenModal }) {
           </div>
 
           {/* ══════════ 7. Ambient sparks ══════════ */}
-          <div className="absolute left-[191px] top-[43px] z-[26] w-[9px] h-[9px] rounded-full bg-emerald-400 shadow-[0_0_14px_#34d399] animate-pulse" />
-          <div className="absolute left-[205px] top-[384px] z-[26] w-[8px] h-[8px] rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8] animate-pulse" style={{ animationDelay: '0.7s' }} />
-          <div className="absolute left-[178px] top-[410px] z-[26] w-[5px] h-[5px] rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" style={{ animationDelay: '1.4s' }} />
-          <div className="absolute left-[16px] top-[643px] z-[26] w-[10px] h-[10px] rounded-full bg-cyan-400 shadow-[0_0_14px_#22d3ee] animate-pulse" style={{ animationDelay: '1.1s' }} />
-          <div className="absolute left-[690px] top-[156px] z-[26] w-[8px] h-[8px] rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8] animate-pulse" style={{ animationDelay: '0.3s' }} />
-          <div className="absolute left-[715px] top-[535px] z-[26] w-[7px] h-[7px] rounded-full bg-cyan-400 shadow-[0_0_12px_#22d3ee] animate-pulse" style={{ animationDelay: '1.7s' }} />
-          <div className="absolute left-[498px] top-[694px] z-[26] w-[15px] h-[15px] rounded-full bg-emerald-400 shadow-[0_0_20px_#34d399,0_0_36px_#10b981] animate-pulse" />
+          <div className="absolute left-[191px] top-[129px] z-[26] w-[9px] h-[9px] rounded-full bg-emerald-400 shadow-[0_0_14px_#34d399] animate-pulse" />
+          <div className="absolute left-[205px] top-[470px] z-[26] w-[8px] h-[8px] rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8] animate-pulse" style={{ animationDelay: '0.7s' }} />
+          <div className="absolute left-[178px] top-[496px] z-[26] w-[5px] h-[5px] rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" style={{ animationDelay: '1.4s' }} />
+          <div className="absolute left-[16px] top-[729px] z-[26] w-[10px] h-[10px] rounded-full bg-cyan-400 shadow-[0_0_14px_#22d3ee] animate-pulse" style={{ animationDelay: '1.1s' }} />
+          <div className="absolute left-[690px] top-[242px] z-[26] w-[8px] h-[8px] rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8] animate-pulse" style={{ animationDelay: '0.3s' }} />
+          <div className="absolute left-[715px] top-[621px] z-[26] w-[7px] h-[7px] rounded-full bg-cyan-400 shadow-[0_0_12px_#22d3ee] animate-pulse" style={{ animationDelay: '1.7s' }} />
+          <div className="absolute left-[498px] top-[780px] z-[26] w-[15px] h-[15px] rounded-full bg-emerald-400 shadow-[0_0_20px_#34d399,0_0_36px_#10b981] animate-pulse" />
 
           {/* ══════════ 8. THE PHONE ══════════ */}
-          <div className="absolute left-[230px] top-[74px] w-[300px] z-20" style={{ perspective: '1400px' }}>
+          <div className="absolute left-[230px] top-[160px] w-[300px] z-20" style={{ perspective: '1400px' }}>
 
             {/* detached floor shadow */}
             <motion.div
@@ -486,7 +498,7 @@ export default function HeroGlassShowcase({ onOpenModal }) {
           <motion.div
             animate={{ scale: [0.97, 1.03, 0.97], opacity: [0.88, 1, 0.88] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[648px] top-[662px] z-30 pointer-events-none drop-shadow-[0_0_25px_rgba(100,116,139,0.35)]"
+            className="absolute left-[648px] top-[748px] z-30 pointer-events-none drop-shadow-[0_0_25px_rgba(100,116,139,0.35)]"
           >
             <SparkleStar className="w-[80px] h-[80px] overflow-visible" />
           </motion.div>
