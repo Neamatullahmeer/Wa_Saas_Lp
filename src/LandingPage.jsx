@@ -575,7 +575,9 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 1: HERO
       ════════════════════════════════════════ */}
-      <section className="relative bg-[#0d1622] pt-24 pb-16 sm:pt-32 lg:pt-36 lg:pb-28 overflow-hidden border-b border-white/10" aria-label="Hero section">
+      {/* pb is tight on phones on purpose — the showcase already carries its own
+          air, and pb-16 left a visibly dead band above the white section */}
+      <section className="relative bg-[#0d1622] pt-24 pb-8 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-28 overflow-hidden border-b border-white/10" aria-label="Hero section">
         {/* Ambient lighting matching reference image */}
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[800px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.18)_0%,rgba(6,182,212,0.14)_40%,transparent_70%)] blur-[100px]" />

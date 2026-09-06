@@ -104,11 +104,11 @@ export default function HeroGlassShowcase({ onOpenModal }) {
 
       {/* ── Responsive stage: heights track stageHeight × scale, so no dead band ── */}
       <div className="relative flex items-center justify-center w-full overflow-visible
-                      h-[412px] min-[360px]:h-[468px] min-[390px]:h-[508px] min-[420px]:h-[548px]
-                      min-[460px]:h-[588px] min-[520px]:h-[628px]
+                      h-[392px] min-[360px]:h-[445px] min-[390px]:h-[483px] min-[420px]:h-[521px]
+                      min-[460px]:h-[559px] min-[520px]:h-[597px]
                       sm:h-[628px] md:h-[680px] lg:h-[732px]">
         <div className="relative shrink-0 origin-center transition-transform duration-300
-                        w-[580px] h-[800px] sm:w-[760px] sm:h-[866px]
+                        w-[580px] h-[760px] sm:w-[760px] sm:h-[866px]
                         scale-[0.51] min-[360px]:scale-[0.58] min-[390px]:scale-[0.63] min-[420px]:scale-[0.68]
                         min-[460px]:scale-[0.73] min-[520px]:scale-[0.78]
                         sm:scale-[0.72] md:scale-[0.78] lg:scale-[0.84]">
