@@ -66,31 +66,45 @@ const SparkleStar = ({ className = "" }) => (
 
 /*
   ── LAYOUT MODEL ────────────────────────────────────────────────────────────
-  The phone is a fixed 300 × 633 block; every satellite badge lives in its own
-  760 × 866 layer whose transform-origin is pinned to the phone's centre
-  (380px 476px). That single fact drives both layouts:
+  The phone is a fixed 300 × 703 block sitting dead centre of the stage:
 
-    sm and up   stage 760 × 866, satellites scale 1     → the reference framing
-    below sm    stage 580 × 760, satellites scale 0.78  → badges tuck in toward
-                the phone, so the same available width buys a much bigger phone
-                (300·0.58 = 174px on a 360px Android, vs 132px at full spread)
+    sm and up   stage 770 × 866, satellites scale 1    → the reference framing
+    below sm    stage 680 × 780, satellites scale 0.8  → artwork narrows, so the
+                same available width buys a bigger phone (300·0.50 = 150px on a
+                360px Android, vs 132px at full spread)
 
-  Because the satellites scale about the phone's centre, pulling them in never
-  changes which side of the phone a badge sits on, and the connector wires —
-  which live in a second layer with the identical transform — keep pointing at
-  the same spot on the handset.
-
-  The breakpoint ladder only ever picks a scale that satisfies
+  The breakpoint ladder only ever picks a scale satisfying
   stageWidth · scale ≤ viewport − 16, which is why nothing clips at 320px.
+
+  ── THE NO-OVERLAP RULE ─────────────────────────────────────────────────────
+  In the reference art a badge may rest on the phone's metal frame but never on
+  a message bubble. Two things hold that line, and both have to stay true:
+
+    1. Badge inner edges sit past the chat's text column — "New Lead" ends at
+       x 235 and the chat text starts at 248; "Qualified" starts at 524 and the
+       text ends at 511.
+    2. The bubbles a badge sits beside are deliberately narrow — the quotation
+       card is 80% and left-aligned, the closing bubble 62% — so the right-hand
+       cluster has somewhere to land.
+
+  Widen a bubble or move a badge inward and the artwork goes muddy again.
 */
 
-/* Both satellite layers carry the identical transform so wires and badges stay
-   locked together; only their z-index differs (wires behind the phone, badges
-   in front of it). */
+/* Satellites live in two mirrored layers whose transform-origin is pinned to the
+   phone's LEFT (230px) and RIGHT (530px) edge — not to its centre.
+
+   That is the whole trick. Scaling a group about the phone's centre drags every
+   badge inward across the screen and onto the chat text; scaling it about the
+   phone's own edge holds the inner edge of each badge against the frame and only
+   reels the outer edge in. So the artwork narrows on small screens — buying a
+   much bigger phone — while no badge ever creeps over a message bubble.
+
+   Each side needs two layers: wires behind the phone, badges in front of it. */
 const SAT_LAYER =
-  "absolute left-1/2 w-[760px] h-[866px] -translate-x-1/2 -top-[76px] sm:top-0 " +
-  "scale-[0.78] sm:scale-100 pointer-events-none";
-const SAT_ORIGIN = { transformOrigin: '380px 476px' };
+  "absolute left-1/2 w-[760px] h-[866px] -translate-x-1/2 -top-[68px] sm:top-0 " +
+  "scale-[0.8] sm:scale-100 pointer-events-none";
+const ORIGIN_L = { transformOrigin: '230px 476px' };
+const ORIGIN_R = { transformOrigin: '530px 476px' };
 
 export default function HeroGlassShowcase({ onOpenModal }) {
   return (
@@ -108,13 +122,13 @@ export default function HeroGlassShowcase({ onOpenModal }) {
 
       {/* ── Responsive stage: heights track stageHeight × scale, so no dead band ── */}
       <div className="relative flex items-center justify-center w-full overflow-visible
-                      h-[392px] min-[360px]:h-[445px] min-[390px]:h-[483px] min-[420px]:h-[521px]
-                      min-[460px]:h-[559px] min-[520px]:h-[597px]
+                      h-[347px] min-[360px]:h-[394px] min-[390px]:h-[425px] min-[420px]:h-[456px]
+                      min-[460px]:h-[503px] min-[520px]:h-[566px]
                       sm:h-[628px] md:h-[680px] lg:h-[732px]">
         <div className="relative shrink-0 origin-center transition-transform duration-300
-                        w-[580px] h-[760px] sm:w-[760px] sm:h-[866px]
-                        scale-[0.51] min-[360px]:scale-[0.58] min-[390px]:scale-[0.63] min-[420px]:scale-[0.68]
-                        min-[460px]:scale-[0.73] min-[520px]:scale-[0.78]
+                        w-[680px] h-[780px] sm:w-[770px] sm:h-[866px]
+                        scale-[0.44] min-[360px]:scale-[0.50] min-[390px]:scale-[0.54] min-[420px]:scale-[0.58]
+                        min-[460px]:scale-[0.64] min-[520px]:scale-[0.72]
                         sm:scale-[0.72] md:scale-[0.78] lg:scale-[0.84]">
 
           {/* ══════════ Brand title — part of the artwork, so it scales with it ══════════ */}
@@ -122,8 +136,8 @@ export default function HeroGlassShowcase({ onOpenModal }) {
             ChatPro<span className="text-emerald-400 drop-shadow-[0_0_18px_#34d399]">365</span>
           </h2>
 
-          {/* ══════════ SATELLITE LAYER A — connector wires (behind the phone) ══════════ */}
-          <div className={`${SAT_LAYER} z-[15]`} style={SAT_ORIGIN}>
+          {/* ══════════ WIRES — behind the phone, one layer per side ══════════ */}
+          <div className={`${SAT_LAYER} z-[15]`} style={ORIGIN_L}>
             <svg className="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 760 866" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="wireGreen" x1="100%" y1="100%" x2="0%" y2="0%">
@@ -153,7 +167,11 @@ export default function HeroGlassShowcase({ onOpenModal }) {
                 fill="none" stroke="url(#wireGreen)" strokeWidth="1.8"
                 className="circuit-dash" markerEnd="url(#arrowGreen)"
               />
+            </svg>
+          </div>
 
+          <div className={`${SAT_LAYER} z-[15]`} style={ORIGIN_R}>
+            <svg className="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 760 866" xmlns="http://www.w3.org/2000/svg">
               {/* decorative orbital arc, top right */}
               <path d="M 530 120 C 590 134, 622 172, 620 218" fill="none" stroke="url(#wireCyan)" strokeWidth="1.6" className="circuit-dash" />
               <circle cx="530" cy="120" r="3.5" fill="#22d3ee" className="drop-shadow-[0_0_10px_#22d3ee]" />
@@ -168,7 +186,7 @@ export default function HeroGlassShowcase({ onOpenModal }) {
           </div>
 
           {/* ══════════ THE PHONE ══════════ */}
-          <div className="absolute left-[140px] top-[64px] sm:left-[230px] sm:top-[140px] w-[300px] z-20" style={{ perspective: '1400px' }}>
+          <div className="absolute left-[190px] top-[56px] sm:left-[235px] sm:top-[124px] w-[300px] z-20" style={{ perspective: '1400px' }}>
 
             {/* detached floor shadow */}
             <motion.div
@@ -264,7 +282,7 @@ export default function HeroGlassShowcase({ onOpenModal }) {
               />
 
               {/* ── SCREEN ── */}
-              <div className="relative rounded-[45px] bg-[#0b141a] overflow-hidden border-[3px] border-[#0a0f14] flex flex-col h-[660px] shadow-inner">
+              <div className="relative rounded-[45px] bg-[#0b141a] overflow-hidden border-[3px] border-[#0a0f14] flex flex-col h-[690px] shadow-inner">
 
                 {/* status bar + dynamic island */}
                 <div className="relative pt-2.5 pb-1.5 px-5 bg-[#0b141a] flex items-center justify-between text-zinc-300 text-[10.5px] font-semibold z-10 select-none">
@@ -387,12 +405,16 @@ export default function HeroGlassShowcase({ onOpenModal }) {
                     </div>
                   </div>
 
-                  {/* 5 — the quotation card: plain white, edge to edge */}
-                  <div className="self-end w-[96%] bg-white rounded-[10px] overflow-hidden shadow-[0_6px_18px_rgba(0,0,0,0.45)]">
+                  {/* 5 — the quotation card. Left-aligned at ~76% like the
+                      reference, which is also what keeps the right-hand badge
+                      cluster off it. */}
+                  {/* shrink-0 matters: as a flex child with overflow-hidden the card
+                      was being squeezed and silently swallowing its own button */}
+                  <div className="self-start w-[76%] shrink-0 bg-white rounded-[10px] overflow-hidden shadow-[0_6px_18px_rgba(0,0,0,0.45)]">
                     <div className="px-3 pt-2.5 pb-2 text-zinc-900">
                       <div className="flex items-start justify-between gap-2">
-                        <h4 className="font-bold text-[12.5px] leading-tight">Web Design Package</h4>
-                        <span className="text-[13px] font-extrabold tracking-tight shrink-0">$1,000</span>
+                        <h4 className="font-bold text-[12px] leading-tight whitespace-nowrap">Web Design Package</h4>
+                        <span className="text-[12.5px] font-extrabold tracking-tight shrink-0">$1,000</span>
                       </div>
                       <p className="text-[10px] text-zinc-500 font-medium mt-[3px]">Quotation</p>
                       <div className="mt-2.5 flex items-end justify-between gap-2">
@@ -410,9 +432,10 @@ export default function HeroGlassShowcase({ onOpenModal }) {
                     </button>
                   </div>
 
-                  {/* 6 — customer, sky blue */}
-                  <div className="self-start max-w-[76%] bg-[#38bdf8] text-white font-medium rounded-[14px] rounded-tl-[5px] px-[11px] pt-[7px] pb-[5px] shadow-sm border border-sky-400/30">
-                    <p className="leading-[1.5]">That was instant! Let&apos;s get started.</p>
+                  {/* 6 — customer, sky blue. Kept narrow so the "Instant Lead
+                      Qualification" card lands beside it, never on it. */}
+                  <div className="self-start max-w-[62%] bg-[#38bdf8] text-white font-medium rounded-[14px] rounded-tl-[5px] px-[11px] pt-[7px] pb-[5px] shadow-sm border border-sky-400/30">
+                    <p className="leading-[1.5]">Perfect, let&apos;s start!</p>
                     <div className="text-[9px] text-white/85 text-right mt-[4px] flex items-center justify-end gap-1 font-semibold">
                       <span>13:43</span><span className="font-bold">✓✓</span>
                     </div>
@@ -449,8 +472,8 @@ export default function HeroGlassShowcase({ onOpenModal }) {
             </motion.div>
           </div>
 
-          {/* ══════════ SATELLITE LAYER B — badges & sparks (in front of the phone) ══════════ */}
-          <div className={`${SAT_LAYER} z-30`} style={SAT_ORIGIN}>
+          {/* ══════════ BADGES — in front of the phone, LEFT side ══════════ */}
+          <div className={`${SAT_LAYER} z-30`} style={ORIGIN_L}>
 
             {/* 1. TOP-LEFT — "24/7 AI Automation" */}
             <motion.div
@@ -475,11 +498,12 @@ export default function HeroGlassShowcase({ onOpenModal }) {
               </div>
             </motion.div>
 
-            {/* 2. LEFT — "New Lead" */}
+            {/* 2. LEFT — "New Lead". Right edge stops on the phone's frame,
+                short of where the message bubbles start. */}
             <motion.div
               animate={{ y: [-5, 5, -5] }}
               transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-[136px] top-[391px] pointer-events-auto"
+              className="absolute left-[96px] top-[391px] pointer-events-auto"
             >
               <div className="glass-pill rounded-[17px] pl-2 pr-4 h-[50px] flex items-center gap-2.5 hover:scale-105 transition-transform duration-300 shadow-[0_0_22px_rgba(245,158,11,0.28)]">
                 <div className="w-[34px] h-[34px] rounded-full overflow-hidden border-2 border-amber-400/70 shrink-0 bg-gradient-to-tr from-amber-500 to-yellow-300">
@@ -493,11 +517,44 @@ export default function HeroGlassShowcase({ onOpenModal }) {
               </div>
             </motion.div>
 
-            {/* 3. TOP-RIGHT — "Qualified" */}
+            {/* 3. LEFT — WhatsApp tile + signal bars */}
+            <motion.div
+              animate={{ y: [6, -6, 6] }}
+              transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute left-[16px] top-[530px] pointer-events-auto"
+            >
+              <div className="w-[82px] h-[82px] glass-tile-3d rounded-[22px] flex items-center justify-center shadow-[0_0_26px_rgba(16,185,129,0.45)] hover:scale-110 transition-transform duration-300">
+                <WhatsAppIcon className="w-11 h-11 text-emerald-400 drop-shadow-[0_0_10px_#34d399]" />
+              </div>
+              <div className="mt-4 -ml-[10px] flex flex-col gap-[7px]">
+                <div className="h-[5px] w-[93px] rounded-full bg-gradient-to-r from-slate-300/75 to-slate-400/10 animate-pulse" />
+                <div className="h-[5px] w-[71px] rounded-full bg-gradient-to-r from-slate-300/55 to-slate-400/5 animate-pulse" style={{ animationDelay: '0.4s' }} />
+                <div className="h-[5px] w-[43px] rounded-full bg-gradient-to-r from-slate-300/40 to-transparent animate-pulse" style={{ animationDelay: '0.8s' }} />
+              </div>
+            </motion.div>
+
+            {/* 4. LEFT — short cyan streaks between "New Lead" and the WhatsApp tile */}
+            <div className="absolute left-[74px] top-[452px] flex flex-col gap-[7px]">
+              <div className="h-[4px] w-[62px] rounded-full bg-gradient-to-r from-cyan-300/85 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
+              <div className="h-[4px] w-[40px] rounded-full bg-gradient-to-r from-cyan-300/55 to-transparent" />
+            </div>
+
+            {/* 5. Ambient sparks, left */}
+            <div className="absolute left-[191px] top-[129px] w-[9px] h-[9px] rounded-full bg-emerald-400 shadow-[0_0_14px_#34d399] animate-pulse" />
+            <div className="absolute left-[205px] top-[470px] w-[8px] h-[8px] rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8] animate-pulse" style={{ animationDelay: '0.7s' }} />
+            <div className="absolute left-[178px] top-[496px] w-[5px] h-[5px] rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" style={{ animationDelay: '1.4s' }} />
+            <div className="absolute left-[16px] top-[729px] w-[10px] h-[10px] rounded-full bg-cyan-400 shadow-[0_0_14px_#22d3ee] animate-pulse" style={{ animationDelay: '1.1s' }} />
+          </div>
+
+          {/* ══════════ BADGES — in front of the phone, RIGHT side ══════════ */}
+          <div className={`${SAT_LAYER} z-30`} style={ORIGIN_R}>
+
+            {/* 1. TOP-RIGHT — "Qualified". Left edge sits just past the chat's
+                text column, so it rests on the frame and never on a bubble. */}
             <motion.div
               animate={{ y: [5, -5, 5] }}
               transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-[477px] top-[288px] pointer-events-auto"
+              className="absolute left-[524px] top-[288px] pointer-events-auto"
             >
               <div className="glass-pill rounded-[17px] pl-2 pr-5 h-[51px] min-w-[176px] flex items-center gap-3 hover:scale-105 transition-transform duration-300 shadow-[0_0_22px_rgba(56,189,248,0.3)]">
                 <div className="w-[35px] h-[35px] rounded-full overflow-hidden border-2 border-cyan-400/70 shrink-0 bg-gradient-to-tr from-cyan-500 to-sky-300">
@@ -511,11 +568,13 @@ export default function HeroGlassShowcase({ onOpenModal }) {
               </div>
             </motion.div>
 
-            {/* 4. RIGHT — shield tile + "Instant Lead Qualification" */}
+            {/* 2. RIGHT — shield tile + "Instant Lead Qualification".
+                Clears the quotation card and the last bubble, both of which are
+                deliberately narrow so this cluster has somewhere to land. */}
             <motion.div
               animate={{ y: [-5, 6, -5] }}
               transition={{ duration: 6.4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-[446px] top-[533px] w-[296px] h-[186px] pointer-events-auto"
+              className="absolute left-[462px] top-[533px] w-[296px] h-[186px] pointer-events-auto"
             >
               <div className="absolute left-[116px] top-0 w-[82px] h-[82px]">
                 <div className="glass-tile-3d w-full h-full rounded-[22px] flex items-center justify-center shadow-[0_0_26px_rgba(16,185,129,0.45)] hover:scale-110 transition-transform duration-300">
@@ -539,23 +598,7 @@ export default function HeroGlassShowcase({ onOpenModal }) {
               </div>
             </motion.div>
 
-            {/* 5. LEFT — WhatsApp tile + signal bars */}
-            <motion.div
-              animate={{ y: [6, -6, 6] }}
-              transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-[16px] top-[530px] pointer-events-auto"
-            >
-              <div className="w-[82px] h-[82px] glass-tile-3d rounded-[22px] flex items-center justify-center shadow-[0_0_26px_rgba(16,185,129,0.45)] hover:scale-110 transition-transform duration-300">
-                <WhatsAppIcon className="w-11 h-11 text-emerald-400 drop-shadow-[0_0_10px_#34d399]" />
-              </div>
-              <div className="mt-4 -ml-[10px] flex flex-col gap-[7px]">
-                <div className="h-[5px] w-[93px] rounded-full bg-gradient-to-r from-slate-300/75 to-slate-400/10 animate-pulse" />
-                <div className="h-[5px] w-[71px] rounded-full bg-gradient-to-r from-slate-300/55 to-slate-400/5 animate-pulse" style={{ animationDelay: '0.4s' }} />
-                <div className="h-[5px] w-[43px] rounded-full bg-gradient-to-r from-slate-300/40 to-transparent animate-pulse" style={{ animationDelay: '0.8s' }} />
-              </div>
-            </motion.div>
-
-            {/* 6. RIGHT — luminous node + data streaks */}
+            {/* 3. RIGHT — luminous node + data streaks */}
             <div className="absolute left-[546px] top-[352px] flex items-center gap-3">
               <div className="relative flex items-center justify-center w-[18px] h-[18px]">
                 <div className="absolute w-[18px] h-[18px] rounded-full border border-cyan-400/50 animate-ping opacity-60" />
@@ -568,22 +611,12 @@ export default function HeroGlassShowcase({ onOpenModal }) {
               </div>
             </div>
 
-            {/* 6b. LEFT — short cyan streaks between "New Lead" and the WhatsApp tile */}
-            <div className="absolute left-[74px] top-[452px] flex flex-col gap-[7px]">
-              <div className="h-[4px] w-[62px] rounded-full bg-gradient-to-r from-cyan-300/85 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
-              <div className="h-[4px] w-[40px] rounded-full bg-gradient-to-r from-cyan-300/55 to-transparent" />
-            </div>
-
-            {/* 7. Ambient sparks */}
-            <div className="absolute left-[191px] top-[129px] w-[9px] h-[9px] rounded-full bg-emerald-400 shadow-[0_0_14px_#34d399] animate-pulse" />
-            <div className="absolute left-[205px] top-[470px] w-[8px] h-[8px] rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8] animate-pulse" style={{ animationDelay: '0.7s' }} />
-            <div className="absolute left-[178px] top-[496px] w-[5px] h-[5px] rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" style={{ animationDelay: '1.4s' }} />
-            <div className="absolute left-[16px] top-[729px] w-[10px] h-[10px] rounded-full bg-cyan-400 shadow-[0_0_14px_#22d3ee] animate-pulse" style={{ animationDelay: '1.1s' }} />
+            {/* 4. Ambient sparks, right */}
             <div className="absolute left-[690px] top-[242px] w-[8px] h-[8px] rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8] animate-pulse" style={{ animationDelay: '0.3s' }} />
             <div className="absolute left-[715px] top-[621px] w-[7px] h-[7px] rounded-full bg-cyan-400 shadow-[0_0_12px_#22d3ee] animate-pulse" style={{ animationDelay: '1.7s' }} />
             <div className="absolute left-[498px] top-[780px] w-[15px] h-[15px] rounded-full bg-emerald-400 shadow-[0_0_20px_#34d399,0_0_36px_#10b981] animate-pulse" />
 
-            {/* 8. Faceted sparkle, bottom right */}
+            {/* 5. Faceted sparkle, bottom right */}
             <motion.div
               animate={{ scale: [0.97, 1.03, 0.97], opacity: [0.88, 1, 0.88] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
