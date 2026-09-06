@@ -96,8 +96,12 @@ export default function HeroGlassShowcase({ onOpenModal }) {
   return (
     <div id="hero-3d-showcase" className="relative mx-auto w-full max-w-5xl py-1 sm:py-4 px-0 sm:px-4 select-none overflow-visible">
 
-      {/* ── Ambient atmosphere: broad emerald core + cyan wash on the right ── */}
+      {/* ── Ambient atmosphere ──
+          A slate lift first: the reference art sits on a mid dark-slate ground,
+          noticeably lighter than the hero's near-black. Scoping the lift to the
+          artwork keeps the headline block above it untouched. */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-visible">
+        <div className="absolute top-[56%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[820px] sm:w-[1000px] h-[720px] rounded-[50%] bg-[radial-gradient(ellipse_at_center,rgba(56,72,92,0.55)_0%,rgba(38,50,66,0.26)_48%,transparent_74%)] blur-[70px]" />
         <div className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[760px] sm:w-[920px] h-[540px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.26)_0%,rgba(16,185,129,0.12)_45%,transparent_72%)] blur-[90px]" />
         <div className="absolute top-[64%] left-[56%] w-[420px] h-[340px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.16)_0%,transparent_70%)] blur-[80px]" />
       </div>
@@ -179,6 +183,17 @@ export default function HeroGlassShowcase({ onOpenModal }) {
               <div className="absolute inset-x-14 inset-y-2 rounded-[100%] bg-black blur-[6px]" />
             </motion.div>
 
+            {/* Emerald aura hugging the handset. In the reference the phone reads
+                as the light source itself — brightest down its left flank and
+                under its base — which a single wide background radial can't do. */}
+            <div
+              className="absolute -inset-10 rounded-[80px] blur-[42px] pointer-events-none z-0"
+              style={{
+                background:
+                  'radial-gradient(ellipse at 34% 62%, rgba(16,185,129,0.55) 0%, rgba(16,185,129,0.24) 36%, rgba(6,182,212,0.12) 62%, transparent 78%)',
+              }}
+            />
+
             {/* levitating chassis — near-frontal, only a whisper of 3D */}
             <motion.div
               initial={{ opacity: 0, y: 26, rotateY: -12, rotateX: 4 }}
@@ -241,15 +256,23 @@ export default function HeroGlassShowcase({ onOpenModal }) {
               {/* chamfer rim */}
               <div className="absolute inset-0 rounded-[48px] pointer-events-none border border-white/45 shadow-[inset_1.5px_2px_2.5px_rgba(255,255,255,0.6),inset_-1px_-1px_2px_rgba(0,0,0,0.85)]" />
 
+              {/* bottom speaker grille on the frame's underside — the slight tilt
+                  exposes it, and the reference clearly shows that row of holes */}
+              <div
+                className="absolute -bottom-[6px] left-1/2 -translate-x-1/2 w-[132px] h-[3.5px] rounded-full opacity-85 pointer-events-none"
+                style={{ background: 'repeating-linear-gradient(90deg,#05080e 0 3px,transparent 3px 8px)' }}
+              />
+
               {/* ── SCREEN ── */}
               <div className="relative rounded-[45px] bg-[#0b141a] overflow-hidden border-[3px] border-[#0a0f14] flex flex-col h-[660px] shadow-inner">
 
                 {/* status bar + dynamic island */}
                 <div className="relative pt-2.5 pb-1.5 px-5 bg-[#0b141a] flex items-center justify-between text-zinc-300 text-[10.5px] font-semibold z-10 select-none">
                   <span>9:41</span>
+                  {/* Dynamic Island — camera lens on the RIGHT, as in the reference */}
                   <div className="w-[86px] h-[22px] bg-black rounded-full flex items-center justify-between px-2.5 shadow-inner">
-                    <div className="w-[7px] h-[7px] rounded-full bg-zinc-900 border border-zinc-800" />
-                    <div className="w-[5px] h-[5px] rounded-full bg-emerald-500 animate-pulse" />
+                    <div className="w-[5px] h-[5px] rounded-full bg-emerald-500/80 animate-pulse" />
+                    <div className="w-[9px] h-[9px] rounded-full bg-[#0a1016] border border-[#1c2732] shadow-[inset_0_0_3px_rgba(96,150,210,0.7)]" />
                   </div>
                   <div className="flex items-center gap-[5px] text-zinc-200">
                     <div className="flex items-end gap-[1.5px]">
@@ -292,12 +315,46 @@ export default function HeroGlassShowcase({ onOpenModal }) {
                     `gap` matters: justify-between alone had no free space left to
                     hand out, so the bubbles ended up touching each other. */}
                 <div className="flex-1 bg-[#0b141a] px-3 py-2.5 flex flex-col justify-between gap-[6px] overflow-hidden text-[11.5px] relative">
-                  <div
-                    className="absolute inset-0 opacity-[0.035] pointer-events-none"
-                    style={{ backgroundImage: 'radial-gradient(#10b981 1px, transparent 1px)', backgroundSize: '18px 18px' }}
-                  />
+                  {/* Doodle wallpaper. A flat panel behind the bubbles read as a
+                      mockup; the reference has a patterned chat background, so
+                      these are our own simple line doodles tiled very faintly. */}
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.075]" aria-hidden="true">
+                    <defs>
+                      {/* scale(0.52) keeps the drawing readable at 128 but tiles it
+                          at ~66px, which is the density the reference shows */}
+                      <pattern id="chatDoodles" width="128" height="128" patternUnits="userSpaceOnUse" patternTransform="rotate(-8) scale(0.52)">
+                        <g fill="none" stroke="#7fa89f" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+                          {/* smiley */}
+                          <circle cx="18" cy="20" r="8" />
+                          <circle cx="15.2" cy="18" r="0.9" fill="#7fa89f" stroke="none" />
+                          <circle cx="20.8" cy="18" r="0.9" fill="#7fa89f" stroke="none" />
+                          <path d="M14.5 23q3.5 3 7 0" />
+                          {/* heart */}
+                          <path d="M60 18c-2-3-6-2-6 1.6 0 3 4 5.6 6 7 2-1.4 6-4 6-7 0-3.6-4-4.6-6-1.6z" />
+                          {/* music note */}
+                          <path d="M98 12v14M98 12l8-2v14" />
+                          <circle cx="95" cy="27" r="3" /><circle cx="103" cy="25" r="3" />
+                          {/* camera */}
+                          <rect x="10" y="58" width="20" height="14" rx="3" />
+                          <circle cx="20" cy="65" r="4" /><path d="M15 58l2-3h6l2 3" />
+                          {/* chat bubble */}
+                          <path d="M56 56h18a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-9l-5 5v-5h-4a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3z" />
+                          {/* coffee cup */}
+                          <path d="M94 58h16v9a5 5 0 0 1-5 5h-6a5 5 0 0 1-5-5z" />
+                          <path d="M110 61h4a3 3 0 0 1 0 6h-4" />
+                          {/* star */}
+                          <path d="M20 99l2.6 5.4 5.9.9-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.1 5.9-.9z" />
+                          {/* clock */}
+                          <circle cx="64" cy="107" r="9" /><path d="M64 102v5.5l3.5 2.5" />
+                          {/* envelope */}
+                          <rect x="92" y="100" width="20" height="14" rx="2" /><path d="M92 102l10 7 10-7" />
+                        </g>
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#chatDoodles)" />
+                  </svg>
 
-                  <div className="mx-auto bg-[#182229] border border-white/5 text-zinc-400 text-[9.5px] font-medium px-3 py-[4px] rounded-md shadow-xs">
+                  <div className="mx-auto bg-[#e6e9ea] text-[#54656f] text-[9.5px] font-semibold px-3 py-[4px] rounded-md shadow-sm">
                     Today
                   </div>
 
@@ -325,7 +382,8 @@ export default function HeroGlassShowcase({ onOpenModal }) {
                   <div className="self-start max-w-[80%] bg-[#86efac] text-[#064e3b] font-medium rounded-[14px] rounded-tl-[5px] px-[11px] pt-[7px] pb-[5px] shadow-sm border border-emerald-300/40">
                     <p className="leading-[1.5]">Sure — here is your quotation.</p>
                     <div className="text-[9px] text-[#065f46]/80 text-right mt-[4px] flex items-center justify-end gap-1 font-semibold">
-                      <span>13:42</span><span className="font-bold">✓✓</span>
+                      {/* read receipt — blue ticks, like the reference */}
+                      <span>13:42</span><span className="font-bold text-[#0f6fd1]">✓✓</span>
                     </div>
                   </div>
 
@@ -508,6 +566,12 @@ export default function HeroGlassShowcase({ onOpenModal }) {
                 <div className="h-[5px] w-[58px] rounded-full bg-gradient-to-r from-slate-300/50 to-transparent" />
                 <div className="h-[5px] w-[34px] rounded-full bg-gradient-to-r from-slate-300/30 to-transparent" />
               </div>
+            </div>
+
+            {/* 6b. LEFT — short cyan streaks between "New Lead" and the WhatsApp tile */}
+            <div className="absolute left-[74px] top-[452px] flex flex-col gap-[7px]">
+              <div className="h-[4px] w-[62px] rounded-full bg-gradient-to-r from-cyan-300/85 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
+              <div className="h-[4px] w-[40px] rounded-full bg-gradient-to-r from-cyan-300/55 to-transparent" />
             </div>
 
             {/* 7. Ambient sparks */}
