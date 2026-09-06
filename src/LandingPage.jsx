@@ -14,6 +14,8 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { industries } from './content/industries';
+import HeroGlassShowcase from './HeroGlassShowcase';
+
 
 // ─────────────────────────────────────────────
 // Logo SVG
@@ -573,27 +575,22 @@ const LandingPage = ({ activeSection = 'all' }) => {
       {/* ════════════════════════════════════════
           SECTION 1: HERO
       ════════════════════════════════════════ */}
-      <section className="relative bg-zinc-950 pt-28 pb-16 sm:pt-32 lg:pt-36 lg:pb-24 overflow-hidden" aria-label="Hero section">
-        {/* Roshni — CSS se, image se nahi. Ek 4K background image mid-range
-            Android par pehle paint me hi saikdon millisecond kha jaati, aur
-            wahi hamare customer ka phone hai. */}
+      <section className="relative bg-[#0d1622] pt-24 pb-16 sm:pt-32 lg:pt-36 lg:pb-28 overflow-hidden border-b border-white/10" aria-label="Hero section">
+        {/* Ambient lighting matching reference image */}
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1200px] h-[700px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.35),transparent_65%)] blur-[120px]" />
-          <div className="absolute top-24 -left-32 w-[560px] h-[560px] rounded-full bg-[radial-gradient(circle,rgba(251,146,60,0.28),transparent_60%)] blur-[110px]" />
-          <div className="absolute top-10 -right-24 w-[620px] h-[620px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.26),transparent_60%)] blur-[120px]" />
-          {/* Halki si lakeerein — reference wali "streaks" ka shaant roop */}
-          <div className="absolute inset-x-0 top-1/3 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-          <div className="absolute inset-x-0 bottom-1/4 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[800px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.18)_0%,rgba(6,182,212,0.14)_40%,transparent_70%)] blur-[100px]" />
+          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1200px] h-[700px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(20,35,50,0.6),transparent_70%)] blur-[100px]" />
+          <div className="absolute top-24 -left-32 w-[560px] h-[560px] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.12),transparent_60%)] blur-[90px]" />
+          <div className="absolute top-10 -right-24 w-[620px] h-[620px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.15),transparent_60%)] blur-[90px]" />
+          {/* Subtle horizontal highlight line */}
+          <div className="absolute inset-x-0 top-1/3 h-px bg-gradient-to-r from-transparent via-cyan-400/15 to-transparent" />
         </div>
-        {/* Neeche safed section se milne wali seema — kata hua kinara
-            achanak lagta hai, ye use ghol deta hai. */}
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-white" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="flex flex-col items-center">
 
             {/* Badge */}
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.06] backdrop-blur-md border border-white/15 text-zinc-200 text-sm font-semibold mb-8 shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset]">
+            <motion.div variants={fadeUp} className="glass-pill inline-flex items-center gap-2 px-5 py-2 rounded-full text-zinc-200 text-sm font-semibold mb-8 shadow-[0_0_25px_rgba(16,185,129,0.25)]">
               <Sparkles className="w-4 h-4 text-emerald-300" />
               Sells in 11 Indian Languages · No Credit Card Required
             </motion.div>
@@ -645,7 +642,7 @@ const LandingPage = ({ activeSection = 'all' }) => {
             </motion.div>
 
             {/* Stats Strip */}
-            <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-8 md:gap-16 rounded-2xl border border-white/10 bg-white/[0.05] backdrop-blur-xl px-8 py-6 shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset] supports-[backdrop-filter]:bg-white/[0.04]">
+            <motion.div variants={fadeUp} className="glass-panel-3d flex flex-wrap justify-center gap-8 md:gap-16 rounded-3xl px-8 py-6 max-w-4xl mx-auto shadow-2xl">
               {[
                 { value: '11', label: 'Indian Languages Spoken' },
                 { value: '24/7', label: 'Automated Operations' },
@@ -653,66 +650,22 @@ const LandingPage = ({ activeSection = 'all' }) => {
                 { value: '14', label: 'Day Free Trial' },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
-                  <div className="text-2xl font-bold text-white tabular-nums">{stat.value}</div>
-                  <div className="text-sm text-zinc-400 font-medium mt-1">{stat.label}</div>
+                  <div className="text-2xl sm:text-3xl font-extrabold text-white tabular-nums drop-shadow-md">{stat.value}</div>
+                  <div className="text-xs sm:text-sm text-emerald-300/80 font-medium mt-1">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Animated Chat Mockup */}
+        {/* ── 3D Glass Showcase (Reference Match) ── */}
         <motion.div
-          initial={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.9, ease: "easeOut" }}
-          className="relative mx-auto max-w-3xl mt-20 px-4"
+          transition={{ delay: 0.5, duration: 0.9, ease: "easeOut" }}
+          className="relative mx-auto max-w-5xl mt-6 sm:mt-10 md:mt-12 px-2 sm:px-4"
         >
-          <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-[2.5rem] blur-2xl opacity-20 animate-pulse"></div>
-          <div className="relative bg-white/90 rounded-[2rem] shadow-2xl border border-white overflow-hidden backdrop-blur-2xl">
-            <div className="bg-gradient-to-r from-emerald-600 to-blue-600 px-6 py-4 flex items-center gap-4">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center shadow-inner">
-                <Bot className="w-5 h-5 text-white" />
-              </div>
-              <div className="text-left">
-                <h3 className="font-bold text-white">ChatPro365 AI Agent</h3>
-                <p className="text-xs text-emerald-200 font-semibold flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online · Responding instantly
-                </p>
-              </div>
-              <div className="ml-auto flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-white/30"></div>
-                <div className="w-3 h-3 rounded-full bg-white/30"></div>
-                <div className="w-3 h-3 rounded-full bg-white/30"></div>
-              </div>
-            </div>
-            <div className="p-6 bg-[#f0f2f5] h-[340px] overflow-y-auto flex flex-col gap-4">
-              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.2 }} className="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[80%]">
-                <p className="text-zinc-800 font-normal leading-relaxed">Hi! 👋 I'm your AI Sales Agent. I noticed you're interested in automating your WhatsApp. What type of business do you run?</p>
-                <div className="flex gap-2 mt-3 flex-wrap">
-                  <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-200 cursor-pointer hover:bg-emerald-200 transition-colors">E-Commerce</span>
-                  <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-200 cursor-pointer hover:bg-emerald-200 transition-colors">Real Estate</span>
-                  <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-200 cursor-pointer hover:bg-emerald-200 transition-colors">Other</span>
-                </div>
-                <p className="text-[10px] text-zinc-400 mt-2 text-right">Just now</p>
-              </motion.div>
-
-              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 2.2 }} className="bg-zinc-950 p-4 rounded-2xl rounded-tr-sm shadow-md max-w-[75%] self-end">
-                <p className="text-white font-medium">E-Commerce. I have 5 agents but leads keep slipping through!</p>
-                <p className="text-[10px] text-zinc-500 mt-2 text-right">✓✓</p>
-              </motion.div>
-
-              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 3.4 }} className="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%]">
-                <p className="text-zinc-800 font-normal leading-relaxed">Perfect! ChatPro365's <strong>Lead Scoring + VIP System</strong> flags hot leads automatically and assigns them to your best agent. You'll see 40%+ more conversions in week 1. 🚀</p>
-                <div className="mt-3">
-                  <button onClick={() => setShowModal(true)} className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white py-2.5 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity shadow-md">
-                    Book a Free Demo Now →
-                  </button>
-                </div>
-                <p className="text-[10px] text-zinc-400 mt-2 text-right">Just now</p>
-              </motion.div>
-            </div>
-          </div>
+          <HeroGlassShowcase onOpenModal={() => setShowModal(true)} />
         </motion.div>
       </section>
 

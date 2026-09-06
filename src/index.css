@@ -156,3 +156,117 @@
 .post-body table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; }
 .post-body th, .post-body td { border: 1px solid #27272a; padding: 0.5rem 0.75rem; text-align: left; }
 .post-body th { color: #fff; background: #18181b; }
+
+/* ── 3D Premium Acrylic Glassmorphism (ChatPro365) ── */
+.glass-panel-3d {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(16, 185, 129, 0.04) 40%, rgba(13, 24, 36, 0.72) 100%);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.6);
+  border-left: 1.5px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    inset 0 2px 2px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -2px 4px 0 rgba(0, 0, 0, 0.6),
+    0 20px 45px -12px rgba(0, 0, 0, 0.85),
+    0 0 25px -3px rgba(16, 185, 129, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-panel-3d::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.04) 30%, transparent 60%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.glass-tile-3d {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2) 0%, rgba(16, 185, 129, 0.12) 40%, rgba(6, 36, 28, 0.75) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-left: 1.5px solid rgba(255, 255, 255, 0.4);
+  box-shadow:
+    inset 0 2px 2px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -2px 4px 0 rgba(0, 0, 0, 0.6),
+    0 12px 25px -6px rgba(0, 0, 0, 0.8),
+    0 0 20px 2px rgba(16, 185, 129, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-tile-3d::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, transparent 45%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.glass-pill {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(15, 25, 38, 0.7) 100%);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-left: 1.5px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.5),
+    0 12px 28px -6px rgba(0, 0, 0, 0.75),
+    0 0 18px -3px rgba(16, 185, 129, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+
+/* Floating bobbing keyframes */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(0.4deg); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(6px) rotate(-0.4deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes circuitDash {
+  to { stroke-dashoffset: -20; }
+}
+
+.animate-float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: floatReverse 7s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.circuit-dash {
+  stroke-dasharray: 4, 4;
+  animation: circuitDash 1.5s linear infinite;
+}
+
