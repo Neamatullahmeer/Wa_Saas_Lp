@@ -65,19 +65,33 @@ const SparkleStar = ({ className = "" }) => (
 );
 
 /*
-  ONE fixed-geometry composition — 760 × 866 px — that only ever gets scaled.
-  Title, phone and every satellite badge live inside it, so the artwork keeps
-  the exact proportions of the reference render at every screen width; the
-  breakpoint ladder below only picks a scale that fits the available width
-  (viewport − 16px), which is why nothing clips on a 360px Android either.
+  ── LAYOUT MODEL ────────────────────────────────────────────────────────────
+  The phone is a fixed 300 × 633 block; every satellite badge lives in its own
+  760 × 866 layer whose transform-origin is pinned to the phone's centre
+  (380px 476px). That single fact drives both layouts:
 
-    phone      300 × 633  →  left 230, top 160  (dead centre)
-    scale      s = fits(vw)      →  rendered width 760·s
+    sm and up   stage 760 × 866, satellites scale 1     → the reference framing
+    below sm    stage 580 × 760, satellites scale 0.78  → badges tuck in toward
+                the phone, so the same available width buys a much bigger phone
+                (300·0.58 = 174px on a 360px Android, vs 132px at full spread)
 
-  Badge offsets were measured off the 1600×1600 reference art and rescaled to
-  this phone width, so the distance from phone to every badge is the same ratio
-  as the original.
+  Because the satellites scale about the phone's centre, pulling them in never
+  changes which side of the phone a badge sits on, and the connector wires —
+  which live in a second layer with the identical transform — keep pointing at
+  the same spot on the handset.
+
+  The breakpoint ladder only ever picks a scale that satisfies
+  stageWidth · scale ≤ viewport − 16, which is why nothing clips at 320px.
 */
+
+/* Both satellite layers carry the identical transform so wires and badges stay
+   locked together; only their z-index differs (wires behind the phone, badges
+   in front of it). */
+const SAT_LAYER =
+  "absolute left-1/2 w-[760px] h-[866px] -translate-x-1/2 -top-[76px] sm:top-0 " +
+  "scale-[0.78] sm:scale-100 pointer-events-none";
+const SAT_ORIGIN = { transformOrigin: '380px 476px' };
+
 export default function HeroGlassShowcase({ onOpenModal }) {
   return (
     <div id="hero-3d-showcase" className="relative mx-auto w-full max-w-5xl py-1 sm:py-4 px-0 sm:px-4 select-none overflow-visible">
@@ -88,191 +102,69 @@ export default function HeroGlassShowcase({ onOpenModal }) {
         <div className="absolute top-[64%] left-[56%] w-[420px] h-[340px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.16)_0%,transparent_70%)] blur-[80px]" />
       </div>
 
-      {/* ── Responsive stage: heights track 866 × scale so there is no dead band ── */}
+      {/* ── Responsive stage: heights track stageHeight × scale, so no dead band ── */}
       <div className="relative flex items-center justify-center w-full overflow-visible
-                      h-[340px] min-[360px]:h-[384px] min-[390px]:h-[419px] min-[420px]:h-[453px]
-                      min-[460px]:h-[497px] min-[520px]:h-[549px]
-                      sm:h-[575px] md:h-[662px] lg:h-[731px]">
-        <div className="relative w-[760px] h-[866px] shrink-0 origin-center transition-transform duration-300
-                        scale-[0.39] min-[360px]:scale-[0.44] min-[390px]:scale-[0.48] min-[420px]:scale-[0.52]
-                        min-[460px]:scale-[0.57] min-[520px]:scale-[0.63]
-                        sm:scale-[0.66] md:scale-[0.76] lg:scale-[0.84]">
+                      h-[412px] min-[360px]:h-[468px] min-[390px]:h-[508px] min-[420px]:h-[548px]
+                      min-[460px]:h-[588px] min-[520px]:h-[628px]
+                      sm:h-[628px] md:h-[680px] lg:h-[732px]">
+        <div className="relative shrink-0 origin-center transition-transform duration-300
+                        w-[580px] h-[800px] sm:w-[760px] sm:h-[866px]
+                        scale-[0.51] min-[360px]:scale-[0.58] min-[390px]:scale-[0.63] min-[420px]:scale-[0.68]
+                        min-[460px]:scale-[0.73] min-[520px]:scale-[0.78]
+                        sm:scale-[0.72] md:scale-[0.78] lg:scale-[0.84]">
 
-          {/* ══════════ 0. Brand title — part of the artwork, so it scales with it ══════════ */}
-          <h2 className="absolute left-0 top-[14px] w-full text-center text-[58px] leading-none font-extrabold text-white tracking-tight z-30">
+          {/* ══════════ Brand title — part of the artwork, so it scales with it ══════════ */}
+          <h2 className="absolute left-0 top-[8px] sm:top-[14px] w-full text-center text-[42px] sm:text-[58px] leading-none font-extrabold text-white tracking-tight z-30">
             ChatPro<span className="text-emerald-400 drop-shadow-[0_0_18px_#34d399]">365</span>
           </h2>
 
-          {/* ══════════ GLOWING CIRCUIT CONNECTORS ══════════ */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none z-[15] overflow-visible" viewBox="0 0 760 866" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="wireGreen" x1="100%" y1="100%" x2="0%" y2="0%">
-                <stop offset="0%" stopColor="#10b981" stopOpacity="0.1" />
-                <stop offset="45%" stopColor="#34d399" stopOpacity="0.7" />
-                <stop offset="100%" stopColor="#34d399" stopOpacity="0.95" />
-              </linearGradient>
-              <linearGradient id="wireCyan" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.9" />
-                <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.25" />
-              </linearGradient>
-              <marker id="arrowGreen" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" refX="12" refY="7.5" orient="auto">
-                <path d="M0.5,1 L14,7.5 L0.5,14 Z" fill="#34d399" />
-              </marker>
-              <marker id="arrowCyan" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" refX="12" refY="7.5" orient="auto">
-                <path d="M0.5,1 L14,7.5 L0.5,14 Z" fill="#5eead4" />
-              </marker>
-            </defs>
+          {/* ══════════ SATELLITE LAYER A — connector wires (behind the phone) ══════════ */}
+          <div className={`${SAT_LAYER} z-[15]`} style={SAT_ORIGIN}>
+            <svg className="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 760 866" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="wireGreen" x1="100%" y1="100%" x2="0%" y2="0%">
+                  <stop offset="0%" stopColor="#10b981" stopOpacity="0.1" />
+                  <stop offset="45%" stopColor="#34d399" stopOpacity="0.7" />
+                  <stop offset="100%" stopColor="#34d399" stopOpacity="0.95" />
+                </linearGradient>
+                <linearGradient id="wireCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.25" />
+                </linearGradient>
+                <marker id="arrowGreen" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" refX="12" refY="7.5" orient="auto">
+                  <path d="M0.5,1 L14,7.5 L0.5,14 Z" fill="#34d399" />
+                </marker>
+                <marker id="arrowCyan" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" refX="12" refY="7.5" orient="auto">
+                  <path d="M0.5,1 L14,7.5 L0.5,14 Z" fill="#5eead4" />
+                </marker>
+              </defs>
 
-            {/* decorative wisp above the 24/7 tile */}
-            <path d="M 100 178 C 100 148, 74 132, 46 130" fill="none" stroke="url(#wireCyan)" strokeWidth="1.6" className="circuit-dash" />
-            <circle cx="46" cy="130" r="3.5" fill="#34d399" className="drop-shadow-[0_0_8px_#34d399]" />
+              {/* decorative wisp above the 24/7 tile */}
+              <path d="M 100 178 C 100 148, 74 132, 46 130" fill="none" stroke="url(#wireCyan)" strokeWidth="1.6" className="circuit-dash" />
+              <circle cx="46" cy="130" r="3.5" fill="#34d399" className="drop-shadow-[0_0_8px_#34d399]" />
 
-            {/* phone → up into the "24/7 AI Automation" card */}
-            <path
-              d="M 214 424 L 110 424 C 96 424, 90 416, 90 402 L 90 382"
-              fill="none" stroke="url(#wireGreen)" strokeWidth="1.8"
-              className="circuit-dash" markerEnd="url(#arrowGreen)"
-            />
+              {/* phone → up into the "24/7 AI Automation" card */}
+              <path
+                d="M 214 424 L 110 424 C 96 424, 90 416, 90 402 L 90 382"
+                fill="none" stroke="url(#wireGreen)" strokeWidth="1.8"
+                className="circuit-dash" markerEnd="url(#arrowGreen)"
+              />
 
-            {/* decorative orbital arc, top right */}
-            <path d="M 530 120 C 590 134, 622 172, 620 218" fill="none" stroke="url(#wireCyan)" strokeWidth="1.6" className="circuit-dash" />
-            <circle cx="530" cy="120" r="3.5" fill="#22d3ee" className="drop-shadow-[0_0_10px_#22d3ee]" />
+              {/* decorative orbital arc, top right */}
+              <path d="M 530 120 C 590 134, 622 172, 620 218" fill="none" stroke="url(#wireCyan)" strokeWidth="1.6" className="circuit-dash" />
+              <circle cx="530" cy="120" r="3.5" fill="#22d3ee" className="drop-shadow-[0_0_10px_#22d3ee]" />
 
-            {/* phone → down into the "Instant Lead Qualification" cluster */}
-            <path
-              d="M 660 384 C 674 426, 664 480, 638 502"
-              fill="none" stroke="url(#wireCyan)" strokeWidth="1.8"
-              className="circuit-dash" markerEnd="url(#arrowCyan)"
-            />
-          </svg>
-
-          {/* ══════════ 1. TOP-LEFT — "24/7 AI Automation" ══════════ */}
-          <motion.div
-            animate={{ y: [-6, 6, -6] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[8px] top-[225px] w-[189px] z-30"
-          >
-            <div className="glass-panel-3d rounded-[26px] pt-[52px] pb-[22px] px-4 flex flex-col items-center text-center hover:scale-[1.04] transition-transform duration-300 shadow-[0_18px_40px_rgba(0,0,0,0.55)]">
-              <div className="text-[34px] font-extrabold text-white leading-none tracking-tight drop-shadow-md">24/7</div>
-              <div className="text-[14px] font-semibold text-white/90 tracking-wide mt-1.5">AI Automation</div>
-            </div>
-
-            {/* embossed AI tile straddling the card's top edge
-                (wrapper does the positioning — .glass-tile-3d forces position:relative) */}
-            <div className="absolute -top-[43px] left-[58px] w-[86px] h-[86px] z-10">
-              <div className="glass-tile-3d w-full h-full rounded-[22px] flex items-center justify-center">
-                <div className="relative flex items-center justify-center">
-                  <RefreshCw className="w-11 h-11 text-emerald-400 drop-shadow-[0_0_10px_#34d399]" strokeWidth={2.1} />
-                  <span className="absolute text-[13px] font-black text-white tracking-tighter">AI</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* ══════════ 2. LEFT — "New Lead" ══════════ */}
-          <motion.div
-            animate={{ y: [-5, 5, -5] }}
-            transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[136px] top-[391px] z-30"
-          >
-            <div className="glass-pill rounded-[17px] pl-2 pr-4 h-[50px] flex items-center gap-2.5 hover:scale-105 transition-transform duration-300 shadow-[0_0_22px_rgba(245,158,11,0.28)]">
-              <div className="w-[34px] h-[34px] rounded-full overflow-hidden border-2 border-amber-400/70 shrink-0 bg-gradient-to-tr from-amber-500 to-yellow-300">
-                <img
-                  src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=96&auto=format&fit=crop&q=80"
-                  alt="New lead" loading="lazy" className="w-full h-full object-cover"
-                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                />
-              </div>
-              <span className="text-[15px] font-bold text-amber-300 tracking-tight whitespace-nowrap">New Lead</span>
-            </div>
-          </motion.div>
-
-          {/* ══════════ 3. TOP-RIGHT — "Qualified" ══════════ */}
-          <motion.div
-            animate={{ y: [5, -5, 5] }}
-            transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[477px] top-[288px] z-30"
-          >
-            <div className="glass-pill rounded-[17px] pl-2 pr-5 h-[51px] min-w-[176px] flex items-center gap-3 hover:scale-105 transition-transform duration-300 shadow-[0_0_22px_rgba(56,189,248,0.3)]">
-              <div className="w-[35px] h-[35px] rounded-full overflow-hidden border-2 border-cyan-400/70 shrink-0 bg-gradient-to-tr from-cyan-500 to-sky-300">
-                <img
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&auto=format&fit=crop&q=80"
-                  alt="Qualified lead" loading="lazy" className="w-full h-full object-cover"
-                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                />
-              </div>
-              <span className="text-[16px] font-bold text-cyan-300 tracking-tight whitespace-nowrap">Qualified</span>
-            </div>
-          </motion.div>
-
-          {/* ══════════ 4. RIGHT — shield tile + "Instant Lead Qualification" ══════════ */}
-          <motion.div
-            animate={{ y: [-5, 6, -5] }}
-            transition={{ duration: 6.4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[446px] top-[533px] w-[296px] h-[186px] z-30"
-          >
-            <div className="absolute left-[116px] top-0 w-[82px] h-[82px]">
-              <div className="glass-tile-3d w-full h-full rounded-[22px] flex items-center justify-center shadow-[0_0_26px_rgba(16,185,129,0.45)] hover:scale-110 transition-transform duration-300">
-                <ShieldCheck className="w-11 h-11 text-emerald-400 drop-shadow-[0_0_12px_#34d399]" strokeWidth={2.1} />
-              </div>
-            </div>
-
-            <div className="absolute left-0 top-[97px] w-full h-[89px]">
-              <div className="glass-pill w-full h-full rounded-[22px] pl-2.5 pr-4 flex items-center gap-3 hover:scale-[1.03] transition-transform duration-300 shadow-[0_0_28px_rgba(16,185,129,0.28)]">
-                <div className="w-[42px] h-[42px] rounded-full overflow-hidden border-2 border-emerald-400/70 shrink-0 bg-gradient-to-tr from-emerald-500 to-teal-300">
-                  <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=110&auto=format&fit=crop&q=80"
-                    alt="Sales agent" loading="lazy" className="w-full h-full object-cover"
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                  />
-                </div>
-                <span className="text-[19px] font-bold text-white leading-[1.15] tracking-tight">
-                  Instant Lead<br />Qualification
-                </span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* ══════════ 5. LEFT — WhatsApp tile + signal bars ══════════ */}
-          <motion.div
-            animate={{ y: [6, -6, 6] }}
-            transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[16px] top-[530px] z-30"
-          >
-            <div className="w-[82px] h-[82px] glass-tile-3d rounded-[22px] flex items-center justify-center shadow-[0_0_26px_rgba(16,185,129,0.45)] hover:scale-110 transition-transform duration-300">
-              <WhatsAppIcon className="w-11 h-11 text-emerald-400 drop-shadow-[0_0_10px_#34d399]" />
-            </div>
-            <div className="mt-4 -ml-[10px] flex flex-col gap-[7px]">
-              <div className="h-[5px] w-[93px] rounded-full bg-gradient-to-r from-slate-300/75 to-slate-400/10 animate-pulse" />
-              <div className="h-[5px] w-[71px] rounded-full bg-gradient-to-r from-slate-300/55 to-slate-400/5 animate-pulse" style={{ animationDelay: '0.4s' }} />
-              <div className="h-[5px] w-[43px] rounded-full bg-gradient-to-r from-slate-300/40 to-transparent animate-pulse" style={{ animationDelay: '0.8s' }} />
-            </div>
-          </motion.div>
-
-          {/* ══════════ 6. RIGHT — luminous node + data streaks ══════════ */}
-          <div className="absolute left-[546px] top-[352px] z-[26] pointer-events-none flex items-center gap-3">
-            <div className="relative flex items-center justify-center w-[18px] h-[18px]">
-              <div className="absolute w-[18px] h-[18px] rounded-full border border-cyan-400/50 animate-ping opacity-60" />
-              <div className="w-[11px] h-[11px] rounded-full bg-cyan-400 shadow-[0_0_16px_#22d3ee,0_0_30px_#06b6d4]" />
-            </div>
-            <div className="flex flex-col gap-[7px]">
-              <div className="h-[5px] w-[82px] rounded-full bg-gradient-to-r from-slate-300/70 to-transparent" />
-              <div className="h-[5px] w-[58px] rounded-full bg-gradient-to-r from-slate-300/50 to-transparent" />
-              <div className="h-[5px] w-[34px] rounded-full bg-gradient-to-r from-slate-300/30 to-transparent" />
-            </div>
+              {/* phone → down into the "Instant Lead Qualification" cluster */}
+              <path
+                d="M 660 384 C 674 426, 664 480, 638 502"
+                fill="none" stroke="url(#wireCyan)" strokeWidth="1.8"
+                className="circuit-dash" markerEnd="url(#arrowCyan)"
+              />
+            </svg>
           </div>
 
-          {/* ══════════ 7. Ambient sparks ══════════ */}
-          <div className="absolute left-[191px] top-[129px] z-[26] w-[9px] h-[9px] rounded-full bg-emerald-400 shadow-[0_0_14px_#34d399] animate-pulse" />
-          <div className="absolute left-[205px] top-[470px] z-[26] w-[8px] h-[8px] rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8] animate-pulse" style={{ animationDelay: '0.7s' }} />
-          <div className="absolute left-[178px] top-[496px] z-[26] w-[5px] h-[5px] rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" style={{ animationDelay: '1.4s' }} />
-          <div className="absolute left-[16px] top-[729px] z-[26] w-[10px] h-[10px] rounded-full bg-cyan-400 shadow-[0_0_14px_#22d3ee] animate-pulse" style={{ animationDelay: '1.1s' }} />
-          <div className="absolute left-[690px] top-[242px] z-[26] w-[8px] h-[8px] rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8] animate-pulse" style={{ animationDelay: '0.3s' }} />
-          <div className="absolute left-[715px] top-[621px] z-[26] w-[7px] h-[7px] rounded-full bg-cyan-400 shadow-[0_0_12px_#22d3ee] animate-pulse" style={{ animationDelay: '1.7s' }} />
-          <div className="absolute left-[498px] top-[780px] z-[26] w-[15px] h-[15px] rounded-full bg-emerald-400 shadow-[0_0_20px_#34d399,0_0_36px_#10b981] animate-pulse" />
-
-          {/* ══════════ 8. THE PHONE ══════════ */}
-          <div className="absolute left-[230px] top-[160px] w-[300px] z-20" style={{ perspective: '1400px' }}>
+          {/* ══════════ THE PHONE ══════════ */}
+          <div className="absolute left-[140px] top-[64px] sm:left-[230px] sm:top-[140px] w-[300px] z-20" style={{ perspective: '1400px' }}>
 
             {/* detached floor shadow */}
             <motion.div
@@ -316,39 +208,41 @@ export default function HeroGlassShowcase({ onOpenModal }) {
                   5px 2px 0px #475569,
                   6px 3px 0px #334155,
                   7px 3px 0px #1e293b,
-                  8px 4px 1px rgba(255,255,255,0.35),
                   14px 12px 30px rgba(0,0,0,0.9),
                   26px 22px 62px rgba(0,0,0,0.95),
                   0 0 40px rgba(16,185,129,0.22)
                 `,
               }}
             >
+              {/* Right titanium rail. It is a copy of the phone's own silhouette
+                  nudged 10px right and kept behind the body, so the visible sliver
+                  follows the 48px corner radius and reads as the handset's edge —
+                  a straight full-height strip looked like a plank glued to the side.
+                  Width must stay ≥ the 48px radius or the browser rescales it. */}
+              <div
+                className="absolute inset-y-0 -right-[10px] w-[64px] rounded-r-[48px] pointer-events-none z-[-1] overflow-hidden"
+                style={{
+                  background: 'linear-gradient(180deg, #eef3f9 0%, #d5dee8 10%, #a8b8c8 30%, #74859a 52%, #44536a 74%, #202b3a 90%, #10161f 100%)',
+                  boxShadow: 'inset -1.5px 0 2px rgba(255,255,255,0.7), 4px 3px 16px rgba(0,0,0,0.9)',
+                }}
+              >
+                {/* antenna band slits */}
+                <div className="absolute top-[88px] right-0 w-[12px] h-[3px] bg-[#05080e]/85" />
+                <div className="absolute bottom-[88px] right-0 w-[12px] h-[3px] bg-[#05080e]/85" />
+              </div>
+
               {/* left volume notches */}
               <div className="absolute top-[132px] -left-[3px] w-[3px] h-[36px] rounded-l-sm bg-[#475569] border-l border-white/40" />
               <div className="absolute top-[180px] -left-[3px] w-[3px] h-[36px] rounded-l-sm bg-[#475569] border-l border-white/40" />
 
-              {/* right titanium rail */}
-              <div
-                className="absolute -top-[1px] -right-[13px] w-[14px] h-[calc(100%+2px)] rounded-r-[46px] pointer-events-none z-[-1] overflow-hidden"
-                style={{
-                  background: 'linear-gradient(180deg, #f8fafc 0%, #e2e8f0 8%, #cbd5e1 20%, #94a3b8 38%, #64748b 55%, #334155 75%, #1e293b 90%, #0f172a 100%)',
-                  boxShadow: 'inset -2px 0 3px rgba(255,255,255,0.8), inset 2px 0 4px rgba(0,0,0,0.8), 3px 2px 14px rgba(0,0,0,0.95)',
-                  borderRight: '1.5px solid rgba(255,255,255,0.8)',
-                }}
-              >
-                <div className="absolute inset-0 opacity-40 bg-[repeating-linear-gradient(180deg,transparent,transparent_2px,rgba(255,255,255,0.2)_2px,rgba(255,255,255,0.2)_4px)]" />
-                <div className="absolute top-[82px] right-0 w-full h-[3px] bg-[#05080e]" />
-                <div className="absolute bottom-[82px] right-0 w-full h-[3px] bg-[#05080e]" />
-              </div>
-
-              {/* power / Siri button */}
-              <div className="absolute top-[176px] -right-[16px] w-[4px] h-[56px] rounded-r-sm bg-gradient-to-b from-[#ffffff] via-[#cbd5e1] to-[#1e293b] shadow-[2px_2px_5px_rgba(0,0,0,0.9)] border-r border-white z-[25]" />
+              {/* power / Siri button, sitting on the rail's outer face */}
+              <div className="absolute top-[176px] -right-[13px] w-[5px] h-[56px] rounded-r-sm bg-gradient-to-b from-[#f8fafc] via-[#b6c2d0] to-[#1e293b] shadow-[2px_2px_5px_rgba(0,0,0,0.9)] z-[25]" />
 
               {/* chamfer rim */}
               <div className="absolute inset-0 rounded-[48px] pointer-events-none border border-white/45 shadow-[inset_1.5px_2px_2.5px_rgba(255,255,255,0.6),inset_-1px_-1px_2px_rgba(0,0,0,0.85)]" />
 
               {/* ── SCREEN ── */}
-              <div className="relative rounded-[45px] bg-[#0b141a] overflow-hidden border-[3px] border-[#0a0f14] flex flex-col h-[620px] shadow-inner">
+              <div className="relative rounded-[45px] bg-[#0b141a] overflow-hidden border-[3px] border-[#0a0f14] flex flex-col h-[660px] shadow-inner">
 
                 {/* status bar + dynamic island */}
                 <div className="relative pt-2.5 pb-1.5 px-5 bg-[#0b141a] flex items-center justify-between text-zinc-300 text-[10.5px] font-semibold z-10 select-none">
@@ -393,73 +287,76 @@ export default function HeroGlassShowcase({ onOpenModal }) {
                   </div>
                 </div>
 
-                {/* chat stream */}
-                <div className="flex-1 bg-[#0b141a] px-2.5 py-2 flex flex-col justify-between overflow-hidden text-[11.5px] relative">
+                {/* Chat stream — short messages, roomy bubbles and real line spacing,
+                    because dense three-line paragraphs read as filler, not a chat.
+                    `gap` matters: justify-between alone had no free space left to
+                    hand out, so the bubbles ended up touching each other. */}
+                <div className="flex-1 bg-[#0b141a] px-3 py-2.5 flex flex-col justify-between gap-[6px] overflow-hidden text-[11.5px] relative">
                   <div
                     className="absolute inset-0 opacity-[0.035] pointer-events-none"
                     style={{ backgroundImage: 'radial-gradient(#10b981 1px, transparent 1px)', backgroundSize: '18px 18px' }}
                   />
 
-                  <div className="mx-auto bg-[#182229] border border-white/5 text-zinc-400 text-[9.5px] font-medium px-3 py-[3px] rounded-md shadow-xs">
+                  <div className="mx-auto bg-[#182229] border border-white/5 text-zinc-400 text-[9.5px] font-medium px-3 py-[4px] rounded-md shadow-xs">
                     Today
                   </div>
 
                   {/* 1 — customer, mint green */}
-                  <div className="self-start max-w-[86%] bg-[#86efac] text-[#064e3b] font-medium rounded-xl rounded-tl-sm px-2.5 py-1.5 shadow-sm border border-emerald-300/40">
-                    <p className="leading-snug">Hello, can ChatPro365 automate our WhatsApp sales chat?</p>
-                    <div className="text-[8.5px] text-[#065f46] text-right mt-0.5 font-semibold">13:40</div>
+                  <div className="self-start max-w-[84%] bg-[#86efac] text-[#064e3b] font-medium rounded-[14px] rounded-tl-[5px] px-[11px] pt-[7px] pb-[5px] shadow-sm border border-emerald-300/40">
+                    <p className="leading-[1.5]">Hello, can ChatPro365 automate our WhatsApp sales chat?</p>
+                    <div className="text-[9px] text-[#065f46]/80 text-right mt-[4px] font-semibold">13:40</div>
                   </div>
 
                   {/* 2 — bot, sky blue */}
-                  <div className="self-end max-w-[88%] bg-[#38bdf8] text-white font-medium rounded-xl rounded-tr-sm px-2.5 py-1.5 shadow-sm border border-sky-400/30">
-                    <p className="leading-snug">Hi! ChatPro365 handles customer interaction, smart lead qualification and instant quotes 24/7.</p>
-                    <div className="text-[8.5px] text-white/90 text-right mt-0.5 flex items-center justify-end gap-1 font-semibold">
-                      <span>13:30</span><span className="font-bold">✓✓</span>
+                  <div className="self-end max-w-[86%] bg-[#38bdf8] text-white font-medium rounded-[14px] rounded-tr-[5px] px-[11px] pt-[7px] pb-[5px] shadow-sm border border-sky-400/30">
+                    <p className="leading-[1.5]">Yes — I reply instantly, qualify the lead and send a quote. 24/7.</p>
+                    <div className="text-[9px] text-white/85 text-right mt-[4px] flex items-center justify-end gap-1 font-semibold">
+                      <span>13:41</span><span className="font-bold">✓✓</span>
                     </div>
                   </div>
 
                   {/* 3 — customer, charcoal */}
-                  <div className="self-start max-w-[84%] bg-[#202c33] text-zinc-100 rounded-xl rounded-tl-sm px-2.5 py-1.5 shadow-sm border border-white/10">
-                    <p className="leading-snug">Can you send a sample quotation for the Web Design Package?</p>
-                    <div className="text-[8.5px] text-zinc-400 text-right mt-0.5">13:30</div>
+                  <div className="self-start max-w-[82%] bg-[#202c33] text-zinc-100 rounded-[14px] rounded-tl-[5px] px-[11px] pt-[7px] pb-[5px] shadow-sm border border-white/10">
+                    <p className="leading-[1.5]">Can you send a quote for the Web Design Package?</p>
+                    <div className="text-[9px] text-zinc-500 text-right mt-[4px]">13:42</div>
                   </div>
 
                   {/* 4 — bot, mint green */}
-                  <div className="self-start max-w-[86%] bg-[#86efac] text-[#064e3b] font-medium rounded-xl rounded-tl-sm px-2.5 py-1.5 shadow-sm border border-emerald-300/40">
-                    <p className="leading-snug">Sure — here is your customised quotation, generated instantly.</p>
-                    <div className="text-[8.5px] text-[#065f46] text-right mt-0.5 flex items-center justify-end gap-1 font-semibold">
-                      <span>13:30</span><span className="font-bold">✓✓</span>
+                  <div className="self-start max-w-[80%] bg-[#86efac] text-[#064e3b] font-medium rounded-[14px] rounded-tl-[5px] px-[11px] pt-[7px] pb-[5px] shadow-sm border border-emerald-300/40">
+                    <p className="leading-[1.5]">Sure — here is your quotation.</p>
+                    <div className="text-[9px] text-[#065f46]/80 text-right mt-[4px] flex items-center justify-end gap-1 font-semibold">
+                      <span>13:42</span><span className="font-bold">✓✓</span>
                     </div>
                   </div>
 
                   {/* 5 — the quotation card: plain white, edge to edge */}
                   <div className="self-end w-[96%] bg-white rounded-[10px] overflow-hidden shadow-[0_6px_18px_rgba(0,0,0,0.45)]">
-                    <div className="px-2.5 pt-2 pb-1.5 text-zinc-900">
+                    <div className="px-3 pt-2.5 pb-2 text-zinc-900">
                       <div className="flex items-start justify-between gap-2">
                         <h4 className="font-bold text-[12.5px] leading-tight">Web Design Package</h4>
                         <span className="text-[13px] font-extrabold tracking-tight shrink-0">$1,000</span>
                       </div>
-                      <p className="text-[10px] text-zinc-500 font-medium mt-[1px]">Quotation</p>
-                      <div className="mt-1.5 flex items-end justify-between gap-2">
-                        <p className="text-[9.5px] text-zinc-500 leading-tight">
+                      <p className="text-[10px] text-zinc-500 font-medium mt-[3px]">Quotation</p>
+                      <div className="mt-2.5 flex items-end justify-between gap-2">
+                        <p className="text-[9.5px] text-zinc-500 leading-[1.5]">
                           Generated for:<br />Web Design Package
                         </p>
-                        <span className="text-[9px] text-zinc-400 shrink-0">12:30 am</span>
+                        <span className="text-[9px] text-zinc-400 shrink-0">13:42</span>
                       </div>
                     </div>
                     <button
                       onClick={onOpenModal}
-                      className="w-full border-t border-zinc-200 py-[7px] text-[11.5px] font-semibold text-[#0a84ff] hover:bg-sky-50 transition-colors cursor-pointer"
+                      className="w-full border-t border-zinc-200 py-[8px] text-[11.5px] font-semibold text-[#0a84ff] hover:bg-sky-50 transition-colors cursor-pointer"
                     >
                       View quotation
                     </button>
                   </div>
 
                   {/* 6 — customer, sky blue */}
-                  <div className="self-start max-w-[86%] bg-[#38bdf8] text-white font-medium rounded-xl rounded-tl-sm px-2.5 py-1.5 shadow-sm border border-sky-400/30">
-                    <p className="leading-snug">That was instant! Here are our requirements to get started.</p>
-                    <div className="text-[8.5px] text-white/90 text-right mt-0.5 flex items-center justify-end gap-1 font-semibold">
-                      <span>12:30</span><span className="font-bold">✓✓</span>
+                  <div className="self-start max-w-[76%] bg-[#38bdf8] text-white font-medium rounded-[14px] rounded-tl-[5px] px-[11px] pt-[7px] pb-[5px] shadow-sm border border-sky-400/30">
+                    <p className="leading-[1.5]">That was instant! Let&apos;s get started.</p>
+                    <div className="text-[9px] text-white/85 text-right mt-[4px] flex items-center justify-end gap-1 font-semibold">
+                      <span>13:43</span><span className="font-bold">✓✓</span>
                     </div>
                   </div>
                 </div>
@@ -494,14 +391,144 @@ export default function HeroGlassShowcase({ onOpenModal }) {
             </motion.div>
           </div>
 
-          {/* ══════════ 9. Faceted sparkle, bottom right ══════════ */}
-          <motion.div
-            animate={{ scale: [0.97, 1.03, 0.97], opacity: [0.88, 1, 0.88] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-[648px] top-[748px] z-30 pointer-events-none drop-shadow-[0_0_25px_rgba(100,116,139,0.35)]"
-          >
-            <SparkleStar className="w-[80px] h-[80px] overflow-visible" />
-          </motion.div>
+          {/* ══════════ SATELLITE LAYER B — badges & sparks (in front of the phone) ══════════ */}
+          <div className={`${SAT_LAYER} z-30`} style={SAT_ORIGIN}>
+
+            {/* 1. TOP-LEFT — "24/7 AI Automation" */}
+            <motion.div
+              animate={{ y: [-6, 6, -6] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute left-[8px] top-[225px] w-[189px] pointer-events-auto"
+            >
+              <div className="glass-panel-3d rounded-[26px] pt-[52px] pb-[22px] px-4 flex flex-col items-center text-center hover:scale-[1.04] transition-transform duration-300 shadow-[0_18px_40px_rgba(0,0,0,0.55)]">
+                <div className="text-[34px] font-extrabold text-white leading-none tracking-tight drop-shadow-md">24/7</div>
+                <div className="text-[14px] font-semibold text-white/90 tracking-wide mt-1.5">AI Automation</div>
+              </div>
+
+              {/* embossed AI tile straddling the card's top edge
+                  (wrapper does the positioning — .glass-tile-3d forces position:relative) */}
+              <div className="absolute -top-[43px] left-[58px] w-[86px] h-[86px] z-10">
+                <div className="glass-tile-3d w-full h-full rounded-[22px] flex items-center justify-center">
+                  <div className="relative flex items-center justify-center">
+                    <RefreshCw className="w-11 h-11 text-emerald-400 drop-shadow-[0_0_10px_#34d399]" strokeWidth={2.1} />
+                    <span className="absolute text-[13px] font-black text-white tracking-tighter">AI</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* 2. LEFT — "New Lead" */}
+            <motion.div
+              animate={{ y: [-5, 5, -5] }}
+              transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute left-[136px] top-[391px] pointer-events-auto"
+            >
+              <div className="glass-pill rounded-[17px] pl-2 pr-4 h-[50px] flex items-center gap-2.5 hover:scale-105 transition-transform duration-300 shadow-[0_0_22px_rgba(245,158,11,0.28)]">
+                <div className="w-[34px] h-[34px] rounded-full overflow-hidden border-2 border-amber-400/70 shrink-0 bg-gradient-to-tr from-amber-500 to-yellow-300">
+                  <img
+                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=96&auto=format&fit=crop&q=80"
+                    alt="New lead" loading="lazy" className="w-full h-full object-cover"
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  />
+                </div>
+                <span className="text-[15px] font-bold text-amber-300 tracking-tight whitespace-nowrap">New Lead</span>
+              </div>
+            </motion.div>
+
+            {/* 3. TOP-RIGHT — "Qualified" */}
+            <motion.div
+              animate={{ y: [5, -5, 5] }}
+              transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute left-[477px] top-[288px] pointer-events-auto"
+            >
+              <div className="glass-pill rounded-[17px] pl-2 pr-5 h-[51px] min-w-[176px] flex items-center gap-3 hover:scale-105 transition-transform duration-300 shadow-[0_0_22px_rgba(56,189,248,0.3)]">
+                <div className="w-[35px] h-[35px] rounded-full overflow-hidden border-2 border-cyan-400/70 shrink-0 bg-gradient-to-tr from-cyan-500 to-sky-300">
+                  <img
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&auto=format&fit=crop&q=80"
+                    alt="Qualified lead" loading="lazy" className="w-full h-full object-cover"
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  />
+                </div>
+                <span className="text-[16px] font-bold text-cyan-300 tracking-tight whitespace-nowrap">Qualified</span>
+              </div>
+            </motion.div>
+
+            {/* 4. RIGHT — shield tile + "Instant Lead Qualification" */}
+            <motion.div
+              animate={{ y: [-5, 6, -5] }}
+              transition={{ duration: 6.4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute left-[446px] top-[533px] w-[296px] h-[186px] pointer-events-auto"
+            >
+              <div className="absolute left-[116px] top-0 w-[82px] h-[82px]">
+                <div className="glass-tile-3d w-full h-full rounded-[22px] flex items-center justify-center shadow-[0_0_26px_rgba(16,185,129,0.45)] hover:scale-110 transition-transform duration-300">
+                  <ShieldCheck className="w-11 h-11 text-emerald-400 drop-shadow-[0_0_12px_#34d399]" strokeWidth={2.1} />
+                </div>
+              </div>
+
+              <div className="absolute left-0 top-[97px] w-full h-[89px]">
+                <div className="glass-pill w-full h-full rounded-[22px] pl-2.5 pr-4 flex items-center gap-3 hover:scale-[1.03] transition-transform duration-300 shadow-[0_0_28px_rgba(16,185,129,0.28)]">
+                  <div className="w-[42px] h-[42px] rounded-full overflow-hidden border-2 border-emerald-400/70 shrink-0 bg-gradient-to-tr from-emerald-500 to-teal-300">
+                    <img
+                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=110&auto=format&fit=crop&q=80"
+                      alt="Sales agent" loading="lazy" className="w-full h-full object-cover"
+                      onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                    />
+                  </div>
+                  <span className="text-[19px] font-bold text-white leading-[1.15] tracking-tight">
+                    Instant Lead<br />Qualification
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* 5. LEFT — WhatsApp tile + signal bars */}
+            <motion.div
+              animate={{ y: [6, -6, 6] }}
+              transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute left-[16px] top-[530px] pointer-events-auto"
+            >
+              <div className="w-[82px] h-[82px] glass-tile-3d rounded-[22px] flex items-center justify-center shadow-[0_0_26px_rgba(16,185,129,0.45)] hover:scale-110 transition-transform duration-300">
+                <WhatsAppIcon className="w-11 h-11 text-emerald-400 drop-shadow-[0_0_10px_#34d399]" />
+              </div>
+              <div className="mt-4 -ml-[10px] flex flex-col gap-[7px]">
+                <div className="h-[5px] w-[93px] rounded-full bg-gradient-to-r from-slate-300/75 to-slate-400/10 animate-pulse" />
+                <div className="h-[5px] w-[71px] rounded-full bg-gradient-to-r from-slate-300/55 to-slate-400/5 animate-pulse" style={{ animationDelay: '0.4s' }} />
+                <div className="h-[5px] w-[43px] rounded-full bg-gradient-to-r from-slate-300/40 to-transparent animate-pulse" style={{ animationDelay: '0.8s' }} />
+              </div>
+            </motion.div>
+
+            {/* 6. RIGHT — luminous node + data streaks */}
+            <div className="absolute left-[546px] top-[352px] flex items-center gap-3">
+              <div className="relative flex items-center justify-center w-[18px] h-[18px]">
+                <div className="absolute w-[18px] h-[18px] rounded-full border border-cyan-400/50 animate-ping opacity-60" />
+                <div className="w-[11px] h-[11px] rounded-full bg-cyan-400 shadow-[0_0_16px_#22d3ee,0_0_30px_#06b6d4]" />
+              </div>
+              <div className="flex flex-col gap-[7px]">
+                <div className="h-[5px] w-[82px] rounded-full bg-gradient-to-r from-slate-300/70 to-transparent" />
+                <div className="h-[5px] w-[58px] rounded-full bg-gradient-to-r from-slate-300/50 to-transparent" />
+                <div className="h-[5px] w-[34px] rounded-full bg-gradient-to-r from-slate-300/30 to-transparent" />
+              </div>
+            </div>
+
+            {/* 7. Ambient sparks */}
+            <div className="absolute left-[191px] top-[129px] w-[9px] h-[9px] rounded-full bg-emerald-400 shadow-[0_0_14px_#34d399] animate-pulse" />
+            <div className="absolute left-[205px] top-[470px] w-[8px] h-[8px] rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8] animate-pulse" style={{ animationDelay: '0.7s' }} />
+            <div className="absolute left-[178px] top-[496px] w-[5px] h-[5px] rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" style={{ animationDelay: '1.4s' }} />
+            <div className="absolute left-[16px] top-[729px] w-[10px] h-[10px] rounded-full bg-cyan-400 shadow-[0_0_14px_#22d3ee] animate-pulse" style={{ animationDelay: '1.1s' }} />
+            <div className="absolute left-[690px] top-[242px] w-[8px] h-[8px] rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8] animate-pulse" style={{ animationDelay: '0.3s' }} />
+            <div className="absolute left-[715px] top-[621px] w-[7px] h-[7px] rounded-full bg-cyan-400 shadow-[0_0_12px_#22d3ee] animate-pulse" style={{ animationDelay: '1.7s' }} />
+            <div className="absolute left-[498px] top-[780px] w-[15px] h-[15px] rounded-full bg-emerald-400 shadow-[0_0_20px_#34d399,0_0_36px_#10b981] animate-pulse" />
+
+            {/* 8. Faceted sparkle, bottom right */}
+            <motion.div
+              animate={{ scale: [0.97, 1.03, 0.97], opacity: [0.88, 1, 0.88] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute left-[648px] top-[748px] drop-shadow-[0_0_25px_rgba(100,116,139,0.35)]"
+            >
+              <SparkleStar className="w-[80px] h-[80px] overflow-visible" />
+            </motion.div>
+
+          </div>
 
         </div>
       </div>
