@@ -4,5 +4,11 @@
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/case-studies", "destination": "/industries", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/vexora/.well-known/openid-configuration",
+      "headers": [{ "key": "Content-Type", "value": "application/json" }]
+    }
   ]
 }
