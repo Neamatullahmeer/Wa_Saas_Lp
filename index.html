@@ -260,12 +260,14 @@
   <!-- ✅ 5. Google Fonts — Non-Blocking Load (prevents render-blocking) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Load fonts async via media="print" trick — onload switches to all -->
+  <!-- Load fonts async via the media="print" trick. src/main.jsx switches it to
+       "all" — not an inline onload, which the Content-Security-Policy refuses
+       to run, and the fonts would then never apply at all. -->
   <link
     href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet"
     media="print"
-    onload="this.media='all'" />
+    data-async-css />
   <!-- Fallback for no-JS -->
   <noscript>
     <link
