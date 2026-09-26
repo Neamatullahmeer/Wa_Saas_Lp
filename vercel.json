@@ -13,9 +13,10 @@
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Reporting-Endpoints", "value": "csp=\"https://api.chatpro365.com/csp-report\"" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com https://www.facebook.com; connect-src 'self' https://api.chatpro365.com https://www.facebook.com https://connect.facebook.net https://d3-36c34dc0877246a0b32c4f4e24be6ce8.ecs.us-east-1.on.aws https://bded8a3c6ae-1-1053047382554.us-central1.run.app; frame-src https://www.facebook.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://www.facebook.com; object-src 'none'; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self' https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com https://www.facebook.com; connect-src 'self' https://api.chatpro365.com https://www.facebook.com https://connect.facebook.net https://d3-36c34dc0877246a0b32c4f4e24be6ce8.ecs.us-east-1.on.aws https://bded8a3c6ae-1-1053047382554.us-central1.run.app; frame-src https://www.facebook.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://www.facebook.com; object-src 'none'; upgrade-insecure-requests; report-uri https://api.chatpro365.com/csp-report; report-to csp"
         }
       ]
     },
